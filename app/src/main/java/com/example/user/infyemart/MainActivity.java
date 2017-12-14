@@ -1,36 +1,86 @@
 package com.example.user.infyemart;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
+import android.widget.Toast;
+
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import com.example.user.infyemart.Adapter.Grid_MainAdapter;
+import com.example.user.infyemart.Adapter.Slider_Adapter;
+
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import me.relex.circleindicator.CircleIndicator;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    GridView gridView;
+    String[] Category = {
+            "Groceries Staples",
+            "Spices Pickles",
+            "House Holds",
+            "Instant Foods Drinks",
+            "Beauty Health",
+            "Toys Baby Care",
+            "Vegetables Fruits ",
+            "Fresh Meat Fish",
+            "Mobiles Laptops",
+            "Home Appliances",
+            "Kitchen Appliances",
+            "Leather Trends",
+    } ;
+    int[] CategoryImgs = {
+            R.drawable.c_grocery,
+            R.drawable.c_spices,
+            R.drawable.c_households,
+            R.drawable.c_instantfood,
+            R.drawable.c_beauty,
+            R.drawable.c_toys,
+            R.drawable.c_vegitable,
+            R.drawable.c_meat,
+            R.drawable.c_mobiles,
+            R.drawable.c_homeapplia,
+            R.drawable.c_kitchenappl,
+            R.drawable.c_leather,
+    };
+    private ViewPager mPager;
+    private static int currentPage=0;
+    private static final Integer[] imgs={R.drawable.banner_a,R.drawable.banner_c,R.drawable.banner_b};
+    private ArrayList<Integer> imgsArray=new ArrayList<Integer>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
+        initSlide();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        Grid_MainAdapter adapter=new Grid_MainAdapter(MainActivity.this,Category,CategoryImgs);
+        gridView=findViewById(R.id.gridViewMain);
+        gridView.setAdapter(adapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(MainActivity.this, Category[+position], Toast.LENGTH_SHORT).show();
             }
         });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -40,7 +90,10 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
     }
+
 
     @Override
     public void onBackPressed() {
@@ -54,19 +107,14 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -97,5 +145,32 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    private void initSlide() {
+        for (int i=0;i<imgs.length;i++)
+            imgsArray.add(imgs[i]);
+
+        mPager=findViewById(R.id.pager);
+        mPager.setAdapter(new Slider_Adapter(MainActivity.this,imgsArray));
+        CircleIndicator indicator=findViewById(R.id.indicator);
+        indicator.setViewPager(mPager);
+
+        final Handler handler=new Handler();
+        final Runnable update=new Runnable() {
+            @Override
+            public void run() {
+                if (currentPage==imgs.length){
+                    currentPage=0;
+                }
+                mPager.setCurrentItem(currentPage++,true);
+            }
+        };
+        Timer swipeTimer=new Timer();
+        swipeTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(update);
+            }
+        },2500,2000);
     }
 }
