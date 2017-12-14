@@ -12,7 +12,7 @@
 
     <menu android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/dr_groceries"
             android:icon="@drawable/groceries"
             android:title="Grocery" />
         <item

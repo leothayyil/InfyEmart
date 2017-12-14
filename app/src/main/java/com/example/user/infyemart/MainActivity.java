@@ -1,9 +1,11 @@
 package com.example.user.infyemart;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -63,6 +65,7 @@ public class MainActivity extends AppCompatActivity
     private static final Integer[] imgs={R.drawable.banner_a,R.drawable.banner_c,R.drawable.banner_b};
     private ArrayList<Integer> imgsArray=new ArrayList<Integer>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,6 +98,7 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -108,8 +112,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+        MenuItem item=menu.findItem(R.id.action_cart);
+
+        return super.onCreateOptionsMenu(menu);
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -119,8 +126,14 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
 
+        if (item.getItemId()==R.id.action_cart){
+            Intent intent=new Intent(MainActivity.this,MainProductsActivity.class);
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
     }
+
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -128,7 +141,9 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.dr_groceries) {
+            Intent intent=new Intent(MainActivity.this,CartActivity.class);
+            startActivity(intent);
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
 

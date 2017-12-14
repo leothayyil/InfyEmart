@@ -12,4 +12,17 @@
         android:orderInCategory="10"
         android:title="Sign Out"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/actionb_account"
+        android:orderInCategory="300"
+        android:title="Search"
+        android:icon="@drawable/account"
+        app:showAsAction="ifRoom"
+        />
+    <item
+        android:id="@+id/action_cart"
+        android:orderInCategory="200"
+        android:title="Cart"
+        android:icon="@drawable/basketc"
+        app:showAsAction="ifRoom"/>
 </menu>
