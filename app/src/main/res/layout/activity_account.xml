@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context="com.example.user.infyemart.AccountActivity"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <include layout="@layout/toolbar_main"
+        android:id="@+id/toolbarAccount"/>
 <TextView
     android:layout_width="match_parent"
     android:gravity="center"

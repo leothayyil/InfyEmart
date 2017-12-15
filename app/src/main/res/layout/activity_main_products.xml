@@ -5,11 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context="com.example.user.infyemart.MainProductsActivity">
-
+    <include layout="@layout/toolbar_main"
+        android:id="@+id/toolbarMainProducts"/>
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/recycler_products_Main">
+        android:id="@+id/recycler_products_Main"
+        android:layout_below="@+id/toolbarMainProducts">
 
     </android.support.v7.widget.RecyclerView>
 </RelativeLayout>

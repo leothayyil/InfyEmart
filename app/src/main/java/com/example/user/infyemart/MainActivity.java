@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         }
         if (item.getItemId()==R.id.actionb_account){
-            Intent intent=new Intent(MainActivity.this,ProfileActivity.class);
+            Intent intent=new Intent(MainActivity.this,AccountActivity.class);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
