@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity
             "Instant Foods Drinks",
             "Beauty Health",
             "Toys Baby Care",
-            "Vegetables Fruits ",
+            "Vegetables Fruits",
             "Fresh Meat Fish",
             "Mobiles Laptops",
             "Home Appliances",
@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity
         Grid_MainAdapter adapter=new Grid_MainAdapter(MainActivity.this,Category,CategoryImgs);
         gridView=findViewById(R.id.gridViewMain);
         gridView.setAdapter(adapter);
+        gridView.setFitsSystemWindows(true);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -127,7 +128,11 @@ public class MainActivity extends AppCompatActivity
         }
 
         if (item.getItemId()==R.id.action_cart){
-            Intent intent=new Intent(MainActivity.this,MainProductsActivity.class);
+            Intent intent=new Intent(MainActivity.this,CartActivity.class);
+            startActivity(intent);
+        }
+        if (item.getItemId()==R.id.actionb_account){
+            Intent intent=new Intent(MainActivity.this,ProfileActivity.class);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
@@ -142,7 +147,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.dr_groceries) {
-            Intent intent=new Intent(MainActivity.this,CartActivity.class);
+            Intent intent=new Intent(MainActivity.this,MainProductsActivity.class);
             startActivity(intent);
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {

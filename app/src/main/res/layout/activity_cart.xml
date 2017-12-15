@@ -1,13 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/edt_back"
+    android:orientation="vertical"
     tools:context="com.example.user.infyemart.CartActivity">
-    <android.support.v7.widget.RecyclerView
+    <include layout="@layout/toolbar_main"
+        android:id="@+id/toolbar_Cart"/>
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recyclerCart">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_margin="10sp"
+        android:layout_below="@+id/toolbar_Cart"
+        android:layout_alignTop="@+id/toolbar_main">
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="40sp"
+            android:id="@+id/recyclerCart">
+        </android.support.v7.widget.RecyclerView>
 
-</android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:layout_marginBottom="5sp"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="@color/red"
+        android:text="Checkout"
+        android:textColor="#fff" />
+
+</RelativeLayout>

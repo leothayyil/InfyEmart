@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.user.infyemart.MainProductsActivity;
@@ -28,7 +27,7 @@ public class MainProductAdapter extends RecyclerView.Adapter<MainProductAdapter.
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.list_cart,parent,false);
+        View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.row_products,parent,false);
 
         return new ViewHolder(view);
     }
