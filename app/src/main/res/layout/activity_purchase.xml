@@ -1,9 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.user.infyemart.Adapter.PurchaseActivity">
+    tools:context="com.example.user.infyemart.Adapter.PurchaseActivity"
 
-</android.support.constraint.ConstraintLayout>
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+    <include layout="@layout/toolbar_main"
+        android:id="@+id/toolbarPurchase"/>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10sp"
+        android:id="@+id/card_address_change"
+        android:layout_below="@+id/toolbarPurchase"
+        app:cardCornerRadius="10sp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="20sp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Saji Jacob"
+                android:textSize="17sp"
+                android:textColor="@color/black"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Address"
+                android:layout_marginTop="10sp"
+                android:textSize="17sp"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20sp"
+                android:backgroundTint="@color/red"
+                android:textColor="#fff"
+                android:text="Change address"/>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10sp"
+        android:layout_below="@+id/card_address_change"
+        app:cardCornerRadius="10sp">
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/recyclerPurchase"
+            >
+
+        </android.support.v7.widget.RecyclerView>
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10sp"
+        android:foregroundGravity="bottom"
+        android:layout_gravity="bottom"
+        app:cardCornerRadius="10sp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="10sp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PRICE DETAILS"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1sp"
+            android:layout_marginTop="5sp"
+            android:background="@color/black"
+      />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="10sp"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    android:layout_height="wrap_content"
+                    android:text="Price of (2 items)"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:textSize="15sp"
+                    android:gravity="right"
+                    android:layout_marginLeft="80sp"
+                    android:layout_gravity="right|center"
+                    android:textColor="@color/black"
+                    android:layout_height="wrap_content"
+                    android:text="Rs - 1,04,800"/>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1sp"
+                android:layout_marginTop="5sp"
+                android:background="@color/black"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="10sp"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    android:layout_height="wrap_content"
+                    android:text="Delivery Charge "/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:textSize="15sp"
+                    android:gravity="right"
+                    android:layout_marginLeft="88sp"
+                    android:layout_gravity="right|center"
+                    android:textColor="@color/black"
+                    android:layout_height="wrap_content"
+                    android:text="Rs - 100"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+</ScrollView>
