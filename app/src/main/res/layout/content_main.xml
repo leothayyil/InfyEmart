@@ -10,7 +10,9 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.user.infyemart.MainActivity"
     tools:showIn="@layout/app_bar_main">
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -62,7 +64,7 @@
         </android.support.v7.widget.CardView>
 
 
-            <GridView
+            <android.support.v7.widget.RecyclerView
                 android:id="@+id/gridViewMain"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -73,7 +75,12 @@
                 android:verticalSpacing="5dp"
                 android:horizontalSpacing="5dp"
                 android:stretchMode="spacingWidthUniform"/>
-
-
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10sp"
+            android:id="@+id/recycler_main_two">
+        </android.support.v7.widget.RecyclerView>
     </LinearLayout>
+    </ScrollView>
 </LinearLayout>

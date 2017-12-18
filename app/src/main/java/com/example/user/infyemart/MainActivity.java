@@ -10,10 +10,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
@@ -21,7 +25,9 @@ import android.widget.Toast;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.example.user.infyemart.Adapter.Grid_MainAdapter;
+import com.example.user.infyemart.Adapter.Main_RecyclerAdapter;
 import com.example.user.infyemart.Adapter.Slider_Adapter;
+import com.example.user.infyemart.Utils.ItemOffsetDecoration;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -30,8 +36,13 @@ import java.util.TimerTask;
 import me.relex.circleindicator.CircleIndicator;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-    GridView gridView;
+        implements NavigationView.OnNavigationItemSelectedListener,AbsListView.OnScrollListener {
+    RecyclerView gridView,recyclerView2;
+    boolean isLastPage=false;
+    private int visibleThreshold = 5;
+    private int previousTotal = 0;
+    private boolean loading = true;
+    RecyclerView.LayoutManager layoutManager;
     String[] Category = {
             "Groceries Staples",
             "Spices Pickles",
@@ -66,6 +77,8 @@ public class MainActivity extends AppCompatActivity
     private ArrayList<Integer> imgsArray=new ArrayList<Integer>();
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,16 +87,55 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         initSlide();
 
-        Grid_MainAdapter adapter=new Grid_MainAdapter(MainActivity.this,Category,CategoryImgs);
+
+//        Grid_MainAdapter adapter=new Grid_MainAdapter(MainActivity.this,Category,CategoryImgs);
         gridView=findViewById(R.id.gridViewMain);
+        recyclerView2=findViewById(R.id.recycler_main_two);
+
+//        recyclerView2.setHasFixedSize(true);
+//        RecyclerView.LayoutManager mLayoutManager=new LinearLayoutManager(this);
+//        final Main_RecyclerAdapter aadapter=new Main_RecyclerAdapter(MainActivity.this,Category,CategoryImgs);
+//        recyclerView2.setAdapter(aadapter);
+//        recyclerView2.setFitsSystemWindows(true);
+//        recyclerView2.addItemDecoration(new ItemOffsetDecoration(20));
+//
+        gridView.setHasFixedSize(true);
+         layoutManager=new GridLayoutManager(this,2);
+        gridView.setLayoutManager(layoutManager);
+        final Main_RecyclerAdapter adapter=new Main_RecyclerAdapter(MainActivity.this,Category,CategoryImgs);
         gridView.setAdapter(adapter);
         gridView.setFitsSystemWindows(true);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        gridView.addItemDecoration(new ItemOffsetDecoration(20));
+
+
+
+        gridView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, Category[+position], Toast.LENGTH_SHORT).show();
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+
+//                int lastVisibleItemPosition=layoutManager.findLastVisibleItemPosition();
+//                if (lastVisibleItemPosition==adapter.getItemCount()-1){
+//                    boolean loading=false;
+//                    boolean isLastPage=false;
+//                    if (!loading && !isLastPage){
+//                        loading=true;
+//                        fetchData((++pageCount));
+//                    }
+//                }
+
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
             }
         });
+
+        adapter.notifyDataSetChanged();
+
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -192,5 +244,36 @@ public class MainActivity extends AppCompatActivity
                 handler.post(update);
             }
         },2500,2000);
+    }
+
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+//        int lastVisibleItemPosition=layoutManager.findLastVisibleItemPosition();
+//                if (lastVisibleItemPosition==adapter.getItemCount()-1){
+//
+//                    if (!loading && !isLastPage){
+//                        loading=true;
+//                        fetchData((++pageCount));
+//                    }
+//                }
+    }
+
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+//        if (loading){
+//            if (totalItemCount > previousTotal) {
+//                loading = false;
+//                previousTotal = totalItemCount;
+//                currentPage++;
+//            }
+//
+//            if (!loading &amp;&amp; (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
+//                 I load the next page of gigs using a background task,
+//                 but you can call any function here.
+//                new LoadGigsTask().execute(currentPage + 1);
+//                loading = true;
+//            }
+//        }
     }
 }

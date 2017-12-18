@@ -16,13 +16,13 @@
         android:id="@+id/actionb_account"
         android:orderInCategory="300"
         android:title="Search"
-        android:icon="@drawable/account"
+        android:icon="@drawable/account_small"
         app:showAsAction="ifRoom"
         />
     <item
         android:id="@+id/action_cart"
         android:orderInCategory="200"
         android:title="Cart"
-        android:icon="@drawable/basketc"
+        android:icon="@drawable/basket_small"
         app:showAsAction="ifRoom"/>
 </menu>
