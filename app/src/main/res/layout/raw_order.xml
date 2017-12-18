@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal">
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15sp"
+        app:cardCornerRadius="15sp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20sp">
+
+        <TextView
+            android:layout_width="180sp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:id="@+id/orderProductId"
+            android:layout_marginTop="10sp"
+            android:layout_height="wrap_content"
+            android:text="Product Name"/>>
+        <TextView
+            android:layout_width="180sp"
+            android:gravity="center"
+
+            android:layout_marginTop="10sp"
+            android:layout_height="wrap_content"
+            android:text="Delivery Status"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="80sp"
+                android:layout_height="40sp"
+                android:backgroundTint="#fff"
+                android:layout_marginLeft="15sp"
+                android:text="Cancel"/>
+            <Button
+                android:layout_width="80sp"
+                android:layout_height="40sp"
+                android:backgroundTint="#fff"
+                android:layout_marginLeft="15sp"
+                android:text="HELP?"/>
+        </LinearLayout>
+    </LinearLayout>
+    <ImageView
+        android:layout_width="120sp"
+        android:layout_height="140sp"
+        android:id="@+id/order_itemIv"
+        android:src="@drawable/c_vegitable"/>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    </LinearLayout>

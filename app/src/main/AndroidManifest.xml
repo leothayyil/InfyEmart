@@ -26,7 +26,8 @@
         <activity android:name=".MainProductsActivity" />
         <activity android:name=".AccountActivity" />
         <activity android:name=".Adapter.PurchaseActivity" />
-        <activity android:name=".ProductViewActivity"></activity>
+        <activity android:name=".ProductViewActivity" />
+        <activity android:name=".MyOrdersActivity"></activity>
     </application>
 
 </manifest>

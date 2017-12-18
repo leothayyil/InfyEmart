@@ -88,17 +88,10 @@ public class MainActivity extends AppCompatActivity
         initSlide();
 
 
-//        Grid_MainAdapter adapter=new Grid_MainAdapter(MainActivity.this,Category,CategoryImgs);
         gridView=findViewById(R.id.gridViewMain);
         recyclerView2=findViewById(R.id.recycler_main_two);
 
-//        recyclerView2.setHasFixedSize(true);
-//        RecyclerView.LayoutManager mLayoutManager=new LinearLayoutManager(this);
-//        final Main_RecyclerAdapter aadapter=new Main_RecyclerAdapter(MainActivity.this,Category,CategoryImgs);
-//        recyclerView2.setAdapter(aadapter);
-//        recyclerView2.setFitsSystemWindows(true);
-//        recyclerView2.addItemDecoration(new ItemOffsetDecoration(20));
-//
+
         gridView.setHasFixedSize(true);
          layoutManager=new GridLayoutManager(this,2);
         gridView.setLayoutManager(layoutManager);
@@ -115,15 +108,6 @@ public class MainActivity extends AppCompatActivity
                 super.onScrollStateChanged(recyclerView, newState);
 
 
-//                int lastVisibleItemPosition=layoutManager.findLastVisibleItemPosition();
-//                if (lastVisibleItemPosition==adapter.getItemCount()-1){
-//                    boolean loading=false;
-//                    boolean isLastPage=false;
-//                    if (!loading && !isLastPage){
-//                        loading=true;
-//                        fetchData((++pageCount));
-//                    }
-//                }
 
             }
 
@@ -201,9 +185,9 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.dr_groceries) {
             Intent intent=new Intent(MainActivity.this,MainProductsActivity.class);
             startActivity(intent);
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
+        } else if (id == R.id.orders_draw) {
+            Intent intent=new Intent(MainActivity.this,MyOrdersActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {

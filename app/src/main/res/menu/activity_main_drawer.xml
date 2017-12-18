@@ -8,6 +8,10 @@
         android:id="@+id/locate"
         android:icon="@drawable/locate"
         android:title="location" />
+    <item
+        android:id="@+id/orders_draw"
+        android:icon="@drawable/purchased_small"
+        android:title="My Orders" />
     <item android:title="Categories">
 
     <menu android:checkableBehavior="single">
