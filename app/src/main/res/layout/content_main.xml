@@ -50,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
-            android:id="@+id/cardRecentmain"
+            android:id="@+id/cardTopCatmain"
             android:layout_margin="10sp"
             app:cardBackgroundColor="@color/red">
             <TextView
@@ -63,11 +63,51 @@
                 android:textColor="#fff"/>
         </android.support.v7.widget.CardView>
 
-
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20sp"
+            app:cardBackgroundColor="#fff">
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/gridViewMain"
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingTop="5sp"
+                android:scrollbars="none"
+                android:columnWidth="150dp"
+                android:numColumns="auto_fit"
+                android:verticalSpacing="5dp"
+                android:horizontalSpacing="5dp"
+                android:stretchMode="spacingWidthUniform"/>
+
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:id="@+id/cardRecentmain"
+            android:layout_margin="10sp"
+            app:cardBackgroundColor="@color/red">
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Recently viewed"
+                android:textSize="15dp"
+                android:layout_marginLeft="5dp"
+                android:padding="5dp"
+                android:textColor="#fff"/>
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="100sp"
+            app:cardBackgroundColor="#dde1e6"
+            >
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/gridViewMain2"
+                android:layout_width="match_parent"
+                android:layout_height="200sp"
                 android:gravity="center"
                 android:paddingTop="5sp"
                 android:columnWidth="150dp"
@@ -75,12 +115,10 @@
                 android:verticalSpacing="5dp"
                 android:horizontalSpacing="5dp"
                 android:stretchMode="spacingWidthUniform"/>
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10sp"
-            android:id="@+id/recycler_main_two">
-        </android.support.v7.widget.RecyclerView>
+
+        </android.support.v7.widget.CardView>
+
+
     </LinearLayout>
     </ScrollView>
 </LinearLayout>

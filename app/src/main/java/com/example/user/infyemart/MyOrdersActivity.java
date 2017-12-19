@@ -4,6 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.user.infyemart.Adapter.MyOrderAdapter;
 
@@ -39,11 +42,24 @@ public class MyOrdersActivity extends AppCompatActivity {
             R.drawable.c_kitchenappl,
             R.drawable.c_leather,
     };
+
+    @Override
+    public boolean onSupportNavigateUp() {
+onBackPressed();
+        return true;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_orders);
         recyclerView=findViewById(R.id.recycler_order);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.myOrderToolbar);
+        setSupportActionBar(toolbar);
+        TextView toolbarTit = findViewById(R.id.toolbar_title);
+        toolbarTit.setText("My Orders");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(this);
         recyclerView.setHasFixedSize(true);

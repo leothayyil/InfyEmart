@@ -6,57 +6,17 @@
 
     <item
         android:id="@+id/locate"
-        android:icon="@drawable/locate"
+        android:icon="@drawable/location_small"
         android:title="location" />
     <item
         android:id="@+id/orders_draw"
-        android:icon="@drawable/purchased_small"
+        android:icon="@drawable/orders_small"
         android:title="My Orders" />
-    <item android:title="Categories">
 
-    <menu android:checkableBehavior="single">
-        <item
-            android:id="@+id/dr_groceries"
-            android:icon="@drawable/groceries"
-            android:title="Grocery" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/spices"
-            android:title="Spices and Pickles" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/household"
-            android:title="House Holds" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/foodsndrinks"
-            android:title="Food and Drinks" />
-        <item
-            android:icon="@drawable/beauty"
-            android:title="Beauty and Health" />
-        <item
-            android:icon="@drawable/toysnbaby"
-            android:title="Toys and Baby Care" />
-        <item
-            android:icon="@drawable/fruitsnveg"
-            android:title="Vegetables and Fruits" />
-        <item
-            android:icon="@drawable/meat"
-            android:title="Meat and Fish" />
-        <item
-            android:icon="@drawable/laptopnmobiles"
-            android:title="Laptops and Mobiles" />
-        <item
-            android:icon="@drawable/homeappliances"
-            android:title="Home Appliances" />
-        <item
-            android:icon="@drawable/kitchenappliances"
-            android:title="Kitchen Appliances" />
-        <item
-            android:icon="@drawable/leathershoes"
-            android:title="Leather Trends" />
-    </menu>
-    </item>
+    <item
+        android:id="@+id/notification_draw"
+        android:icon="@drawable/notific_small"
+        android:title="Notifications" />
 
     <item android:title="Communicate">
         <menu>

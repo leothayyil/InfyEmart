@@ -47,15 +47,12 @@ public class Main_RecyclerAdapter extends RecyclerView.Adapter<Main_RecyclerAdap
 
     private boolean isPositionFooter(int position) {
         return position >category.length;
-//                category.size();
+
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//        if (viewType == TYPE_ITEM){
-//            View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.list_main,parent,false);
-//
-//            return new MyViewHolder(view);
+
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.list_main,parent,false);
 
         return new MyViewHolder(view);

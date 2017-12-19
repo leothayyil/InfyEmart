@@ -5,17 +5,31 @@
     android:layout_height="wrap_content"
     android:background="@color/bl3"
 
+
     >
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:singleLine="true"
+        android:foregroundGravity="bottom"
+        android:text="Toolbar Title"
+        android:layout_marginTop="8sp"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
 
 
-        <RelativeLayout
+<RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="invisible"
+    android:gravity="bottom"
             android:layout_marginLeft="160sp">
             <ImageView
                 android:id="@+id/mainToolbarCart"

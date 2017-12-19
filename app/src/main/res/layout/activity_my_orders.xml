@@ -6,9 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.user.infyemart.MyOrdersActivity">
+    <include layout="@layout/toolbar_main"
+        android:id="@+id/myOrderToolbar"/>
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/myOrderToolbar"
         android:id="@+id/recycler_order">
     </android.support.v7.widget.RecyclerView>
 

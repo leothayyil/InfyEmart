@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 
 import com.example.user.infyemart.Adapter.CartAdapter;
 
@@ -15,13 +16,24 @@ public class CartActivity extends AppCompatActivity {
     CartAdapter mAdapter;
 
 
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_Cart);
+        TextView toolbarTit = findViewById(R.id.toolbar_title);
+        toolbarTit.setText("My Cart");
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         recyclerView=findViewById(R.id.recyclerCart);
         mAdapter=new CartAdapter(getApplicationContext(),cartItems);
@@ -30,5 +42,7 @@ public class CartActivity extends AppCompatActivity {
         mAdapter = new CartAdapter(this, cartItems);
         mAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(mAdapter);
+
+
     }
 }

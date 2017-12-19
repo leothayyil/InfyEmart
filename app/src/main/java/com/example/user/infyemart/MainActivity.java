@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
@@ -85,12 +86,12 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
+        TextView toolbarTit = findViewById(R.id.toolbar_title);
+        toolbarTit.setVisibility(View.GONE);
         initSlide();
 
 
         gridView=findViewById(R.id.gridViewMain);
-        recyclerView2=findViewById(R.id.recycler_main_two);
-
 
         gridView.setHasFixedSize(true);
          layoutManager=new GridLayoutManager(this,2);
@@ -182,16 +183,9 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.dr_groceries) {
-            Intent intent=new Intent(MainActivity.this,MainProductsActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.orders_draw) {
+         if (id == R.id.orders_draw) {
             Intent intent=new Intent(MainActivity.this,MyOrdersActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
@@ -233,31 +227,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
 
-//        int lastVisibleItemPosition=layoutManager.findLastVisibleItemPosition();
-//                if (lastVisibleItemPosition==adapter.getItemCount()-1){
-//
-//                    if (!loading && !isLastPage){
-//                        loading=true;
-//                        fetchData((++pageCount));
-//                    }
-//                }
+
     }
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-//        if (loading){
-//            if (totalItemCount > previousTotal) {
-//                loading = false;
-//                previousTotal = totalItemCount;
-//                currentPage++;
-//            }
-//
-//            if (!loading &amp;&amp; (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
-//                 I load the next page of gigs using a background task,
-//                 but you can call any function here.
-//                new LoadGigsTask().execute(currentPage + 1);
-//                loading = true;
-//            }
-//        }
+
     }
 }
