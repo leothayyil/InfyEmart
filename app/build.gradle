@@ -33,5 +33,4 @@ dependencies {
     compile 'com.github.tosslife:pullloadview:1.1.0'
 
 
-
 }

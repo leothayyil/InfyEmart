@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#BBDEFB"
+    android:background="#dbefff"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.user.infyemart.MainActivity"
@@ -26,7 +26,7 @@
             <android.support.v7.widget.CardView
                 android:id="@+id/card_A"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="150sp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true">
@@ -36,7 +36,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="150sp"
                     android:layout_alignParentTop="true"
-                    android:layout_marginTop="59sp" />
+                     />
 
                 <me.relex.circleindicator.CircleIndicator
                     android:id="@+id/indicator"
@@ -63,25 +63,19 @@
                 android:textColor="#fff"/>
         </android.support.v7.widget.CardView>
 
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20sp"
-            app:cardBackgroundColor="#fff">
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/gridViewMain"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:paddingTop="5sp"
                 android:scrollbars="none"
-                android:columnWidth="150dp"
                 android:numColumns="auto_fit"
                 android:verticalSpacing="5dp"
                 android:horizontalSpacing="5dp"
+                android:fitsSystemWindows="true"
                 android:stretchMode="spacingWidthUniform"/>
 
-        </android.support.v7.widget.CardView>
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

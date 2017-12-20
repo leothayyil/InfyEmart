@@ -45,7 +45,6 @@ public class MainProductAdapter extends RecyclerView.Adapter<MainProductAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView productName;
-
         public ViewHolder(View itemView) {
             super(itemView);
             productName=itemView.findViewById(R.id.productName_cartId);

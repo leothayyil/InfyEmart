@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.user.infyemart.Adapter.PurchaseActivity"
+    tools:context="com.example.user.infyemart.PurchaseActivity"
 
     >
     <LinearLayout
@@ -140,6 +140,15 @@
 
         </LinearLayout>
     </android.support.v7.widget.CardView>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20sp"
+            android:backgroundTint="@color/red"
+            android:textColor="#fff"
+            android:id="@+id/continuePurchaseAct"
+            android:layout_marginBottom="10sp"
+            android:text="Continue"/>
 
     </LinearLayout>
 </ScrollView>
