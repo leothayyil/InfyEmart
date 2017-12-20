@@ -178,7 +178,9 @@ public class MainActivity extends AppCompatActivity
          if (id == R.id.orders_draw) {
             Intent intent=new Intent(MainActivity.this,MyOrdersActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.notification_draw) {
+             Intent intent=new Intent(MainActivity.this,NotificationActivity.class);
+             startActivity(intent);
 
         } else if (id == R.id.nav_send) {
 
