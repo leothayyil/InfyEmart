@@ -35,7 +35,7 @@
                 android:layout_height="40dp"
                 android:layout_toRightOf="@+id/mainToolbarAccount"
                 android:padding="7dp"
-                android:src="@drawable/basketc" />
+                android:src="@drawable/basket_small" />
 
             <ImageView
                 android:id="@+id/mainToolbarAccount"

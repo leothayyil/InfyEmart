@@ -18,5 +18,6 @@ public class Ordered_ProductViewActivity extends AppCompatActivity {
         toolbarTit.setText("Order Review");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
     }
 }

@@ -35,9 +35,9 @@
             android:layout_marginTop="15sp"
             android:layout_marginLeft="15sp"
             android:text="5th Main yellenahalli, North Bangalore"/>
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:layout_width="30sp"
+            android:layout_height="20sp"
             android:src="@drawable/edit_small"
             android:backgroundTint="#fff"
             android:layout_gravity="center"
