@@ -29,7 +29,8 @@
         <activity android:name=".ProductViewActivity" />
         <activity android:name=".MyOrdersActivity" />
         <activity android:name=".PaymentsActivity" />
-        <activity android:name=".NotificationActivity"></activity>
+        <activity android:name=".NotificationActivity" />
+        <activity android:name=".Ordered_ProductViewActivity"></activity>
     </application>
 
 </manifest>
