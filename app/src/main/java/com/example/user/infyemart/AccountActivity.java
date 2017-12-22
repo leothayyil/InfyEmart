@@ -12,6 +12,7 @@ public class AccountActivity extends AppCompatActivity {
 
 
     ImageView edt_address;
+    TextView myOrder,myNottif,myAddres;
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -31,6 +32,34 @@ public class AccountActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         edt_address=findViewById(R.id.iv_address_edit);
+        myOrder=findViewById(R.id.Et_account_myOrderId);
+        myNottif=findViewById(R.id.Et_account_notificationsId);
+        myAddres=findViewById(R.id.Et_account_myDeliveryAddId);
+
+
+        myNottif.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(AccountActivity.this,NotificationActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        myOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(AccountActivity.this,MyOrdersActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        myAddres.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(AccountActivity.this,AddressFieldsActivity.class);
+                startActivity(intent);
+            }
+        });
         edt_address.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

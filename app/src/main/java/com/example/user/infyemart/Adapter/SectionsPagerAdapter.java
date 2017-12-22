@@ -1,11 +1,14 @@
-package com.example.user.infyemart;
+package com.example.user.infyemart.Adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
 import android.support.v4.app.FragmentPagerAdapter;
 
-class SectionsPagerAdapter extends FragmentPagerAdapter{
+import com.example.user.infyemart.Fragment_Offers;
+import com.example.user.infyemart.Fragment_alert;
+
+public class SectionsPagerAdapter extends FragmentPagerAdapter{
     public SectionsPagerAdapter(FragmentManager fm) {
         super(fm);
     }

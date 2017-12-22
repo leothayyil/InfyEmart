@@ -30,7 +30,9 @@
         <activity android:name=".MyOrdersActivity" />
         <activity android:name=".PaymentsActivity" />
         <activity android:name=".NotificationActivity" />
-        <activity android:name=".Ordered_ProductViewActivity"></activity>
+        <activity android:name=".Ordered_ProductViewActivity" />
+        <activity android:name=".AddressFieldsActivity" />
+        <activity android:name=".AddressEnterActivity"></activity>
     </application>
 
 </manifest>

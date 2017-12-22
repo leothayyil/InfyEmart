@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.user.infyemart.Adapter.Main_RecyclerAdapter;
@@ -100,8 +101,6 @@ public class MainActivity extends AppCompatActivity
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
 
-
-
             }
 
             @Override
@@ -114,20 +113,26 @@ public class MainActivity extends AppCompatActivity
         adapter.notifyDataSetChanged();
 
 
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer =findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View headerView=navigationView.getHeaderView(0);
 
 
+        ImageView pencilEdt=headerView.findViewById(R.id.addressEditDrawPencil);
+        pencilEdt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,AddressFieldsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
-
-
 
     @Override
     public void onBackPressed() {

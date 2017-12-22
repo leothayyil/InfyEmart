@@ -40,6 +40,7 @@
             android:layout_height="20sp"
             android:src="@drawable/edit_small"
             android:backgroundTint="#fff"
+            android:id="@+id/addressEditDrawPencil"
             android:layout_gravity="center"
             android:layout_marginLeft="80sp"
             android:foregroundGravity="right"/>

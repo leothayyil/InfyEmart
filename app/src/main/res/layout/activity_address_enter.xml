@@ -1,88 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.user.infyemart.ProfileActivity"
-    android:orientation="vertical">
-    <include layout="@layout/toolbar_main"
-        android:id="@+id/toolbarProfile"/>
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="10sp"
-    android:orientation="vertical">
+    tools:context="com.example.user.infyemart.AddressEnterActivity">
 
+    <include layout="@layout/toolbar_main"
+        android:id="@+id/toolbar_addNewaddressid"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="55sp"
         android:orientation="vertical">
-
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            >
+            android:layout_marginTop="10dp">
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Name"
+                android:hint="Name "
+                android:inputType="textPostalAddress"
                 android:padding="15sp"
                 android:textColor="#000000" />
         </android.support.design.widget.TextInputLayout>
-
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            >
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Email"
-                android:inputType="textEmailAddress"
-                android:padding="15sp"
-                android:textColor="#000000" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            >
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Contact Number"
-                android:inputType="number"
-                android:padding="15sp"
-                android:textColor="#000000" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            >
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Password"
-                android:inputType="textPassword"
-                android:padding="15sp"
-                android:textColor="#000000" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            >
+            android:layout_marginTop="10dp">
 
             <EditText
                 android:layout_width="match_parent"
@@ -97,8 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            >
-
+>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -147,7 +97,6 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/edt_back"
                 android:hint="Landmark"
                 android:inputType="textEmailAddress"
                 android:padding="15sp"
@@ -163,5 +112,5 @@
             android:text="submit"
             android:textColor="#fff" />
     </LinearLayout>
-</ScrollView>
-</LinearLayout>
+    </ScrollView>
+</android.support.v7.widget.CardView>

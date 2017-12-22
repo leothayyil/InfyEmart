@@ -15,6 +15,10 @@
         <item name="colorControlNormal">@color/red</item>
         <item name="colorControlActivated">@color/bl2</item>
     </style>
+    <style name="MyRadioButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/bl3</item>
+        <item name="colorControlActivated">@color/red</item>
+    </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
