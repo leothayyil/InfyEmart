@@ -26,7 +26,7 @@
 <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="invisible"
+
     android:gravity="bottom"
             android:layout_marginLeft="160sp">
             <ImageView
@@ -34,7 +34,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_toRightOf="@+id/mainToolbarAccount"
-                android:padding="7dp"
+                android:padding="10dp"
                 android:src="@drawable/basket_small" />
 
             <ImageView
@@ -43,7 +43,7 @@
                 android:layout_height="40dp"
                 android:layout_alignParentTop="true"
                 android:gravity="center"
-                android:padding="7dp"
+                android:padding="10dp"
                 android:src="@drawable/account" />
 
 

@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.user.infyemart.Adapter.MyOrderAdapter;
@@ -60,6 +61,11 @@ onBackPressed();
         toolbarTit.setText("My Orders");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ImageView mainAccount=findViewById(R.id.mainToolbarAccount);
+        ImageView mainCart=findViewById(R.id.mainToolbarCart);
+        mainAccount.setVisibility(View.GONE);
+        mainCart.setVisibility(View.GONE);
+
 
         RecyclerView.LayoutManager layoutManager=new LinearLayoutManager(this);
         recyclerView.setHasFixedSize(true);

@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.user.infyemart.Adapter.CartAdapter;
@@ -39,6 +40,10 @@ public class CartActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         checkout=findViewById(R.id.cart_checkoutId);
+        ImageView mainAccount=findViewById(R.id.mainToolbarAccount);
+        ImageView mainCart=findViewById(R.id.mainToolbarCart);
+        mainAccount.setVisibility(View.GONE);
+        mainCart.setVisibility(View.GONE);
 
         recyclerView=findViewById(R.id.recyclerCart);
         mAdapter=new CartAdapter(getApplicationContext(),cartItems);

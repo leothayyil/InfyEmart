@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -41,7 +42,6 @@ public class MainActivity extends AppCompatActivity
             "Groceries Staples",
             "Spices Pickles",
             "House Holds",
-            "Instant Foods Drinks",
             "Beauty Health",
             "Toys Baby Care",
             "Vegetables Fruits",
@@ -52,18 +52,18 @@ public class MainActivity extends AppCompatActivity
             "Leather Trends",
     } ;
     int[] CategoryImgs = {
-            R.drawable.c_grocery,
-            R.drawable.c_spices,
-            R.drawable.c_households,
-            R.drawable.c_instantfood,
-            R.drawable.c_beauty,
-            R.drawable.c_toys,
-            R.drawable.c_vegitable,
-            R.drawable.c_meat,
-            R.drawable.c_mobiles,
-            R.drawable.c_homeapplia,
-            R.drawable.c_kitchenappl,
-            R.drawable.c_leather,
+            R.drawable.groceries,
+            R.drawable.spices,
+            R.drawable.household,
+//            R.drawable.insta,
+            R.drawable.beauty,
+            R.drawable.toysnbaby,
+            R.drawable.fruitsnveg,
+            R.drawable.meat,
+            R.drawable.laptopnmobiles,
+            R.drawable.homeappliances,
+            R.drawable.kitchenappliances,
+            R.drawable.leathershoes,
     };
     private ViewPager mPager;
     private static int currentPage=0;
@@ -83,16 +83,33 @@ public class MainActivity extends AppCompatActivity
         toolbarTit.setVisibility(View.GONE);
         initSlide();
 
+        ImageView mainAccount=findViewById(R.id.mainToolbarAccount);
+         ImageView mainCart=findViewById(R.id.mainToolbarCart);
 
-        gridView=findViewById(R.id.gridViewMain);
+        gridView=findViewById(R.id.categoryMainList);
 
         gridView.setHasFixedSize(true);
-         layoutManager=new GridLayoutManager(this,2);
+         layoutManager=new LinearLayoutManager(this);
         gridView.setLayoutManager(layoutManager);
         final Main_RecyclerAdapter adapter=new Main_RecyclerAdapter(MainActivity.this,Category,CategoryImgs);
         gridView.setAdapter(adapter);
         gridView.setFitsSystemWindows(true);
         gridView.addItemDecoration(new ItemOffsetDecoration(20));
+        mainCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,CartActivity.class);
+                startActivity(intent);
+            }
+        });
+        mainAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,AccountActivity.class);
+                startActivity(intent);
+
+            }
+        });
 
 
 
@@ -147,7 +164,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-        MenuItem item=menu.findItem(R.id.action_cart);
+//        MenuItem item=menu.findItem(R.id.action_cart);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -161,14 +178,14 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
 
-        if (item.getItemId()==R.id.action_cart){
-            Intent intent=new Intent(MainActivity.this,CartActivity.class);
-            startActivity(intent);
-        }
-        if (item.getItemId()==R.id.actionb_account){
-            Intent intent=new Intent(MainActivity.this,AccountActivity.class);
-            startActivity(intent);
-        }
+//        if (item.getItemId()==R.id.action_cart){
+//            Intent intent=new Intent(MainActivity.this,CartActivity.class);
+//            startActivity(intent);
+//        }
+//        if (item.getItemId()==R.id.actionb_account){
+//            Intent intent=new Intent(MainActivity.this,AccountActivity.class);
+//            startActivity(intent);
+//        }
         return super.onOptionsItemSelected(item);
     }
 

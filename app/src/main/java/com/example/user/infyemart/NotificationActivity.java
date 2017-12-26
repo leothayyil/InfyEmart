@@ -5,6 +5,8 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.user.infyemart.Adapter.SectionsPagerAdapter;
@@ -32,6 +34,10 @@ public class NotificationActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ImageView mainAccount=findViewById(R.id.mainToolbarAccount);
+        ImageView mainCart=findViewById(R.id.mainToolbarCart);
+        mainAccount.setVisibility(View.GONE);
+        mainCart.setVisibility(View.GONE);
 
         mSectionsPagerAdapter=new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager=(ViewPager)findViewById(R.id.container);

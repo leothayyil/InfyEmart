@@ -5,14 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#dbefff"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.user.infyemart.MainActivity"
     tools:showIn="@layout/app_bar_main">
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -49,9 +45,9 @@
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="15dp"
+            android:layout_marginTop="10sp"
+            android:layout_marginBottom="10sp"
             android:id="@+id/cardTopCatmain"
-            android:layout_margin="10sp"
             app:cardBackgroundColor="@color/red">
             <TextView
                 android:layout_width="wrap_content"
@@ -64,24 +60,22 @@
         </android.support.v7.widget.CardView>
 
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/gridViewMain"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:scrollbars="none"
-                android:numColumns="auto_fit"
-                android:verticalSpacing="5dp"
-                android:horizontalSpacing="5dp"
-                android:fitsSystemWindows="true"
-                android:stretchMode="spacingWidthUniform"/>
+       <android.support.v7.widget.RecyclerView
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:fitsSystemWindows="true"
+           android:id="@+id/categoryMainList">
+
+       </android.support.v7.widget.RecyclerView>
+
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10sp"
+            android:layout_marginBottom="10sp"
             android:padding="15dp"
             android:id="@+id/cardRecentmain"
-            android:layout_margin="10sp"
             app:cardBackgroundColor="@color/red">
             <TextView
                 android:layout_width="wrap_content"
@@ -92,27 +86,8 @@
                 android:padding="5dp"
                 android:textColor="#fff"/>
         </android.support.v7.widget.CardView>
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="100sp"
-            app:cardBackgroundColor="#dde1e6"
-            >
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/gridViewMain2"
-                android:layout_width="match_parent"
-                android:layout_height="200sp"
-                android:gravity="center"
-                android:paddingTop="5sp"
-                android:columnWidth="150dp"
-                android:numColumns="auto_fit"
-                android:verticalSpacing="5dp"
-                android:horizontalSpacing="5dp"
-                android:stretchMode="spacingWidthUniform"/>
-
-        </android.support.v7.widget.CardView>
 
 
     </LinearLayout>
-    </ScrollView>
+
 </LinearLayout>
