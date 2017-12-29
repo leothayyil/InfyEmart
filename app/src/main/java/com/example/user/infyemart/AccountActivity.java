@@ -44,8 +44,6 @@ public class AccountActivity extends AppCompatActivity {
         cmyOrder=findViewById(R.id.card_account_myOrderId);
         cmyNottif=findViewById(R.id.card_account_notificationsId);
         cmyAddres=findViewById(R.id.card_account_myDeliveryAddId);
-
-
         cmyNottif.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,7 +74,5 @@ public class AccountActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
-
 }
