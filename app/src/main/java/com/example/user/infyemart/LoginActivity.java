@@ -63,8 +63,6 @@ public class LoginActivity extends AppCompatActivity {
                     public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                         try {
                             JSONObject jsonObject=new JSONObject(response.body().toString());
-
-
                              String status=jsonObject.getString("status");
                         } catch (JSONException e) {
                             e.printStackTrace();

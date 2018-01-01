@@ -9,10 +9,10 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,10 +22,12 @@ import android.widget.TextView;
 
 import com.example.user.infyemart.Adapter.Main_RecyclerAdapter;
 import com.example.user.infyemart.Adapter.Slider_Adapter;
+import com.example.user.infyemart.Pojo.Pojo_Banner;
 import com.example.user.infyemart.Retrofit.RetrofitHelper;
 import com.example.user.infyemart.Utils.ItemOffsetDecoration;
 import com.google.gson.JsonElement;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -91,7 +93,8 @@ public class MainActivity extends AppCompatActivity
         initSlide();
 
         categories();
-        banner();
+
+//        banner();
 
         ImageView mainAccount=findViewById(R.id.mainToolbarAccount);
          ImageView mainCart=findViewById(R.id.mainToolbarCart);
@@ -173,6 +176,13 @@ public class MainActivity extends AppCompatActivity
                         try {
                             JSONObject jsonObject=new JSONObject(response.body().toString());
                             String status=jsonObject.getString("status");
+                            JSONArray  jsonArray=jsonObject.getJSONArray("banner");
+                            for (int i=0;i<jsonArray.length();i++){
+
+                                JSONObject jsonObject1=jsonArray.getJSONObject(i);
+                                Pojo_Banner pojo=new Pojo_Banner();
+
+                            }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -192,9 +202,22 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                         try {
-                            JSONObject  jsonObject=new JSONObject(response.body().toString());
-                            String status=jsonObject.getString("status");
+                            JSONArray  jsonArray=new JSONArray(response.body().toString());
+
+                            for (int i=0;i<jsonArray.length();i++){
+                                JSONObject jsonObject=jsonArray.getJSONObject(i);
+
+
+                                String status=jsonObject.getString("status");
+                                String id=jsonObject.getString("id");
+                                String department=jsonObject.getString("department");
+                                String icons=jsonObject.getString("icons");
+
+                            }
+
+
                         } catch (JSONException e) {
+                            Log.i("TAG_e", e.toString());
                             e.printStackTrace();
                         }
                     }
@@ -232,15 +255,6 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         }
-
-//        if (item.getItemId()==R.id.action_cart){
-//            Intent intent=new Intent(MainActivity.this,CartActivity.class);
-//            startActivity(intent);
-//        }
-//        if (item.getItemId()==R.id.actionb_account){
-//            Intent intent=new Intent(MainActivity.this,AccountActivity.class);
-//            startActivity(intent);
-//        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -249,7 +263,7 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+
         int id = item.getItemId();
 
          if (id == R.id.orders_draw) {
@@ -298,11 +312,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
 
-
     }
-
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
     }
 }

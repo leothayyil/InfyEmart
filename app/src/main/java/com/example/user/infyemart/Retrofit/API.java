@@ -9,13 +9,12 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
-
 public interface API {
-
 
     @FormUrlEncoded
     @POST("api/android-api.php")
-    Call<JsonElement> login(@Field("action") String action,@Field("user_name") String userName,@Field("password") String password);
+    Call<JsonElement> login(@Field("action") String action,@Field("user_name")
+            String userName,@Field("password") String password);
 
     @FormUrlEncoded
     @POST("api/android-api.php")
