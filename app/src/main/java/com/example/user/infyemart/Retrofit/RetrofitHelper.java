@@ -1,6 +1,7 @@
 package com.example.user.infyemart.Retrofit;
 
 import com.example.user.infyemart.LoginActivity;
+import com.example.user.infyemart.MainActivity;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -13,8 +14,16 @@ public class RetrofitHelper {
 
     private static API apIs;
 
+
+
+
+
     public RetrofitHelper(LoginActivity loginActivity) {
-        initRestAdapter();
+        initResstAdapter();
+    }
+
+    public RetrofitHelper(MainActivity mainActivity) {
+        initResstAdapter();
     }
 
 
@@ -26,15 +35,14 @@ public class RetrofitHelper {
         RetrofitHelper.apIs = apIs;
     }
 
+    private void initResstAdapter(){
 
-
-    private void initRestAdapter() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://infyemart.com")
+        Retrofit  retrofit = new Retrofit.Builder()
+                .baseUrl("http://infyemart.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-//        setApIs();
-    }
 
+        setApIs(retrofit.create(API.class));
+    }
 
     }

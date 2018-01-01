@@ -22,13 +22,21 @@ import android.widget.TextView;
 
 import com.example.user.infyemart.Adapter.Main_RecyclerAdapter;
 import com.example.user.infyemart.Adapter.Slider_Adapter;
+import com.example.user.infyemart.Retrofit.RetrofitHelper;
 import com.example.user.infyemart.Utils.ItemOffsetDecoration;
+import com.google.gson.JsonElement;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import me.relex.circleindicator.CircleIndicator;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,AbsListView.OnScrollListener {
@@ -55,7 +63,6 @@ public class MainActivity extends AppCompatActivity
             R.drawable.groceries,
             R.drawable.spices,
             R.drawable.household,
-//            R.drawable.insta,
             R.drawable.beauty,
             R.drawable.toysnbaby,
             R.drawable.fruitsnveg,
@@ -83,6 +90,9 @@ public class MainActivity extends AppCompatActivity
         toolbarTit.setVisibility(View.GONE);
         initSlide();
 
+        categories();
+        banner();
+
         ImageView mainAccount=findViewById(R.id.mainToolbarAccount);
          ImageView mainCart=findViewById(R.id.mainToolbarCart);
 
@@ -95,6 +105,7 @@ public class MainActivity extends AppCompatActivity
         gridView.setAdapter(adapter);
         gridView.setFitsSystemWindows(true);
         gridView.addItemDecoration(new ItemOffsetDecoration(20));
+
         mainCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,6 +121,7 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+
 
 
 
@@ -149,6 +161,49 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
+    }
+
+    private void banner() {
+
+        new RetrofitHelper(MainActivity.this).getApIs().bannerMain("banner")
+                .enqueue(new Callback<JsonElement>() {
+                    @Override
+                    public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
+
+                        try {
+                            JSONObject jsonObject=new JSONObject(response.body().toString());
+                            String status=jsonObject.getString("status");
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonElement> call, Throwable t) {
+
+                    }
+                });
+    }
+
+    private void categories() {
+        new RetrofitHelper(MainActivity.this).getApIs().categoryMain("category")
+                .enqueue(new Callback<JsonElement>() {
+                    @Override
+                    public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
+                        try {
+                            JSONObject  jsonObject=new JSONObject(response.body().toString());
+                            String status=jsonObject.getString("status");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonElement> call, Throwable t) {
+
+                    }
+                });
     }
 
     @Override

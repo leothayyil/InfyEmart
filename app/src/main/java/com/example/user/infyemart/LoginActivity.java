@@ -23,8 +23,8 @@ public class LoginActivity extends AppCompatActivity {
     Button login;
     TextView signup;
     String userName="afsal345@live.com";
-    String passWord="redhat";
-    String action="login";
+    String passWord;
+    String action;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,10 +32,13 @@ public class LoginActivity extends AppCompatActivity {
         login=findViewById(R.id.btn_login);
         signup=findViewById(R.id.link_signup);
 
-        loginCall();
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                action="login";
+                userName="afsal345@live.com";
+                 passWord="redhat";
 
                 loginCall();
                 Intent intent=new Intent(LoginActivity.this,MainActivity.class);
@@ -61,7 +64,8 @@ public class LoginActivity extends AppCompatActivity {
                         try {
                             JSONObject jsonObject=new JSONObject(response.body().toString());
 
-                            String status=jsonObject.getString("status");
+
+                             String status=jsonObject.getString("status");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
