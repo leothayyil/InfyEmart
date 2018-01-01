@@ -8,24 +8,23 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.user.infyemart.MainActivity;
+import com.example.user.infyemart.Pojo.Pojo_Banner;
 import com.example.user.infyemart.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 
 public class Slider_Adapter extends PagerAdapter{
-    private ArrayList<Integer>images;
+    private ArrayList<Pojo_Banner>images;
     private LayoutInflater inflater;
     private Context context;
 
-
-
-    public Slider_Adapter(MainActivity mainActivity, ArrayList<Integer> imgsArray) {
+    public Slider_Adapter(MainActivity mainActivity, ArrayList<Pojo_Banner> imgsArray) {
         this.images=imgsArray;
         this.context=mainActivity;
         inflater=LayoutInflater.from(context);
     }
-
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
       container.removeView((View)object);
@@ -40,7 +39,10 @@ public class Slider_Adapter extends PagerAdapter{
     public Object instantiateItem(ViewGroup container, int position) {
         View myImageLayout=inflater.inflate(R.layout.list_slide,container,false);
         ImageView imageView=myImageLayout.findViewById(R.id.iv_slide_image_id);
-        imageView.setImageResource(images.get(position));
+        Pojo_Banner pojo=new Pojo_Banner();
+//        images.get(pojo.)
+//        Picasso.with(context).load(images.get(pojo.getBaner1(),pojo.));
+//        imageView.setImageResource(images.get(position));
         container.addView(myImageLayout,0);
         return  myImageLayout;
     }

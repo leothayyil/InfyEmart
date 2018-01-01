@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity
     private ArrayList<Integer> imgsArray=new ArrayList<Integer>();
 
     private  ArrayList <Pojo_categories>categories_call=new ArrayList<>();
+    private ArrayList<Pojo_Banner>banner_call=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,8 +148,12 @@ public class MainActivity extends AppCompatActivity
                                 for (int ii=0;ii<jsonArray.length();ii++){
 
                                     JSONObject jsonObject1=jsonArray.getJSONObject(i);
+                                    Pojo_Banner pojo=new Pojo_Banner();
+                                    pojo.setBaner1( "http://infyemart.com/images/banner1.jpg");
+                                    pojo.setBaner2( "http://infyemart.com/images/banner2.jpg");
+                                    pojo.setBaner3( "http://infyemart.com/images/banner3.jpg");
+                                    banner_call.add(pojo);
                             }
-
                                 Pojo_Banner pojo=new Pojo_Banner();
 
                             }
@@ -256,7 +261,7 @@ public class MainActivity extends AppCompatActivity
             imgsArray.add(imgs[i]);
 
         mPager=findViewById(R.id.pager);
-        mPager.setAdapter(new Slider_Adapter(MainActivity.this,imgsArray));
+//        mPager.setAdapter(new Slider_Adapter(MainActivity.this,imgsArray));
         CircleIndicator indicator=findViewById(R.id.indicator);
         indicator.setViewPager(mPager);
 
