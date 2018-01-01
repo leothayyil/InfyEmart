@@ -8,7 +8,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.user.infyemart.MainActivity;
+import com.example.user.infyemart.Pojo.Pojo_categories;
 import com.example.user.infyemart.R;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 /**
  * Created by USER on 18-12-2017.
@@ -17,38 +22,18 @@ import com.example.user.infyemart.R;
 public class Main_RecyclerAdapter extends RecyclerView.Adapter<Main_RecyclerAdapter.MyViewHolder> {
 
     private Context mContext;
-    private final String[] category;
-    private final int[] catImage;
-    private static final int TYPE_HEADER=0;
-    public static final int TYPE_ITEM=1;
-    private static final int TYPE_FOOTER = 2;
+
+    ArrayList<Pojo_categories>category_call=new ArrayList<>();
 
 
-    public Main_RecyclerAdapter(Context mContext, String[] category, int[] catImage) {
-        this.mContext = mContext;
-        this.category = category;
-        this.catImage = catImage;
+
+    public Main_RecyclerAdapter(MainActivity mainActivity, ArrayList<Pojo_categories> categories_call) {
+        this.mContext=mainActivity;
+        this.category_call=categories_call;
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        if (isPositionHeader(position)) {
 
-            return TYPE_HEADER;
 
-        }else if (isPositionFooter(position)){
-            return TYPE_FOOTER;
-        }
-        return TYPE_ITEM;
-    }
-    private boolean isPositionHeader(int position) {
-        return position == 0;
-    }
-
-    private boolean isPositionFooter(int position) {
-        return position >category.length;
-
-    }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -57,20 +42,18 @@ public class Main_RecyclerAdapter extends RecyclerView.Adapter<Main_RecyclerAdap
 
         return new MyViewHolder(view);
         }
-//        throw new RuntimeException("there is no type that matches type"+viewType);
-//    }
-
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        if (holder instanceof MyViewHolder) {
-            holder.catName.setText(category[position]);
-            holder.catImage.setImageResource(catImage[position]);
-        }
+        Pojo_categories pojo=category_call.get(position);
+
+      holder.catName.setText(pojo.getCategory());
+        Picasso.with(mContext).load(pojo.getIcon()).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher)
+                .into(holder.catImage);
     }
 
     @Override
     public int getItemCount() {
-        return category.length;
+      return category_call.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

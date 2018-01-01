@@ -22,7 +22,7 @@
                           android:layout_width="50sp"
                           android:layout_height="50sp"
                           android:scaleType="centerCrop"
-                          android:src="@drawable/groceries" />
+                          android:src="@drawable/c_vegitable" />
                       <TextView
                           android:id="@+id/c_nameTv_grid"
                           android:layout_width="wrap_content"

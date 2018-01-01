@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.example.user.infyemart.Adapter.Main_RecyclerAdapter;
 import com.example.user.infyemart.Adapter.Slider_Adapter;
 import com.example.user.infyemart.Pojo.Pojo_Banner;
+import com.example.user.infyemart.Pojo.Pojo_categories;
 import com.example.user.infyemart.Retrofit.RetrofitHelper;
 import com.example.user.infyemart.Utils.ItemOffsetDecoration;
 import com.google.gson.JsonElement;
@@ -42,45 +43,15 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,AbsListView.OnScrollListener {
-    RecyclerView gridView,recyclerView2;
-    boolean isLastPage=false;
-    private int visibleThreshold = 5;
-    private int previousTotal = 0;
-    private boolean loading = true;
+    RecyclerView recycler,recyclerView2;
     RecyclerView.LayoutManager layoutManager;
-    String[] Category = {
-            "Groceries Staples",
-            "Spices Pickles",
-            "House Holds",
-            "Beauty Health",
-            "Toys Baby Care",
-            "Vegetables Fruits",
-            "Fresh Meat Fish",
-            "Mobiles Laptops",
-            "Home Appliances",
-            "Kitchen Appliances",
-            "Leather Trends",
-    } ;
-    int[] CategoryImgs = {
-            R.drawable.groceries,
-            R.drawable.spices,
-            R.drawable.household,
-            R.drawable.beauty,
-            R.drawable.toysnbaby,
-            R.drawable.fruitsnveg,
-            R.drawable.meat,
-            R.drawable.laptopnmobiles,
-            R.drawable.homeappliances,
-            R.drawable.kitchenappliances,
-            R.drawable.leathershoes,
-    };
+
     private ViewPager mPager;
     private static int currentPage=0;
     private static final Integer[] imgs={R.drawable.banner_a,R.drawable.banner_c,R.drawable.banner_b};
     private ArrayList<Integer> imgsArray=new ArrayList<Integer>();
 
-
-
+    private  ArrayList <Pojo_categories>categories_call=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,23 +62,22 @@ public class MainActivity extends AppCompatActivity
         TextView toolbarTit = findViewById(R.id.toolbar_title);
         toolbarTit.setVisibility(View.GONE);
         initSlide();
-
         categories();
 
-//        banner();
+        banner();
 
         ImageView mainAccount=findViewById(R.id.mainToolbarAccount);
          ImageView mainCart=findViewById(R.id.mainToolbarCart);
 
-        gridView=findViewById(R.id.categoryMainList);
+        recycler=findViewById(R.id.categoryMainList);
 
-        gridView.setHasFixedSize(true);
+        recycler.setHasFixedSize(true);
          layoutManager=new LinearLayoutManager(this);
-        gridView.setLayoutManager(layoutManager);
-        final Main_RecyclerAdapter adapter=new Main_RecyclerAdapter(MainActivity.this,Category,CategoryImgs);
-        gridView.setAdapter(adapter);
-        gridView.setFitsSystemWindows(true);
-        gridView.addItemDecoration(new ItemOffsetDecoration(20));
+        recycler.setLayoutManager(layoutManager);
+        final Main_RecyclerAdapter adapter=new Main_RecyclerAdapter(MainActivity.this,categories_call);
+        recycler.setAdapter(adapter);
+        recycler.setFitsSystemWindows(true);
+        recycler.addItemDecoration(new ItemOffsetDecoration(20));
 
         mainCart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,27 +91,22 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity.this,AccountActivity.class);
                 startActivity(intent);
-
             }
         });
 
 
 
 
-        gridView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-
             }
-
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-
             }
         });
-
         adapter.notifyDataSetChanged();
 
 
@@ -174,12 +139,16 @@ public class MainActivity extends AppCompatActivity
                     public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
 
                         try {
-                            JSONObject jsonObject=new JSONObject(response.body().toString());
-                            String status=jsonObject.getString("status");
-                            JSONArray  jsonArray=jsonObject.getJSONArray("banner");
+                            JSONArray jsonArray=new JSONArray(response.body().toString());
                             for (int i=0;i<jsonArray.length();i++){
+                                JSONObject jsonObject=jsonArray.getJSONObject(i);
+                                String status=jsonObject.getString("status");
+                                JSONArray  jsonArray1=jsonObject.getJSONArray("banner");
+                                for (int ii=0;ii<jsonArray.length();ii++){
 
-                                JSONObject jsonObject1=jsonArray.getJSONObject(i);
+                                    JSONObject jsonObject1=jsonArray.getJSONObject(i);
+                            }
+
                                 Pojo_Banner pojo=new Pojo_Banner();
 
                             }
@@ -207,15 +176,20 @@ public class MainActivity extends AppCompatActivity
                             for (int i=0;i<jsonArray.length();i++){
                                 JSONObject jsonObject=jsonArray.getJSONObject(i);
 
-
                                 String status=jsonObject.getString("status");
                                 String id=jsonObject.getString("id");
+                                String category=jsonObject.getString("category");
                                 String department=jsonObject.getString("department");
                                 String icons=jsonObject.getString("icons");
+                                Pojo_categories pojo=new Pojo_categories();
+                                pojo.setId(id);
+                                pojo.setDepartment(department);
+                                pojo.setIcon(icons);
+                                pojo.setCategory(category);
+                                categories_call.add(pojo);
+
 
                             }
-
-
                         } catch (JSONException e) {
                             Log.i("TAG_e", e.toString());
                             e.printStackTrace();
@@ -224,14 +198,12 @@ public class MainActivity extends AppCompatActivity
 
                     @Override
                     public void onFailure(Call<JsonElement> call, Throwable t) {
-
                     }
                 });
     }
-
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -242,8 +214,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-//        MenuItem item=menu.findItem(R.id.action_cart);
-
         return super.onCreateOptionsMenu(menu);
     }
 
