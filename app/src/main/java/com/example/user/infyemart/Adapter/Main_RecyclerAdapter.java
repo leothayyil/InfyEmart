@@ -23,17 +23,13 @@ import java.util.ArrayList;
 public class Main_RecyclerAdapter extends RecyclerView.Adapter<Main_RecyclerAdapter.MyViewHolder> {
 
     private Context mContext;
-
     ArrayList<Pojo_categories>category_call=new ArrayList<>();
-
 
 
     public Main_RecyclerAdapter(MainActivity mainActivity, ArrayList<Pojo_categories> categories_call) {
         this.mContext=mainActivity;
         this.category_call=categories_call;
     }
-
-
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity
     private ArrayList<Pojo_Banner> bannerImgsArray=new ArrayList<>();
     private  ArrayList <Pojo_categories>categories_call=new ArrayList<>();
     ProgressDialog dialog;
+    String category;
 
 
     @Override
@@ -67,16 +68,10 @@ public class MainActivity extends AppCompatActivity
         TextView toolbarTit = findViewById(R.id.toolbar_title);
         toolbarTit.setVisibility(View.GONE);
 
-        dialog.setMessage("Doing something, please wait.");
-        dialog.show();
-        Log.d(TAG, "onCreate: 1");
-
-
 //        initSlide();
 
         banner();
-//        MyASyncTask task=new MyASyncTask(MainActivity.this);
-        MyASyncTask task=new MyASyncTask();
+        MyASyncTask task=new MyASyncTask(MainActivity.this);
 
         task.execute();
 
@@ -101,6 +96,8 @@ public class MainActivity extends AppCompatActivity
 
                 Intent intent=new Intent(MainActivity.this,SubCategoey_Activity.class);
                 intent.putExtra("position",number);
+                intent.putExtra("subCategory",categories_call.get(position).getCategory());
+
                 startActivity(intent);
 
 
@@ -148,7 +145,6 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View headerView=navigationView.getHeaderView(0);
-
 
         ImageView pencilEdt=headerView.findViewById(R.id.addressEditDrawPencil);
         pencilEdt.setOnClickListener(new View.OnClickListener() {
@@ -210,7 +206,7 @@ public class MainActivity extends AppCompatActivity
 
                                 String status=jsonObject.getString("status");
                                 String id=jsonObject.getString("id");
-                                String category=jsonObject.getString("category");
+                                 category=jsonObject.getString("category");
                                 String department=jsonObject.getString("department");
                                 String icons=jsonObject.getString("icons");
                                 Pojo_categories pojo=new Pojo_categories();
@@ -320,16 +316,17 @@ public class MainActivity extends AppCompatActivity
 
     private class MyASyncTask extends AsyncTask<Void,Void,Void>{
 
-//        private ProgressDialog dialog;
-//
-//        public MyASyncTask(MainActivity activity) {
-//            dialog = new ProgressDialog(activity);
-//        }
+
+        private ProgressDialog dialog;
+
+        public MyASyncTask(MainActivity activity) {
+            dialog = new ProgressDialog(activity);
+        }
 
         @Override
         protected void onPreExecute() {
-//            dialog.setMessage("Doing something, please wait.");
-//            dialog.show();
+            dialog.setMessage("Doing something, please wait.");
+            dialog.show();
             Log.d(TAG, "onPreExecute: 1 ");
         }
 

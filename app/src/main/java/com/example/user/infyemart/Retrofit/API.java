@@ -27,4 +27,9 @@ public interface API {
     @FormUrlEncoded
     @POST("api/android-api.php")
     Call<JsonElement> sub_Category(@Field("action") String action,@Field("category")String categoryId);
+
+    @FormUrlEncoded
+    @POST("api/android-api.php")
+    Call<JsonElement> product_listing(@Field("action") String action,@Field("category")String categoryId,@Field("sub_categoryh")String sub_categoryId);
 }
+
