@@ -1,6 +1,8 @@
 package com.example.user.infyemart;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
@@ -45,13 +47,15 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,AbsListView.OnScrollListener {
-    RecyclerView recycler,recyclerView2;
+    private static final String TAG = "logg";
+    RecyclerView recycler;
     RecyclerView.LayoutManager layoutManager;
 
     private ViewPager mPager;
     private static int currentPage=0;
     private ArrayList<Pojo_Banner> bannerImgsArray=new ArrayList<>();
     private  ArrayList <Pojo_categories>categories_call=new ArrayList<>();
+    ProgressDialog dialog;
 
 
     @Override
@@ -62,10 +66,19 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         TextView toolbarTit = findViewById(R.id.toolbar_title);
         toolbarTit.setVisibility(View.GONE);
+
+        dialog.setMessage("Doing something, please wait.");
+        dialog.show();
+        Log.d(TAG, "onCreate: 1");
+
+
 //        initSlide();
-        categories();
 
         banner();
+//        MyASyncTask task=new MyASyncTask(MainActivity.this);
+        MyASyncTask task=new MyASyncTask();
+
+        task.execute();
 
         ImageView mainAccount=findViewById(R.id.mainToolbarAccount);
          ImageView mainCart=findViewById(R.id.mainToolbarCart);
@@ -85,6 +98,12 @@ public class MainActivity extends AppCompatActivity
                 int number=position+1;
 
                 Toast.makeText(MainActivity.this, String.valueOf(number), Toast.LENGTH_SHORT).show();
+
+                Intent intent=new Intent(MainActivity.this,SubCategoey_Activity.class);
+                intent.putExtra("position",number);
+                startActivity(intent);
+
+
             }
 
             @Override
@@ -297,5 +316,38 @@ public class MainActivity extends AppCompatActivity
     }
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+    }
+
+    private class MyASyncTask extends AsyncTask<Void,Void,Void>{
+
+//        private ProgressDialog dialog;
+//
+//        public MyASyncTask(MainActivity activity) {
+//            dialog = new ProgressDialog(activity);
+//        }
+
+        @Override
+        protected void onPreExecute() {
+//            dialog.setMessage("Doing something, please wait.");
+//            dialog.show();
+            Log.d(TAG, "onPreExecute: 1 ");
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            categories();
+            Log.d(TAG, "doInBackground: 2");
+            return null;
+            
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+
+            Log.d(TAG, "onPostExecute: 3");
+            if (dialog.isShowing()) {
+                dialog.dismiss();
+            }
+        }
     }
 }
