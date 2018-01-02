@@ -20,11 +20,13 @@ public class Slider_Adapter extends PagerAdapter{
     private LayoutInflater inflater;
     private Context context;
 
-    public Slider_Adapter(MainActivity mainActivity, ArrayList<Pojo_Banner> imgsArray) {
-        this.images=imgsArray;
+    public Slider_Adapter(MainActivity mainActivity, ArrayList<Pojo_Banner> bannerImgsArray) {
+        this.images=bannerImgsArray;
         this.context=mainActivity;
         inflater=LayoutInflater.from(context);
+
     }
+
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
       container.removeView((View)object);

@@ -2,6 +2,7 @@ package com.example.user.infyemart.Retrofit;
 
 import com.example.user.infyemart.LoginActivity;
 import com.example.user.infyemart.MainActivity;
+import com.example.user.infyemart.SubCategoey_Activity;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -23,6 +24,10 @@ public class RetrofitHelper {
     }
 
     public RetrofitHelper(MainActivity mainActivity) {
+        initResstAdapter();
+    }
+
+    public RetrofitHelper(SubCategoey_Activity subCategoey_activity) {
         initResstAdapter();
     }
 

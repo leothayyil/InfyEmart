@@ -1,6 +1,7 @@
 package com.example.user.infyemart.Adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +32,6 @@ public class Main_RecyclerAdapter extends RecyclerView.Adapter<Main_RecyclerAdap
         this.mContext=mainActivity;
         this.category_call=categories_call;
     }
-
 
 
 

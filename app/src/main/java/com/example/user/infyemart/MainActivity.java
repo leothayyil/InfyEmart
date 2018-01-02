@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.user.infyemart.Adapter.Main_RecyclerAdapter;
 import com.example.user.infyemart.Adapter.Slider_Adapter;
@@ -26,6 +27,7 @@ import com.example.user.infyemart.Pojo.Pojo_Banner;
 import com.example.user.infyemart.Pojo.Pojo_categories;
 import com.example.user.infyemart.Retrofit.RetrofitHelper;
 import com.example.user.infyemart.Utils.ItemOffsetDecoration;
+import com.example.user.infyemart.Utils.RecyclerItemClickListener;
 import com.google.gson.JsonElement;
 
 import org.json.JSONArray;
@@ -48,11 +50,9 @@ public class MainActivity extends AppCompatActivity
 
     private ViewPager mPager;
     private static int currentPage=0;
-    private static final Integer[] imgs={R.drawable.banner_a,R.drawable.banner_c,R.drawable.banner_b};
-    private ArrayList<Integer> imgsArray=new ArrayList<Integer>();
-
+    private ArrayList<Pojo_Banner> bannerImgsArray=new ArrayList<>();
     private  ArrayList <Pojo_categories>categories_call=new ArrayList<>();
-    private ArrayList<Pojo_Banner>banner_call=new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         TextView toolbarTit = findViewById(R.id.toolbar_title);
         toolbarTit.setVisibility(View.GONE);
-        initSlide();
+//        initSlide();
         categories();
 
         banner();
@@ -71,7 +71,6 @@ public class MainActivity extends AppCompatActivity
          ImageView mainCart=findViewById(R.id.mainToolbarCart);
 
         recycler=findViewById(R.id.categoryMainList);
-
         recycler.setHasFixedSize(true);
          layoutManager=new LinearLayoutManager(this);
         recycler.setLayoutManager(layoutManager);
@@ -79,6 +78,20 @@ public class MainActivity extends AppCompatActivity
         recycler.setAdapter(adapter);
         recycler.setFitsSystemWindows(true);
         recycler.addItemDecoration(new ItemOffsetDecoration(20));
+
+        recycler.addOnItemTouchListener(new RecyclerItemClickListener(MainActivity.this, recycler, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                int number=position+1;
+
+                Toast.makeText(MainActivity.this, String.valueOf(number), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+
+            }
+        }));
 
         mainCart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,11 +107,7 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
-
-
-
-
-        recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+           recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -152,9 +161,8 @@ public class MainActivity extends AppCompatActivity
                                     pojo.setBaner1( "http://infyemart.com/images/banner1.jpg");
                                     pojo.setBaner2( "http://infyemart.com/images/banner2.jpg");
                                     pojo.setBaner3( "http://infyemart.com/images/banner3.jpg");
-                                    banner_call.add(pojo);
+                                    bannerImgsArray.add(pojo);
                             }
-                                Pojo_Banner pojo=new Pojo_Banner();
 
                             }
 
@@ -196,7 +204,6 @@ public class MainActivity extends AppCompatActivity
 
                             }
                         } catch (JSONException e) {
-                            Log.i("TAG_e", e.toString());
                             e.printStackTrace();
                         }
                     }
@@ -251,17 +258,17 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_send) {
 
         }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer =findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
     private void initSlide() {
-        for (int i=0;i<imgs.length;i++)
-            imgsArray.add(imgs[i]);
+//        for (int i=0;i<imgs.length;i++)
+//            imgsArray.add(imgs[i]);
+        for (int i=0;i<bannerImgsArray.size();i++);
 
         mPager=findViewById(R.id.pager);
-//        mPager.setAdapter(new Slider_Adapter(MainActivity.this,imgsArray));
+        mPager.setAdapter(new Slider_Adapter(MainActivity.this,bannerImgsArray));
         CircleIndicator indicator=findViewById(R.id.indicator);
         indicator.setViewPager(mPager);
 
@@ -269,9 +276,9 @@ public class MainActivity extends AppCompatActivity
         final Runnable update=new Runnable() {
             @Override
             public void run() {
-                if (currentPage==imgs.length){
-                    currentPage=0;
-                }
+//                if (currentPage==imgs.length){
+//                    currentPage=0;
+//                }
                 mPager.setCurrentItem(currentPage++,true);
             }
         };
