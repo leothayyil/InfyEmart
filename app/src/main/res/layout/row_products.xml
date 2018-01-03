@@ -27,7 +27,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="MILKY MIST"
+                    android:text="Offer"
+                    android:id="@+id/productList_offer"
                     android:layout_gravity="center"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -35,7 +36,7 @@
                     android:textSize="20sp"
                     android:gravity="center"
                     android:textColor="@color/black"
-                    android:id="@+id/productName_cartId"
+                    android:id="@+id/productList_name"
                     android:text="Paneer-Premium Fresh"
                     />
                 <Spinner
@@ -44,27 +45,38 @@
                     android:gravity="center"
                     android:layout_gravity="center">
                 </Spinner>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="RS 90"
+                    android:layout_gravity="center"
+                    android:id="@+id/productList_optionName"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="10sp"/>
                 <RelativeLayout
                     android:layout_width="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_height="wrap_content">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="RS 90"
-                        android:id="@+id/discountPrice"
+                        android:id="@+id/productList_marginPrice"
                         android:textSize="15sp"
                         android:layout_marginLeft="10sp"/>
                     <View
                         android:layout_width="40sp"
                         android:layout_marginLeft="10sp"
                         android:layout_marginTop="11sp"
+                        android:background="@color/black"
                         android:layout_height="1sp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="15sp"
                         android:text="RS 77.55"
+                        android:id="@+id/productList_originalPrice"
                         android:textColor="@color/black"
                         android:layout_marginLeft="70sp"/>
                 </RelativeLayout>

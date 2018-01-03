@@ -31,6 +31,7 @@ import retrofit2.Response;
 
 public class SubCategoey_Activity extends AppCompatActivity {
 
+    private static final String TAG = "logg";
     RecyclerView subRecyclerView;
     String action="sub_category";
     int categoryId;
@@ -73,7 +74,6 @@ public class SubCategoey_Activity extends AppCompatActivity {
                 new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        Toast.makeText(SubCategoey_Activity.this, subArraylist.get(position).getSubCategoryName(), Toast.LENGTH_SHORT).show();
                         Intent intent1=new Intent(SubCategoey_Activity.this,MainProductsActivity.class);
                         intent1.putExtra("sub_categoryId",sub_cat_id);
                         intent1.putExtra("category_id",category_Id);
@@ -104,6 +104,9 @@ public class SubCategoey_Activity extends AppCompatActivity {
                                      sub_category=jsonObject.getString("sub_category");
                                      sub_cat_id=jsonObject.getString("sub_cat_id");
                                      category_Id=jsonObject.getString("category");
+
+                                    Log.d(TAG, category_Id+","+sub_cat_id+","+sub_category);
+
                                     Pojo_SubCat pojo=new Pojo_SubCat();
                                     pojo.setCategoryId(category_Id);
                                     pojo.setSubCategoryName(sub_category);

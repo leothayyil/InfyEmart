@@ -90,17 +90,11 @@ public class MainActivity extends AppCompatActivity
         recycler.addOnItemTouchListener(new RecyclerItemClickListener(MainActivity.this, recycler, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                int number=position+1;
-
-                Toast.makeText(MainActivity.this, String.valueOf(number), Toast.LENGTH_SHORT).show();
-
+                int number= Integer.parseInt(categories_call.get(position).getId());
                 Intent intent=new Intent(MainActivity.this,SubCategoey_Activity.class);
                 intent.putExtra("position",number);
                 intent.putExtra("subCategory",categories_call.get(position).getCategory());
-
                 startActivity(intent);
-
-
             }
 
             @Override
