@@ -1,5 +1,7 @@
 package com.example.user.infyemart.Retrofit;
 
+import com.example.user.infyemart.AccountActivity;
+import com.example.user.infyemart.CartActivity;
 import com.example.user.infyemart.LoginActivity;
 import com.example.user.infyemart.MainActivity;
 import com.example.user.infyemart.MainProductsActivity;
@@ -33,6 +35,14 @@ public class RetrofitHelper {
     }
 
     public RetrofitHelper(MainProductsActivity mainProductsActivity) {
+        initResstAdapter();
+    }
+
+    public RetrofitHelper(AccountActivity accountActivity) {
+        initResstAdapter();
+    }
+
+    public RetrofitHelper(CartActivity cartActivity) {
         initResstAdapter();
     }
 

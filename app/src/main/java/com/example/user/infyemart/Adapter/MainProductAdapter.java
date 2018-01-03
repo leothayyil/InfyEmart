@@ -5,11 +5,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.user.infyemart.MainProductsActivity;
 import com.example.user.infyemart.Pojo.Pojo_Products;
 import com.example.user.infyemart.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -42,6 +44,8 @@ public class MainProductAdapter extends RecyclerView.Adapter<MainProductAdapter.
         holder.originalPrice.setText(pojo.getOriginal_price());
         holder.optionName.setText(pojo.getOption_name());
         holder.offer.setText(pojo.getOffer());
+        Picasso.with(context).load(pojo.getProduct_image()).placeholder(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_launcher).into(holder.productImage);
     }
 
     @Override
@@ -51,6 +55,7 @@ public class MainProductAdapter extends RecyclerView.Adapter<MainProductAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView productName,offer,optionName,originalPrice,marginPrice;
+        ImageView  productImage;
         public ViewHolder(View itemView) {
             super(itemView);
             productName=itemView.findViewById(R.id.productList_name);
@@ -58,6 +63,7 @@ public class MainProductAdapter extends RecyclerView.Adapter<MainProductAdapter.
             optionName=itemView.findViewById(R.id.productList_optionName);
             originalPrice=itemView.findViewById(R.id.productList_originalPrice);
             marginPrice=itemView.findViewById(R.id.productList_marginPrice);
+            productImage=itemView.findViewById(R.id.productList_image);
 
         }
     }

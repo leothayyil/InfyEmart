@@ -5,7 +5,15 @@ package com.example.user.infyemart.Pojo;
  */
 
 public class Pojo_Products {
-    private String item_id,product_id,product_name,offer,option_name,original_price,margin_price;
+    private String item_id,product_id,product_name,offer,option_name,original_price,margin_price,product_image;
+
+    public String getProduct_image() {
+        return product_image;
+    }
+
+    public void setProduct_image(String product_image) {
+        this.product_image = product_image;
+    }
 
     public String getItem_id() {
         return item_id;

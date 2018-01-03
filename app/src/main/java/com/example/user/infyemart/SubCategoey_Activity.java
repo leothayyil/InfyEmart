@@ -75,8 +75,9 @@ public class SubCategoey_Activity extends AppCompatActivity {
                     @Override
                     public void onItemClick(View view, int position) {
                         Intent intent1=new Intent(SubCategoey_Activity.this,MainProductsActivity.class);
-                        intent1.putExtra("sub_categoryId",sub_cat_id);
-                        intent1.putExtra("category_id",category_Id);
+                        intent1.putExtra("sub_categoryId",subArraylist.get(position).getSub_cat_id());
+                        intent1.putExtra("category_id",subArraylist.get(position).getCategoryId());
+                        intent1.putExtra("sub_category",subArraylist.get(position).getSubCategoryName());
                         startActivity(intent1);
                     }
 
@@ -105,7 +106,7 @@ public class SubCategoey_Activity extends AppCompatActivity {
                                      sub_cat_id=jsonObject.getString("sub_cat_id");
                                      category_Id=jsonObject.getString("category");
 
-                                    Log.d(TAG, category_Id+","+sub_cat_id+","+sub_category);
+                                    Log.d(TAG, "json  "+category_Id+","+sub_cat_id+","+sub_category);
 
                                     Pojo_SubCat pojo=new Pojo_SubCat();
                                     pojo.setCategoryId(category_Id);
