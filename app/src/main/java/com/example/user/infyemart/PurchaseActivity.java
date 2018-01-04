@@ -29,12 +29,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PurchaseActivity extends AppCompatActivity {
-    Button continuePayment;
+    Button continuePayment,changeAddress;
     Context context;
     RecyclerView recyclerView;
     ArrayList<Pojo_Cart>cartProducts=new ArrayList<>();
+    TextView purcahserName,purchaserAddress;
 
     String action ="cart";
+    String action_account="my_account";
     String cartId="9d2286553b0e45f736e19010a5f784c9";
     String user_id;
 
@@ -63,6 +65,9 @@ public class PurchaseActivity extends AppCompatActivity {
         mainCart.setVisibility(View.GONE);
         context=PurchaseActivity.this;
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        purcahserName=findViewById(R.id.purchaser_name);
+        purchaserAddress=findViewById(R.id.purchaser_address);
+        changeAddress=findViewById(R.id.btn_changeAddress);
 
         SharedPreferences prefs = getSharedPreferences("SHARED_DATA", MODE_PRIVATE);
         String restoredText = prefs.getString("user_id", null);
@@ -73,6 +78,39 @@ public class PurchaseActivity extends AppCompatActivity {
 
         AsyncPurchase async=new AsyncPurchase();
         async.execute();
+        changeAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent=new Intent(PurchaseActivity.this,AddressFieldsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        new RetrofitHelper(PurchaseActivity.this).getApIs().myAccount(action_account,user_id)
+                .enqueue(new Callback<JsonElement>() {
+                    @Override
+                    public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
+                        try {
+                            JSONObject jsonObjectt=new JSONObject(response.body().toString());
+                            String status=jsonObjectt.getString("status");
+                            String nameS=jsonObjectt.getString("name");
+                            String emailS=jsonObjectt.getString("email");
+                            String addressS=jsonObjectt.getString("address");
+
+                                                purcahserName.setText(nameS);
+                                                purchaserAddress.setText(addressS);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonElement> call, Throwable t) {
+
+                    }
+                });
 
         continuePayment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,32 +158,6 @@ public class PurchaseActivity extends AppCompatActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-
-                            new RetrofitHelper(PurchaseActivity.this).getApIs().myAccount(action,user_id)
-                                    .enqueue(new Callback<JsonElement>() {
-                                        @Override
-                                        public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
-                                            try {
-                                                JSONObject jsonObject=new JSONObject(response.body().toString());
-                                                String status=jsonObject.getString("status");
-                                                String nameS=jsonObject.getString("name");
-                                                String emailS=jsonObject.getString("email");
-                                                String addressS=jsonObject.getString("address");
-
-//                                                name.setText(nameS);
-//                                                email.setText(emailS);
-//                                                address.setText(addressS);
-
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onFailure(Call<JsonElement> call, Throwable t) {
-
-                                        }
-                                    });
                         }
 
                         @Override

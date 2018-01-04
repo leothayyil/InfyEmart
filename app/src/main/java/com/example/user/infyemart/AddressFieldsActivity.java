@@ -8,9 +8,25 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.user.infyemart.Pojo.Pojo_Delivery_Address;
+import com.example.user.infyemart.Retrofit.RetrofitHelper;
+import com.google.gson.JsonElement;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 public class AddressFieldsActivity extends AppCompatActivity {
 
+    String action="delivery_details";
+    String userId="4";
+    TextView namee,emaill,addresss,districtt,cityy,landmarkk,pincodee;
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
@@ -33,6 +49,51 @@ public class AddressFieldsActivity extends AppCompatActivity {
         ImageView mainCart=findViewById(R.id.mainToolbarCart);
         mainAccount.setVisibility(View.GONE);
         mainCart.setVisibility(View.GONE);
+        namee=findViewById(R.id.delvery_name);
+        landmarkk=findViewById(R.id.delvery_landmark);
+        emaill=findViewById(R.id.delvery_email);
+        addresss=findViewById(R.id.delvery_address);
+        districtt=findViewById(R.id.delvery_district);
+        cityy=findViewById(R.id.delvery_city);
+        pincodee=findViewById(R.id.delvery_pincode);
+
+
+        new RetrofitHelper(AddressFieldsActivity.this).getApIs().delivery_details(action,userId)
+                .enqueue(new Callback<JsonElement>() {
+                    @Override
+                    public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
+                        try {
+                            JSONObject jsonObject=new JSONObject(response.body().toString());
+                            String status=jsonObject.getString("status");
+                            String name=jsonObject.getString("name");
+                            String landmark=jsonObject.getString("landmark");
+                            String email=jsonObject.getString("email");
+                            String address=jsonObject.getString("address");
+                            String district=jsonObject.getString("district");
+                            String city=jsonObject.getString("city");
+                            String pincode=jsonObject.getString("pincode");
+
+
+                            namee.setText(name);
+                            landmarkk.setText(landmark);
+                            emaill.setText(email);
+                            addresss.setText(address);
+                            districtt.setText(district);
+                            cityy.setText(city);
+                            pincodee.setText(pincode);
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonElement> call, Throwable t) {
+
+                    }
+                });
+
 
     addNew.setOnClickListener(new View.OnClickListener() {
         @Override
