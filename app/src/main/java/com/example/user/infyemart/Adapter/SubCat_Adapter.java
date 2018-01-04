@@ -23,7 +23,6 @@ public class SubCat_Adapter extends RecyclerView.Adapter<SubCat_Adapter.MyViewHo
         this.context = subCategoey_activity;
         this.arrayList = subArraylist;
     }
-
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 

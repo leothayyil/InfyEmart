@@ -1,5 +1,6 @@
 package com.example.user.infyemart;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.user.infyemart.Adapter.CartAdapter;
+import com.example.user.infyemart.Pojo.Pojo_Cart;
 import com.example.user.infyemart.Retrofit.RetrofitHelper;
 import com.google.gson.JsonElement;
 
@@ -21,20 +23,22 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CartActivity extends AppCompatActivity {
 
-    RecyclerView  recyclerView;
+     private RecyclerView  recyclerView;
     CartAdapter mAdapter;
     Button checkout;
     String action ="cart";
-    String cartId="9319da119fd9fe164948d627b1321a72";
+    String cartId="9d2286553b0e45f736e19010a5f784c9";
 
     SharedPreferences prefs;
-
+    private ArrayList<Pojo_Cart>cart_arraylist=new ArrayList<>();
 
 
     @Override
@@ -48,7 +52,7 @@ public class CartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_Cart);
+        Toolbar toolbar = findViewById(R.id.toolbar_Cart);
         TextView toolbarTit = findViewById(R.id.toolbar_title);
         toolbarTit.setText("My Cart");
         setSupportActionBar(toolbar);
@@ -67,14 +71,13 @@ public class CartActivity extends AppCompatActivity {
         }
 
         recyclerView=findViewById(R.id.recyclerCart);
-//        mAdapter=new CartAdapter(getApplicationContext(),);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        mAdapter.notifyDataSetChanged();
-//        recyclerView.setAdapter(mAdapter);
+        recyclerView.setAdapter(mAdapter);
 
         AsyncCart asyncCart=new AsyncCart();
         asyncCart.execute();
+
 
         checkout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +89,8 @@ public class CartActivity extends AppCompatActivity {
     }
 
     private class AsyncCart extends AsyncTask{
+
+
         @Override
         protected Object doInBackground(Object[] objects) {
             new RetrofitHelper(CartActivity.this).getApIs().cart(action,cartId)
@@ -102,9 +107,21 @@ public class CartActivity extends AppCompatActivity {
                                     String total=jsonObject.getString("total");
                                     String o_price=jsonObject.getString("o_price");
                                     String image=jsonObject.getString("image");
-
+                                    String id=jsonObject.getString("id");
+                                    Pojo_Cart pojo = new Pojo_Cart();
+                                    pojo.setId(id);
+                                    pojo.setImage(image);
+                                    pojo.setmPrice(m_price);
+                                    pojo.setoPrice(o_price);
+                                    pojo.setTotal(total);
+                                    pojo.setProduct(product);
+                                    cart_arraylist.add(pojo);
 
                                 }
+                                CartAdapter cartAdapter=new CartAdapter(CartActivity.this,cart_arraylist);
+                                recyclerView.setAdapter(cartAdapter);
+
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

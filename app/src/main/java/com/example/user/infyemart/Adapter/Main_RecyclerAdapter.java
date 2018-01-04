@@ -43,7 +43,7 @@ public class Main_RecyclerAdapter extends RecyclerView.Adapter<Main_RecyclerAdap
         Pojo_categories pojo=category_call.get(position);
 
       holder.catName.setText(pojo.getCategory());
-        Picasso.with(mContext).load(pojo.getIcon()).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher)
+        Picasso.with(mContext).load(pojo.getIcon()).placeholder(R.drawable.loading).error(R.drawable.error_image)
                 .into(holder.catImage);
     }
 

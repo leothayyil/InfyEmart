@@ -44,8 +44,8 @@ public class MainProductAdapter extends RecyclerView.Adapter<MainProductAdapter.
         holder.originalPrice.setText(pojo.getOriginal_price());
         holder.optionName.setText(pojo.getOption_name());
         holder.offer.setText(pojo.getOffer());
-        Picasso.with(context).load(pojo.getProduct_image()).placeholder(R.mipmap.ic_launcher)
-                .error(R.mipmap.ic_launcher).into(holder.productImage);
+        Picasso.with(context).load(pojo.getProduct_image()).placeholder(R.drawable.loading)
+                .error(R.drawable.error_image).into(holder.productImage);
     }
 
     @Override
