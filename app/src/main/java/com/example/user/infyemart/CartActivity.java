@@ -111,9 +111,9 @@ public class CartActivity extends AppCompatActivity {
                                     Pojo_Cart pojo = new Pojo_Cart();
                                     pojo.setId(id);
                                     pojo.setImage(image);
-                                    pojo.setmPrice(m_price);
-                                    pojo.setoPrice(o_price);
-                                    pojo.setTotal(total);
+                                    pojo.setmPrice("Rs "+m_price);
+                                    pojo.setoPrice("Rs "+o_price);
+                                    pojo.setTotal("Rs "+total);
                                     pojo.setProduct(product);
                                     cart_arraylist.add(pojo);
 

@@ -101,6 +101,8 @@ public class AddressFieldsActivity extends AppCompatActivity {
 
             Intent addressIntent=new Intent(AddressFieldsActivity.this,AddressEnterActivity.class);
             startActivity(addressIntent);
+            finish();
+
         }
     });
     }

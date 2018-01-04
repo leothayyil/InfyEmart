@@ -45,5 +45,18 @@ public interface API {
     Call<JsonElement> delivery_details(@Field("action") String action,@Field("user_id")String user_id);
 
 
+    @FormUrlEncoded
+    @POST("api/android-api.php")
+    Call<JsonElement> addDelivery_details(@Field("action") String action,@Field("user_id")String user_id,@Field("name")String name,
+                                          @Field("email")String email,@Field("address")String address,@Field("district")String district,
+                                          @Field("city")String city,@Field("landmark")String landmark,@Field("pincode")String pincode);
+
+    @FormUrlEncoded
+    @POST("api/android-api.php")
+    Call<JsonElement> district(@Field("action") String action);
+
+    @FormUrlEncoded
+    @POST("api/android-api.php")
+    Call<JsonElement> getPlace(@Field("action") String action,@Field("district")String district);
 }
 

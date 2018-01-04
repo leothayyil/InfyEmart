@@ -18,21 +18,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/cardRecyclerCart"
-        android:layout_margin="10sp"
-        android:layout_below="@+id/toolbar_Cart"
-        android:layout_alignTop="@+id/toolbar_main">
+
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="40sp"
+            android:layout_marginBottom="5sp"
             android:id="@+id/recyclerCart">
         </android.support.v7.widget.RecyclerView>
-
-    </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
