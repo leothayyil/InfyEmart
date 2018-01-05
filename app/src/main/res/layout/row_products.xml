@@ -85,18 +85,13 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center">
 
-                    <Button
-                        android:layout_width="0sp"
-                        android:layout_height="40sp"
-                        android:layout_weight="1"
-                        android:text="Buy"
-                        android:textColor="#fff"
-                        android:backgroundTint="@color/bl2"/>
+
                     <ImageButton
                         android:layout_width="0sp"
-                        android:backgroundTint="@color/red"
+                        android:backgroundTint="@color/gr3"
                         android:layout_height="40sp"
                         android:layout_weight="1"
+                        android:id="@+id/addToCart_btn"
                         android:src="@drawable/small_cart"/>
                 </LinearLayout>
 

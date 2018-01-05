@@ -103,6 +103,7 @@ public class MainProductsActivity extends AppCompatActivity {
                                         String item_id=jsonObject1.getString("item_id");
                                         String product_id=jsonObject.getString("product_id");
 
+                                        Log.e(TAG, "onResponse: "+item_id );
 
                                         Pojo_Products pojo=new Pojo_Products();
                                         pojo.setItem_id(item_id);
@@ -118,7 +119,8 @@ public class MainProductsActivity extends AppCompatActivity {
                                     }
                                 }
 
-                                MainProductAdapter adapter=new MainProductAdapter(MainProductsActivity.this,productsArrayList);
+                                MainProductAdapter adapter=new MainProductAdapter(
+                                        MainProductsActivity.this,productsArrayList);
                                 recyclerView.setAdapter(adapter);
                             } catch (JSONException e) {
 
