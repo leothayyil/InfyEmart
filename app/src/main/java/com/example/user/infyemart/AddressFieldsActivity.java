@@ -26,7 +26,7 @@ public class AddressFieldsActivity extends AppCompatActivity {
 
     String action="delivery_details";
     String userId="4";
-    TextView namee,emaill,addresss,districtt,cityy,landmarkk,pincodee;
+    TextView namee,emaill,addresss,districtt,landmarkk,pincodee;
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
@@ -54,7 +54,6 @@ public class AddressFieldsActivity extends AppCompatActivity {
         emaill=findViewById(R.id.delvery_email);
         addresss=findViewById(R.id.delvery_address);
         districtt=findViewById(R.id.delvery_district);
-        cityy=findViewById(R.id.delvery_city);
         pincodee=findViewById(R.id.delvery_pincode);
 
 
@@ -77,10 +76,9 @@ public class AddressFieldsActivity extends AppCompatActivity {
                             namee.setText(name);
                             landmarkk.setText(landmark);
                             emaill.setText(email);
-                            addresss.setText(address);
-                            districtt.setText(district);
-                            cityy.setText(city);
-                            pincodee.setText(pincode);
+                            addresss.setText("Address :"+address);
+                            districtt.setText(city +", "+district);
+                            pincodee.setText("Pin Code "+pincode);
 
 
                         } catch (JSONException e) {

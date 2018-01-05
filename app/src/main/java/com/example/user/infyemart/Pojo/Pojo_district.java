@@ -23,4 +23,9 @@ public class Pojo_district {
     public void setDistrict(String district) {
         this.district = district;
     }
+
+    @Override
+    public String toString() {
+        return id +" "+ district;
+    }
 }

@@ -62,12 +62,12 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
->
-            <EditText
+            android:layout_marginTop="10dp">
+            <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="District"
+                android:hint="[ Select a district ]"
+                style="?android:attr/spinnerItemStyle"
                 android:inputType="textPostalAddress"
                 android:padding="15sp"
                 android:id="@+id/addDelivery_district"
@@ -80,11 +80,10 @@
             android:layout_marginTop="10dp"
             >
 
-            <EditText
+            <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="city"
-                android:inputType="textPostalAddress"
+                android:hint="Select a place"
                 android:padding="15sp"
                 android:id="@+id/addDelivery_place"
                 android:textColor="#000000" />
