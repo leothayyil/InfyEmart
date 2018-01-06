@@ -1,6 +1,8 @@
 package com.example.user.infyemart.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,12 +50,16 @@ public class MainProductAdapter extends RecyclerView.Adapter<MainProductAdapter.
         holder.originalPrice.setText(pojo.getOriginal_price());
         holder.optionName.setText(pojo.getOption_name());
         holder.offer.setText(pojo.getOffer());
+
         Picasso.with(context).load(pojo.getProduct_image()).placeholder(R.drawable.loading)
                 .error(R.drawable.error_image).into(holder.productImage);
         holder.addToCartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, String.valueOf(arrayListProducts.get((int) getItemId(position))), Toast.LENGTH_SHORT).show();
+
+                Intent intent=new Intent("getItemId");
+                intent.putExtra("itemId",pojo.getItem_id());
+                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
             }
         });
     }

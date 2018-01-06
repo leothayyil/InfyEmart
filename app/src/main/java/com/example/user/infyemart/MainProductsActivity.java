@@ -1,7 +1,11 @@
 package com.example.user.infyemart;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -12,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.user.infyemart.Adapter.MainProductAdapter;
 import com.example.user.infyemart.Adapter.Main_RecyclerAdapter;
@@ -59,6 +64,8 @@ public class MainProductsActivity extends AppCompatActivity {
         mainAccount.setVisibility(View.GONE);
         mainCart.setVisibility(View.GONE);
 
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,new IntentFilter("getItemId"));
+
         recyclerView=findViewById(R.id.recycler_products_Main);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(this);
@@ -103,7 +110,7 @@ public class MainProductsActivity extends AppCompatActivity {
                                         String item_id=jsonObject1.getString("item_id");
                                         String product_id=jsonObject.getString("product_id");
 
-                                        Log.e(TAG, "onResponse: "+item_id );
+                                        Log.e(TAG, "Item Id "+item_id +" "+product_name );
 
                                         Pojo_Products pojo=new Pojo_Products();
                                         pojo.setItem_id(item_id);
@@ -137,5 +144,38 @@ public class MainProductsActivity extends AppCompatActivity {
             return null;
         }
 
+    }
+    public BroadcastReceiver mMessageReceiver=new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+//            String itemId=intent.getStringExtra("itemId");
+            String itemId="12";
+            String actionToCart="add_to_cart";
+            String itemCount="2";
+            addToCart(actionToCart,itemId,itemCount);
+        }
+    };
+
+    private void addToCart(String actionToCart, String itemId, String itemCount) {
+        new RetrofitHelper(MainProductsActivity.this).getApIs().addToCart(actionToCart,itemId,itemCount)
+                .enqueue(new Callback<JsonElement>() {
+                    @Override
+                    public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
+                        try {
+                            JSONObject jsonObject=new JSONObject(response.body().toString());
+                            String resp_count=jsonObject.getString("item_count");
+                            String cart_id=jsonObject.getString("cart_id");
+                            Log.e(TAG, "item count  "+resp_count + cart_id);
+                        }
+                        catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonElement> call, Throwable t) {
+
+                    }
+                });
     }
 }

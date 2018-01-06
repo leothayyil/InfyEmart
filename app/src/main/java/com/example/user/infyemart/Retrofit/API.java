@@ -58,5 +58,10 @@ public interface API {
     @FormUrlEncoded
     @POST("api/android-api.php")
     Call<JsonElement> getPlace(@Field("action") String action,@Field("district")String district);
+
+    @FormUrlEncoded
+    @POST("api/android-api.php")
+    Call<JsonElement> addToCart(@Field("action") String action,@Field("item_id")String item_id,@Field("item_count")String count);
+
 }
 
