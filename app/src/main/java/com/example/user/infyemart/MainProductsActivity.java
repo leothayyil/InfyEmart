@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.user.infyemart.Adapter.MainProductAdapter;
 import com.example.user.infyemart.Adapter.Main_RecyclerAdapter;
 import com.example.user.infyemart.Pojo.Pojo_Products;
+import com.example.user.infyemart.Pojo.Pojo_Variant;
 import com.example.user.infyemart.Retrofit.RetrofitHelper;
 import com.google.gson.JsonElement;
 
@@ -39,6 +40,7 @@ public class MainProductsActivity extends AppCompatActivity {
     String action="product_listing";
     String categoryId,sub_catId,subCategoryName;
     ArrayList<Pojo_Products> productsArrayList=new ArrayList<>();
+    ArrayList<Pojo_Variant>variantArrayList=new ArrayList<>();
     RecyclerView recyclerView;
     private String TAG="logg";
     TextView cartCount;
@@ -115,21 +117,26 @@ public class MainProductsActivity extends AppCompatActivity {
                                         Log.e(TAG, "Item Id "+item_id +" "+product_name );
 
                                         Pojo_Products pojo=new Pojo_Products();
-                                        pojo.setItem_id(item_id);
-                                        pojo.setMargin_price(margin_price);
-                                        pojo.setOffer(offer);
-                                        pojo.setOption_name(option_name);
-                                        pojo.setOriginal_price(original_price);
                                         pojo.setProduct_id(product_id);
                                         pojo.setProduct_name(product_name);
                                         pojo.setProduct_image(product_image);
+                                        Pojo_Variant pojoV=new Pojo_Variant();
+                                        pojoV.setOffer(offer);
+                                        pojoV.setOptionName(option_name);
+                                        pojoV.setItemId(item_id);
+                                        pojoV.setMargin_price(margin_price);
+                                        pojoV.setOriginal_price(original_price);
+
+                                        variantArrayList.add(pojoV);
                                         productsArrayList.add(pojo);
 
                                     }
                                 }
 
                                 MainProductAdapter adapter=new MainProductAdapter(
-                                        MainProductsActivity.this,productsArrayList);
+                                        MainProductsActivity.this,productsArrayList
+//                                        ,variantArrayList
+                                );
                                 recyclerView.setAdapter(adapter);
                             } catch (JSONException e) {
 

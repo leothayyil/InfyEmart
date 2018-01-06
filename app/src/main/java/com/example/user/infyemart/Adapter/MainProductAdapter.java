@@ -4,21 +4,28 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.user.infyemart.MainProductsActivity;
 import com.example.user.infyemart.Pojo.Pojo_Products;
+import com.example.user.infyemart.Pojo.Pojo_Variant;
 import com.example.user.infyemart.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by USER on 14-12-2017.
@@ -27,11 +34,16 @@ import java.util.ArrayList;
 public class MainProductAdapter extends RecyclerView.Adapter<MainProductAdapter.ViewHolder> {
     private Context context;
     private ArrayList<Pojo_Products>arrayListProducts;
+//    private ArrayList<Pojo_Variant>arrayListVariant;
+//    String[] variant;
 
 
-    public MainProductAdapter(MainProductsActivity mainProductsActivity, ArrayList<Pojo_Products> productsArrayList) {
+    public MainProductAdapter(MainProductsActivity mainProductsActivity, ArrayList<Pojo_Products> productsArrayList
+//                              ArrayList<Pojo_Variant> variantArrayList
+    ) {
         this.arrayListProducts=productsArrayList;
         this.context=mainProductsActivity;
+//        this.arrayListVariant=variantArrayList;
     }
 
     @Override
@@ -44,15 +56,24 @@ public class MainProductAdapter extends RecyclerView.Adapter<MainProductAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final Pojo_Products pojo=arrayListProducts.get(position);
+//        final Pojo_Variant pojoV=arrayListVariant.get(position);
+
+//        Log.e(TAG, "onBindViewHolder: "+String.valueOf(arrayListVariant.size() ));
 
         holder.productName.setText(pojo.getProduct_name());
-        holder.marginPrice.setText(pojo.getMargin_price());
-        holder.originalPrice.setText(pojo.getOriginal_price());
-        holder.optionName.setText(pojo.getOption_name());
-        holder.offer.setText(pojo.getOffer());
+//        holder.marginPrice.setText(pojoV.getMargin_price());
+//        holder.originalPrice.setText(pojoV.getOriginal_price());
+//        holder.optionName.setText(pojoV.getOptionName());
+//        holder.offer.setText(pojoV.getOffer());
 
         Picasso.with(context).load(pojo.getProduct_image()).placeholder(R.drawable.loading)
                 .error(R.drawable.error_image).into(holder.productImage);
+
+//        Object[] objectList=arrayListVariant.toArray();
+//        variant= Arrays.copyOf(objectList,objectList.length,String[].class);
+
+
+//        ArrayAdapter<String>dataAdapter=new ArrayAdapter<String>(context,android.R.layout.simple_spinner_item,variant);
         holder.addToCartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +96,7 @@ public class MainProductAdapter extends RecyclerView.Adapter<MainProductAdapter.
         TextView productName,offer,optionName,originalPrice,marginPrice;
         ImageButton addToCartBtn;
         ImageView  productImage;
+        Spinner variantSpin;
         public ViewHolder(View itemView) {
             super(itemView);
             productName=itemView.findViewById(R.id.productList_name);
@@ -84,7 +106,7 @@ public class MainProductAdapter extends RecyclerView.Adapter<MainProductAdapter.
             marginPrice=itemView.findViewById(R.id.productList_marginPrice);
             productImage=itemView.findViewById(R.id.productList_image);
             addToCartBtn=itemView.findViewById(R.id.addToCart_btn);
-
+            variantSpin=itemView.findViewById(R.id.variant_spinnerId);
         }
     }
 }
