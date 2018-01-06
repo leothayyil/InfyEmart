@@ -26,9 +26,26 @@
 <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-    android:gravity="bottom"
+            android:gravity="bottom"
             android:layout_marginLeft="160sp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="28dp"
+        android:layout_marginStart="28dp"
+        android:layout_toEndOf="@+id/mainToolbarAccount"
+        android:layout_toRightOf="@+id/mainToolbarAccount"
+        android:textStyle="bold"
+        android:foregroundGravity="right"
+        android:gravity="right"
+        android:paddingRight="4sp"
+        android:paddingLeft="2sp"
+        android:id="@+id/cartCountId"
+        android:textColor="#fff"
+        android:textSize="15sp" />
+
             <ImageView
                 android:id="@+id/mainToolbarCart"
                 android:layout_width="40dp"

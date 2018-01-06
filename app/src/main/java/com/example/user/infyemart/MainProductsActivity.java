@@ -41,6 +41,7 @@ public class MainProductsActivity extends AppCompatActivity {
     ArrayList<Pojo_Products> productsArrayList=new ArrayList<>();
     RecyclerView recyclerView;
     private String TAG="logg";
+    TextView cartCount;
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -61,8 +62,9 @@ public class MainProductsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         ImageView mainAccount=findViewById(R.id.mainToolbarAccount);
         ImageView mainCart=findViewById(R.id.mainToolbarCart);
+         cartCount=findViewById(R.id.cartCountId);
         mainAccount.setVisibility(View.GONE);
-        mainCart.setVisibility(View.GONE);
+
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,new IntentFilter("getItemId"));
 
@@ -151,7 +153,7 @@ public class MainProductsActivity extends AppCompatActivity {
 //            String itemId=intent.getStringExtra("itemId");
             String itemId="12";
             String actionToCart="add_to_cart";
-            String itemCount="2";
+            String itemCount="25";
             addToCart(actionToCart,itemId,itemCount);
         }
     };
@@ -165,7 +167,7 @@ public class MainProductsActivity extends AppCompatActivity {
                             JSONObject jsonObject=new JSONObject(response.body().toString());
                             String resp_count=jsonObject.getString("item_count");
                             String cart_id=jsonObject.getString("cart_id");
-                            Log.e(TAG, "item count  "+resp_count + cart_id);
+                            cartCount.setText(resp_count);
                         }
                         catch (JSONException e) {
                             e.printStackTrace();
