@@ -37,6 +37,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -57,7 +58,8 @@ public class MainActivity extends AppCompatActivity
     private  ArrayList <Pojo_categories>categories_call=new ArrayList<>();
     ProgressDialog dialog;
     String category;
-
+    Object[] objectList;
+    String[] stringImgs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +74,8 @@ public class MainActivity extends AppCompatActivity
 
         banner();
         MyASyncTask task=new MyASyncTask(MainActivity.this);
+        objectList = bannerImgsArray.toArray();
+
 
         task.execute();
 
@@ -86,6 +90,8 @@ public class MainActivity extends AppCompatActivity
         recycler.setAdapter(adapter);
         recycler.setFitsSystemWindows(true);
         recycler.addItemDecoration(new ItemOffsetDecoration(20));
+
+
 
         recycler.addOnItemTouchListener(new RecyclerItemClickListener(MainActivity.this, recycler, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
@@ -165,14 +171,29 @@ public class MainActivity extends AppCompatActivity
                                 JSONArray  jsonArray1=jsonObject.getJSONArray("banner");
                                 for (int ii=0;ii<jsonArray.length();ii++){
 
-                                    JSONObject jsonObject1=jsonArray.getJSONObject(i);
+                                    JSONObject jsonObject1 =jsonArray.getJSONObject(i);
                                     Pojo_Banner pojo=new Pojo_Banner();
-                                    pojo.setBaner1( "http://infyemart.com/images/banner1.jpg");
-                                    pojo.setBaner2( "http://infyemart.com/images/banner2.jpg");
-                                    pojo.setBaner3( "http://infyemart.com/images/banner3.jpg");
-                                    bannerImgsArray.add(pojo);
-                            }
+                                    String ban1,ban2,ban3;
+                                    ban1=jsonObject1.getString("http://infyemart.com/images/banner1.jpg");
+                                    ban2=jsonObject1.getString("http://infyemart.com/images/banner2.jpg");
+                                    ban3=jsonObject1.getString("http://infyemart.com/images/banner3.jpg");
 
+                                    pojo.setBaner3(ban1);
+                                    pojo.setBaner2(ban2);
+                                    pojo.setBaner3(ban3);
+
+                                    bannerImgsArray.add(pojo);
+//                                    bannerImgsArray.add(ban1);
+//                                    bannerImgsArray.add(ban2);
+//                                    bannerImgsArray.add(ban3);
+                                     stringImgs=  Arrays.copyOf(objectList,objectList.length,String[].class);
+
+                                    Log.e(TAG, "string images "+stringImgs.length );
+                                    Log.e(TAG, "banner images  "+bannerImgsArray.size() );
+
+                            }
+                                mPager=findViewById(R.id.pager);
+                                mPager.setAdapter(new Slider_Adapter(MainActivity.this,bannerImgsArray,stringImgs));
                             }
 
                         } catch (JSONException e) {
@@ -276,8 +297,8 @@ public class MainActivity extends AppCompatActivity
 //            imgsArray.add(imgs[i]);
         for (int i=0;i<bannerImgsArray.size();i++);
 
-        mPager=findViewById(R.id.pager);
-        mPager.setAdapter(new Slider_Adapter(MainActivity.this,bannerImgsArray));
+//        mPager=findViewById(R.id.pager);
+//        mPager.setAdapter(new Slider_Adapter(MainActivity.this,bannerImgsArray));
         CircleIndicator indicator=findViewById(R.id.indicator);
         indicator.setViewPager(mPager);
 
@@ -321,13 +342,11 @@ public class MainActivity extends AppCompatActivity
         protected void onPreExecute() {
             dialog.setMessage("Doing something, please wait.");
             dialog.show();
-            Log.d(TAG, "onPreExecute: 1 ");
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
             categories();
-            Log.d(TAG, "doInBackground: 2");
             return null;
             
         }
@@ -335,7 +354,6 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected void onPostExecute(Void aVoid) {
 
-            Log.d(TAG, "onPostExecute: 3");
             if (dialog.isShowing()) {
                 dialog.dismiss();
             }

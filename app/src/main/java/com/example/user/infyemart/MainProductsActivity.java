@@ -102,35 +102,39 @@ public class MainProductsActivity extends AppCompatActivity {
                                     String status=jsonObject.getString("status");
                                     String product_name=jsonObject.getString("product_name");
                                     String product_image=jsonObject.getString("image");
+                                    String product_id=jsonObject.getString("product_id");
 
-                                    JSONArray jsonArray1=jsonObject.getJSONArray("variant");
-                                    for (int ii=0;ii<jsonArray1.length();ii++){
-                                        JSONObject jsonObject1=jsonArray1.getJSONObject(ii);
 
+//                                    JSONArray jsonArray1=jsonObject.getJSONArray("variant");
+//                                    for (int ii=0;ii<jsonArray1.length();ii++){
+//                                        JSONObject jsonObject1=jsonArray1.getJSONObject(ii);
+/*
                                         String offer=jsonObject1.getString("offer");
                                         String option_name=jsonObject1.getString("option_name");
                                         String original_price=jsonObject1.getString("original_price");
                                         String margin_price=jsonObject1.getString("margin_price");
                                         String item_id=jsonObject1.getString("item_id");
-                                        String product_id=jsonObject.getString("product_id");
 
                                         Log.e(TAG, "Item Id "+item_id +" "+product_name );
-
+*/
                                         Pojo_Products pojo=new Pojo_Products();
                                         pojo.setProduct_id(product_id);
                                         pojo.setProduct_name(product_name);
                                         pojo.setProduct_image(product_image);
-                                        Pojo_Variant pojoV=new Pojo_Variant();
-                                        pojoV.setOffer(offer);
-                                        pojoV.setOptionName(option_name);
-                                        pojoV.setItemId(item_id);
-                                        pojoV.setMargin_price(margin_price);
-                                        pojoV.setOriginal_price(original_price);
 
-                                        variantArrayList.add(pojoV);
+
+//                                        Pojo_Variant pojoV=new Pojo_Variant();
+//                                        pojoV.setOffer(offer);
+//                                        pojoV.setOptionName(option_name);
+//                                        pojoV.setItemId(item_id);
+//                                        pojoV.setMargin_price(margin_price);
+//                                        pojoV.setOriginal_price(original_price);
+
+
+//                                        variantArrayList.add(pojoV);
                                         productsArrayList.add(pojo);
 
-                                    }
+//                                    }
                                 }
 
                                 MainProductAdapter adapter=new MainProductAdapter(

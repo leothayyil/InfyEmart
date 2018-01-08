@@ -2,6 +2,7 @@ package com.example.user.infyemart.Adapter;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,15 +15,18 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import static android.content.ContentValues.TAG;
+
 
 public class Slider_Adapter extends PagerAdapter{
     private ArrayList<Pojo_Banner>images;
     private LayoutInflater inflater;
     private Context context;
-
-    public Slider_Adapter(MainActivity mainActivity, ArrayList<Pojo_Banner> bannerImgsArray) {
+    String[] imagesArray;
+    public Slider_Adapter(MainActivity mainActivity, ArrayList<Pojo_Banner> bannerImgsArray, String[] stringImgs) {
         this.images=bannerImgsArray;
         this.context=mainActivity;
+        this.imagesArray=stringImgs;
         inflater=LayoutInflater.from(context);
 
     }
@@ -41,10 +45,12 @@ public class Slider_Adapter extends PagerAdapter{
     public Object instantiateItem(ViewGroup container, int position) {
         View myImageLayout=inflater.inflate(R.layout.list_slide,container,false);
         ImageView imageView=myImageLayout.findViewById(R.id.iv_slide_image_id);
-        Pojo_Banner pojo=new Pojo_Banner();
-//        images.get(pojo.)
-//        Picasso.with(context).load(images.get(pojo.getBaner1(),pojo.));
-//        imageView.setImageResource(images.get(position));
+
+        Pojo_Banner pojo=images.get(position);
+
+        Log.e("loggg", "adapter "+imagesArray.length);
+        Picasso.with(context).load(pojo.getBaner1()).placeholder(R.drawable.loading)
+                .error(R.drawable.error_image).into(imageView);
         container.addView(myImageLayout,0);
         return  myImageLayout;
     }

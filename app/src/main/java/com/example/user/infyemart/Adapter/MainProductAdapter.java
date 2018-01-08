@@ -61,6 +61,7 @@ public class MainProductAdapter extends RecyclerView.Adapter<MainProductAdapter.
 //        Log.e(TAG, "onBindViewHolder: "+String.valueOf(arrayListVariant.size() ));
 
         holder.productName.setText(pojo.getProduct_name());
+
 //        holder.marginPrice.setText(pojoV.getMargin_price());
 //        holder.originalPrice.setText(pojoV.getOriginal_price());
 //        holder.optionName.setText(pojoV.getOptionName());
