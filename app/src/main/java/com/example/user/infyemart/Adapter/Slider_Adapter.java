@@ -49,7 +49,7 @@ public class Slider_Adapter extends PagerAdapter{
         Pojo_Banner pojo=images.get(position);
 
         Log.e("loggg", "adapter "+imagesArray.length);
-        Picasso.with(context).load(pojo.getBaner1()).placeholder(R.drawable.loading)
+        Picasso.with(context).load(imagesArray[position]).placeholder(R.drawable.loading)
                 .error(R.drawable.error_image).into(imageView);
         container.addView(myImageLayout,0);
         return  myImageLayout;

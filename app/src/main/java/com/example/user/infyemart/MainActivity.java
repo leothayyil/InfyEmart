@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity
     private ViewPager mPager;
     private static int currentPage=0;
     private ArrayList<Pojo_Banner> bannerImgsArray=new ArrayList<>();
+    private ArrayList<String> banStrImgsArray=new ArrayList<>();
     private  ArrayList <Pojo_categories>categories_call=new ArrayList<>();
     ProgressDialog dialog;
     String category;
@@ -72,9 +73,9 @@ public class MainActivity extends AppCompatActivity
 
 //        initSlide();
 
-//        banner();
+
         MyASyncTask task=new MyASyncTask(MainActivity.this);
-        objectList = bannerImgsArray.toArray();
+
 
 
         task.execute();
@@ -168,30 +169,31 @@ public class MainActivity extends AppCompatActivity
                             for (int i=0;i<jsonArray.length();i++){
                                 JSONObject jsonObject=jsonArray.getJSONObject(i);
                                 String status=jsonObject.getString("status");
-                                JSONArray  jsonArray1=jsonObject.getJSONArray("banner");
-                                for (int ii=0;ii<jsonArray.length();ii++){
 
-                                    JSONObject jsonObject1 =jsonArray.getJSONObject(i);
+
                                     Pojo_Banner pojo=new Pojo_Banner();
                                     String ban1,ban2,ban3;
-                                    ban1=jsonObject1.getString("http://infyemart.com/images/banner1.jpg");
-                                    ban2=jsonObject1.getString("http://infyemart.com/images/banner2.jpg");
-                                    ban3=jsonObject1.getString("http://infyemart.com/images/banner3.jpg");
+                                    ban1=jsonObject.getString("banner1");
+                                    ban2=jsonObject.getString("banner2");
+                                    ban3=jsonObject.getString("banner3");
 
-                                    pojo.setBaner3(ban1);
+                                    pojo.setBaner1(ban1);
                                     pojo.setBaner2(ban2);
                                     pojo.setBaner3(ban3);
 
+                                    banStrImgsArray.add(ban1);
+                                banStrImgsArray.add(ban2);
+                                banStrImgsArray.add(ban3);
+
                                     bannerImgsArray.add(pojo);
-//                                    bannerImgsArray.add(ban1);
-//                                    bannerImgsArray.add(ban2);
-//                                    bannerImgsArray.add(ban3);
+                                objectList = banStrImgsArray.toArray();
                                      stringImgs=  Arrays.copyOf(objectList,objectList.length,String[].class);
 
                                     Log.e(TAG, "string images "+stringImgs.length );
-                                    Log.e(TAG, "banner images  "+bannerImgsArray.size() );
+                                    Log.e(TAG, "banner images  "+bannerImgsArray.size());
+                                Log.e(TAG, "banner Str images  "+banStrImgsArray.size());
 
-                            }
+
                                 mPager=findViewById(R.id.pager);
                                 mPager.setAdapter(new Slider_Adapter(MainActivity.this,bannerImgsArray,stringImgs));
                             }
@@ -295,10 +297,10 @@ public class MainActivity extends AppCompatActivity
     private void initSlide() {
 //        for (int i=0;i<imgs.length;i++)
 //            imgsArray.add(imgs[i]);
-        for (int i=0;i<bannerImgsArray.size();i++);
+        for (int i=0;i<banStrImgsArray.size();i++);
 
 //        mPager=findViewById(R.id.pager);
-//        mPager.setAdapter(new Slider_Adapter(MainActivity.this,bannerImgsArray));
+//        mPager.setAdapter(new Slider_Adapter(MainActivity.this,bannerImgsArray,stringImgs));
         CircleIndicator indicator=findViewById(R.id.indicator);
         indicator.setViewPager(mPager);
 
@@ -306,9 +308,9 @@ public class MainActivity extends AppCompatActivity
         final Runnable update=new Runnable() {
             @Override
             public void run() {
-//                if (currentPage==imgs.length){
-//                    currentPage=0;
-//                }
+                if (currentPage==banStrImgsArray.size()){
+                    currentPage=0;
+                }
                 mPager.setCurrentItem(currentPage++,true);
             }
         };
@@ -346,6 +348,7 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         protected Void doInBackground(Void... voids) {
+            banner();
             categories();
             return null;
             
