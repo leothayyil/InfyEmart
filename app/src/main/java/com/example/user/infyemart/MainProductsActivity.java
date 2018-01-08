@@ -108,15 +108,15 @@ public class MainProductsActivity extends AppCompatActivity {
 //                                    JSONArray jsonArray1=jsonObject.getJSONArray("variant");
 //                                    for (int ii=0;ii<jsonArray1.length();ii++){
 //                                        JSONObject jsonObject1=jsonArray1.getJSONObject(ii);
+
 /*
                                         String offer=jsonObject1.getString("offer");
                                         String option_name=jsonObject1.getString("option_name");
                                         String original_price=jsonObject1.getString("original_price");
                                         String margin_price=jsonObject1.getString("margin_price");
                                         String item_id=jsonObject1.getString("item_id");
-
-                                        Log.e(TAG, "Item Id "+item_id +" "+product_name );
 */
+
                                         Pojo_Products pojo=new Pojo_Products();
                                         pojo.setProduct_id(product_id);
                                         pojo.setProduct_name(product_name);

@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity
 
 //        initSlide();
 
-        banner();
+//        banner();
         MyASyncTask task=new MyASyncTask(MainActivity.this);
         objectList = bannerImgsArray.toArray();
 
