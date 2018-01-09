@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -34,10 +35,11 @@ public class PurchaseActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ArrayList<Pojo_Cart>cartProducts=new ArrayList<>();
     TextView purcahserName,purchaserAddress;
+    TextView purchaseAmount,purchaseCount;
 
     String action ="cart";
     String action_account="my_account";
-    String cartId="9d2286553b0e45f736e19010a5f784c9";
+    String cartId;
     String user_id;
 
     @Override
@@ -68,12 +70,15 @@ public class PurchaseActivity extends AppCompatActivity {
         purcahserName=findViewById(R.id.purchaser_name);
         purchaserAddress=findViewById(R.id.purchaser_address);
         changeAddress=findViewById(R.id.btn_changeAddress);
+        purchaseAmount=findViewById(R.id.purchase_amount);
+        purchaseCount=findViewById(R.id.purchase_count);
 
         SharedPreferences prefs = getSharedPreferences("SHARED_DATA", MODE_PRIVATE);
         String restoredText = prefs.getString("user_id", null);
 
         if (restoredText != null) {
             user_id = prefs.getString("user_id", "0");
+            cartId=prefs.getString("session_id","0");
         }
 
         AsyncPurchase async=new AsyncPurchase();
@@ -133,27 +138,39 @@ public class PurchaseActivity extends AppCompatActivity {
                             try {
                                 JSONArray jsonArray=new JSONArray(response.body().toString());
                                 for (int i=0;i<jsonArray.length();i++){
-                                    JSONObject jsonObject=jsonArray.getJSONObject(i);
-                                    String status=jsonObject.getString("status");
-                                    String product=jsonObject.getString("product");
-                                    String m_price=jsonObject.getString("m_price");
-                                    String total=jsonObject.getString("total");
-                                    String o_price=jsonObject.getString("o_price");
-                                    String image=jsonObject.getString("image");
-                                    String id=jsonObject.getString("id");
+                                JSONObject jsonObject=jsonArray.getJSONObject(i);
+                                String status=jsonObject.getString("status");
+                                String totalAmountS=jsonObject.getString("total_price");
+                                String totalCountS=jsonObject.getString("total_count");
+
+                                purchaseAmount.setText("Rs - "+totalAmountS);
+                                purchaseCount.setText("Price of ("+totalCountS+" items)");
+
+                                JSONArray jsonArray1=jsonObject.getJSONArray("cart");
+                                for (int i1=1;i<jsonArray1.length();i1++) {
+
+                                    JSONObject jsonObject1 = jsonArray1.getJSONObject(i1);
+                                    String product = jsonObject1.getString("product");
+                                    String m_price = jsonObject1.getString("m_price");
+                                    String quantity = jsonObject1.getString("quantity");
+                                    String o_price = jsonObject1.getString("o_price");
+                                    String image = jsonObject1.getString("image");
+                                    String id = jsonObject1.getString("id");
+
                                     Pojo_Cart pojo = new Pojo_Cart();
                                     pojo.setId(id);
                                     pojo.setImage(image);
-                                    pojo.setmPrice(m_price);
-                                    pojo.setoPrice(o_price);
-                                    pojo.setTotal(total);
+                                    pojo.setmPrice("Rs " + m_price);
+                                    pojo.setoPrice("Rs " + o_price);
+                                    pojo.setQuantity("Qty " + quantity);
                                     pojo.setProduct(product);
                                     cartProducts.add(pojo);
 
-                                }
-                                CartAdapter cartAdapter=new CartAdapter(PurchaseActivity.this,cartProducts);
-                                recyclerView.setAdapter(cartAdapter);
+                                    CartAdapter cartAdapter = new CartAdapter(PurchaseActivity.this, cartProducts);
+                                    recyclerView.setAdapter(cartAdapter);
 
+                                }
+                                }
 
                             } catch (JSONException e) {
                                 e.printStackTrace();

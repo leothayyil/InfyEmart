@@ -92,6 +92,14 @@ public class MainProductsActivity extends AppCompatActivity {
         AsycProductsList async=new AsycProductsList();
         async.execute();
 
+        mainCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1=new Intent(MainProductsActivity.this,CartActivity.class);
+                startActivity(intent1);
+            }
+        });
+
     }
     private class AsycProductsList extends AsyncTask{
 
@@ -104,7 +112,7 @@ public class MainProductsActivity extends AppCompatActivity {
                         public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                             try {
                                 JSONArray jsonArray=new JSONArray(response.body().toString());
-                                for (int i=0;i<jsonArray.length();i++){
+                                for (int i=1;i<jsonArray.length();i++){
                                     JSONObject jsonObject=jsonArray.getJSONObject(i);
                                     String status=jsonObject.getString("status");
                                     String product_name=jsonObject.getString("product_name");
@@ -168,14 +176,14 @@ public class MainProductsActivity extends AppCompatActivity {
             String itemId=intent.getStringExtra("itemId");
 
             String actionToCart="add_to_cart";
-            String itemCount="1";
+          final  String itemCount="1";
             addToCart(actionToCart,itemId,itemCount);
-            Log.e(TAG, "response  "+actionToCart+","+itemId+","+session_id+","+itemId+","+resp_count+","+total_count );
+            Log.e(TAG, "response  "+itemId );
 
         }
     };
 
-    private void addToCart(String actionToCart, String itemId, String itemCount) {
+    private void addToCart(String actionToCart, String itemId, final String itemCount) {
         new RetrofitHelper(MainProductsActivity.this).getApIs().addToCart(actionToCart,itemId,itemCount,session_id)
                 .enqueue(new Callback<JsonElement>() {
 
@@ -185,8 +193,10 @@ public class MainProductsActivity extends AppCompatActivity {
                             JSONObject jsonObject=new JSONObject(response.body().toString());
                              resp_count=jsonObject.getString("item_count");
                              total_count=jsonObject.getString("total_count");
-                            String cart_id=jsonObject.getString("cart_id");
+                            String cartId=jsonObject.getString("cart_id");
+                            Log.e(TAG, "onResponse:"+cartId+","+total_count+","+itemCount );
                             cartCount.setText(total_count);
+
                         }
                         catch (JSONException e) {
                             e.printStackTrace();

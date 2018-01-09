@@ -106,7 +106,8 @@
                     android:textSize="15sp"
                     android:textColor="@color/black"
                     android:layout_height="wrap_content"
-                    android:text="Price of (2 items)"/>
+                    android:id="@+id/purchase_count"
+                    />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_marginTop="5sp"
@@ -116,7 +117,7 @@
                     android:layout_gravity="right|center"
                     android:textColor="@color/black"
                     android:layout_height="wrap_content"
-                    android:text="Rs - 1,04,800"/>
+                    android:id="@+id/purchase_amount"/>
             </LinearLayout>
             <View
                 android:layout_width="match_parent"

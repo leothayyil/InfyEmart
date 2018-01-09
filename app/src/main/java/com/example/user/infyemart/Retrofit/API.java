@@ -44,6 +44,10 @@ public interface API {
     @POST("api/android-api.php")
     Call<JsonElement> delivery_details(@Field("action") String action,@Field("user_id")String user_id);
 
+    @FormUrlEncoded
+    @POST("api/android-api.php")
+    Call<JsonElement> delivery_slot_details(@Field("action") String action);
+
 
     @FormUrlEncoded
     @POST("api/android-api.php")

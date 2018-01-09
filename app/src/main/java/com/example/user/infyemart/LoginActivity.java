@@ -36,6 +36,8 @@ public class LoginActivity extends AppCompatActivity {
         signup=findViewById(R.id.link_signup);
 
         editor = getSharedPreferences("SHARED_DATA", MODE_PRIVATE).edit();
+        editor.clear();
+        editor.commit();
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
