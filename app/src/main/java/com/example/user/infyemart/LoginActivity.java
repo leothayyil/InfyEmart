@@ -26,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     String userName="afsal345@live.com";
     String passWord;
     String action;
+    String addressString,user_name;
     SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +46,7 @@ public class LoginActivity extends AppCompatActivity {
                  passWord="redhat";
 
                 loginCall();
-                Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-                startActivity(intent);
+
             }
         });
         signup.setOnClickListener(new View.OnClickListener() {
@@ -70,12 +70,24 @@ public class LoginActivity extends AppCompatActivity {
                              String status=jsonObject.getString("status");
                              String user_id=jsonObject.getString("user_id");
                              String session_id=jsonObject.getString("session_id");
-                             String user_name=jsonObject.getString("user_name");
+                              user_name=jsonObject.getString("name");
+                             String address=jsonObject.getString("address");
+                             String district=jsonObject.getString("district");
+                             String place=jsonObject.getString("place");
+                             String phone=jsonObject.getString("phone");
+
+                              addressString=address+"\n"+district+","+place+"\n"+phone;
+
 
                             editor.putString("user_id",user_id);
                             editor.putString("session_id", session_id);
                             editor.putString("user_name",user_name);
                             editor.apply();
+
+                            Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                            intent.putExtra("address",addressString);
+                            intent.putExtra("name",user_name);
+                            startActivity(intent);
 
                         } catch (JSONException e) {
                             e.printStackTrace();

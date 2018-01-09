@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:text="sample "
+        android:textColor="@color/black"
         android:id="@+id/tv_subCat"
         android:layout_margin="7sp"
         android:layout_gravity="center"/>

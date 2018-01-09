@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="190sp"
     android:gravity="bottom"
-    android:weightSum="5"
+    android:weightSum="5.2"
     android:orientation="vertical"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
@@ -16,8 +16,9 @@
         android:gravity="center|left"
         android:paddingLeft="15sp"
         android:paddingTop="25sp"
+        android:id="@+id/mainPageName"
         android:foregroundGravity="top"
-        android:background="@color/gre1"
+        android:background="@color/bl3"
         android:textSize="20sp"
         android:textColor="#fff"
         />
@@ -25,14 +26,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1.8">
+        android:layout_weight="2">
 
         <TextView
             android:layout_width="120sp"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:gravity="center"
-            android:layout_marginTop="15sp"
+            android:gravity="center|bottom"
+            android:id="@+id/mainPageAddress"
+            android:layout_gravity="center"
             android:layout_marginLeft="15sp"
             android:text="5th Main yellenahalli, North Bangalore"/>
         <ImageView
@@ -48,6 +50,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1sp"
+        android:layout_weight=".02"
         android:layout_marginTop="5sp"
         android:background="@color/black"/>
 

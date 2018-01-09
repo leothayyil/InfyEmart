@@ -45,7 +45,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Pojo_Cart pojo=arrayListCart.get(position);
-        holder.total.setText(pojo.getTotal());
+        holder.total.setText(pojo.getQuantity());
         holder.productName.setText(pojo.getProduct());
         holder.mPrice.setText(pojo.getmPrice());
         holder.oPrice.setText(pojo.getoPrice());
@@ -70,6 +70,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             oPrice=itemView.findViewById(R.id.cart_oPrice);
             total=itemView.findViewById(R.id.cart_total);
             imageproduct=itemView.findViewById(R.id.cart_image);
+
         }
     }
 }

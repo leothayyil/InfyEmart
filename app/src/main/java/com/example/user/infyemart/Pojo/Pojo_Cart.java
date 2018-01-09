@@ -6,7 +6,21 @@ package com.example.user.infyemart.Pojo;
 
 public class Pojo_Cart {
     private String id;
-    String mPrice,oPrice,product,total,image;
+    String mPrice;
+    String oPrice;
+    String product;
+    String total;
+    String image;
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
+
+    String quantity;
 
     public String getId() {
         return id;

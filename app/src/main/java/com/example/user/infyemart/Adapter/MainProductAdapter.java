@@ -34,16 +34,15 @@ import static android.content.ContentValues.TAG;
 public class MainProductAdapter extends RecyclerView.Adapter<MainProductAdapter.ViewHolder> {
     private Context context;
     private ArrayList<Pojo_Products>arrayListProducts;
-//    private ArrayList<Pojo_Variant>arrayListVariant;
-//    String[] variant;
+    private ArrayList<Pojo_Variant>arrayListVariant;
+    String [] variantsDum={"500 gms","1 kg","2 kg", "5 kg"};
 
 
-    public MainProductAdapter(MainProductsActivity mainProductsActivity, ArrayList<Pojo_Products> productsArrayList
-//                              ArrayList<Pojo_Variant> variantArrayList
-    ) {
+    public MainProductAdapter(MainProductsActivity mainProductsActivity, ArrayList<Pojo_Products> productsArrayList,
+                              ArrayList<Pojo_Variant> variantArrayList) {
         this.arrayListProducts=productsArrayList;
         this.context=mainProductsActivity;
-//        this.arrayListVariant=variantArrayList;
+        this.arrayListVariant=variantArrayList;
     }
 
     @Override
@@ -56,31 +55,31 @@ public class MainProductAdapter extends RecyclerView.Adapter<MainProductAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final Pojo_Products pojo=arrayListProducts.get(position);
-//        final Pojo_Variant pojoV=arrayListVariant.get(position);
+        final Pojo_Variant pojoV=arrayListVariant.get(position);
 
 //        Log.e(TAG, "onBindViewHolder: "+String.valueOf(arrayListVariant.size() ));
 
         holder.productName.setText(pojo.getProduct_name());
 
-//        holder.marginPrice.setText(pojoV.getMargin_price());
-//        holder.originalPrice.setText(pojoV.getOriginal_price());
-//        holder.optionName.setText(pojoV.getOptionName());
-//        holder.offer.setText(pojoV.getOffer());
+        holder.marginPrice.setText(pojoV.getMargin_price());
+        holder.originalPrice.setText(pojoV.getOriginal_price());
+        holder.optionName.setText(pojoV.getOptionName());
+        holder.offer.setText(pojoV.getOffer());
 
         Picasso.with(context).load(pojo.getProduct_image()).placeholder(R.drawable.loading)
                 .error(R.drawable.error_image).into(holder.productImage);
 
-//        Object[] objectList=arrayListVariant.toArray();
-//        variant= Arrays.copyOf(objectList,objectList.length,String[].class);
+        ArrayAdapter aa=new ArrayAdapter(context,android.R.layout.simple_spinner_dropdown_item,variantsDum);
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        holder.variantSpin.setAdapter(aa);
 
-
-//        ArrayAdapter<String>dataAdapter=new ArrayAdapter<String>(context,android.R.layout.simple_spinner_item,variant);
         holder.addToCartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Intent intent=new Intent("getItemId");
-                intent.putExtra("itemId",pojo.getItem_id());
+                String itemId=pojoV.getItemId();
+                intent.putExtra("itemId",itemId);
                 LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
             }
         });

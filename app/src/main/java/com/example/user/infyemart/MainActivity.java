@@ -11,6 +11,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +54,9 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG = "logg";
     RecyclerView recycler;
     RecyclerView.LayoutManager layoutManager;
+    TextView mainPageName,mainPageAddress;
+    CardView cardrecentHead,cardMainHead;
+    LinearLayout contentMain;
 
     private ViewPager mPager;
     private static int currentPage=0;
@@ -61,6 +67,7 @@ public class MainActivity extends AppCompatActivity
     String category;
     Object[] objectList;
     String[] stringImgs;
+    String userAddressNav,userNameNav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,11 +76,16 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
         TextView toolbarTit = findViewById(R.id.toolbar_title);
-        toolbarTit.setVisibility(View.GONE);
+        toolbarTit.setVisibility(View.INVISIBLE);
+
+
 
 //        initSlide();
-
-
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+             userAddressNav= extras.getString("address");
+             userNameNav=extras.getString("name");
+        }
         MyASyncTask task=new MyASyncTask(MainActivity.this);
 
 
@@ -83,16 +95,20 @@ public class MainActivity extends AppCompatActivity
         ImageView mainAccount=findViewById(R.id.mainToolbarAccount);
          ImageView mainCart=findViewById(R.id.mainToolbarCart);
 
+
+         cardMainHead=findViewById(R.id.cardTopCat_main);
+         cardrecentHead=findViewById(R.id.cardRecent_main);
+         cardrecentHead.setVisibility(View.GONE);
+         cardMainHead.setVisibility(View.GONE);
+         contentMain=findViewById(R.id.contentMain);
         recycler=findViewById(R.id.categoryMainList);
         recycler.setHasFixedSize(true);
-         layoutManager=new LinearLayoutManager(this);
+         layoutManager=new GridLayoutManager(MainActivity.this,2);
         recycler.setLayoutManager(layoutManager);
         final Main_RecyclerAdapter adapter=new Main_RecyclerAdapter(MainActivity.this,categories_call);
         recycler.setAdapter(adapter);
         recycler.setFitsSystemWindows(true);
         recycler.addItemDecoration(new ItemOffsetDecoration(20));
-
-
 
         recycler.addOnItemTouchListener(new RecyclerItemClickListener(MainActivity.this, recycler, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
@@ -124,16 +140,16 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
-           recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-            }
-        });
+//           recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+//                super.onScrollStateChanged(recyclerView, newState);
+//            }
+//            @Override
+//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//            }
+//        });
         adapter.notifyDataSetChanged();
 
 
@@ -146,6 +162,11 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View headerView=navigationView.getHeaderView(0);
+
+        mainPageAddress=headerView.findViewById(R.id.mainPageAddress);
+        mainPageName=headerView.findViewById(R.id.mainPageName);
+        mainPageName.setText(userNameNav);
+        mainPageAddress.setText(userAddressNav);
 
         ImageView pencilEdt=headerView.findViewById(R.id.addressEditDrawPencil);
         pencilEdt.setOnClickListener(new View.OnClickListener() {
@@ -238,6 +259,8 @@ public class MainActivity extends AppCompatActivity
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                        cardMainHead.setVisibility(View.VISIBLE);
+                        cardrecentHead.setVisibility(View.VISIBLE);
                     }
 
                     @Override

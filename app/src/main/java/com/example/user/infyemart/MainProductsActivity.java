@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
@@ -38,12 +39,13 @@ import retrofit2.Response;
 public class MainProductsActivity extends AppCompatActivity {
 
     String action="product_listing";
-    String categoryId,sub_catId,subCategoryName;
+    String categoryId,sub_catId,subCategoryName,session_id,resp_count,total_count;
     ArrayList<Pojo_Products> productsArrayList=new ArrayList<>();
     ArrayList<Pojo_Variant>variantArrayList=new ArrayList<>();
     RecyclerView recyclerView;
     private String TAG="logg";
     TextView cartCount;
+    SharedPreferences prefs;
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -68,6 +70,11 @@ public class MainProductsActivity extends AppCompatActivity {
         mainAccount.setVisibility(View.GONE);
 
 
+        prefs=getSharedPreferences("SHARED_DATA",MODE_PRIVATE);
+        String restoredText=prefs.getString("session_id",null);
+        if (restoredText !=null){
+            session_id=prefs.getString("session_id","0");
+        }
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,new IntentFilter("getItemId"));
 
         recyclerView=findViewById(R.id.recycler_products_Main);
@@ -105,17 +112,16 @@ public class MainProductsActivity extends AppCompatActivity {
                                     String product_id=jsonObject.getString("product_id");
 
 
-//                                    JSONArray jsonArray1=jsonObject.getJSONArray("variant");
-//                                    for (int ii=0;ii<jsonArray1.length();ii++){
-//                                        JSONObject jsonObject1=jsonArray1.getJSONObject(ii);
+                                    JSONArray jsonArray1=jsonObject.getJSONArray("variant");
+                                    for (int ii=0;ii<jsonArray1.length();ii++){
+                                        JSONObject jsonObject1=jsonArray1.getJSONObject(ii);
 
-/*
+
                                         String offer=jsonObject1.getString("offer");
                                         String option_name=jsonObject1.getString("option_name");
                                         String original_price=jsonObject1.getString("original_price");
                                         String margin_price=jsonObject1.getString("margin_price");
                                         String item_id=jsonObject1.getString("item_id");
-*/
 
                                         Pojo_Products pojo=new Pojo_Products();
                                         pojo.setProduct_id(product_id);
@@ -123,23 +129,21 @@ public class MainProductsActivity extends AppCompatActivity {
                                         pojo.setProduct_image(product_image);
 
 
-//                                        Pojo_Variant pojoV=new Pojo_Variant();
-//                                        pojoV.setOffer(offer);
-//                                        pojoV.setOptionName(option_name);
-//                                        pojoV.setItemId(item_id);
-//                                        pojoV.setMargin_price(margin_price);
-//                                        pojoV.setOriginal_price(original_price);
-
-
-//                                        variantArrayList.add(pojoV);
+                                        Pojo_Variant pojoV=new Pojo_Variant();
+                                        pojoV.setOffer(offer);
+                                        pojoV.setOptionName(option_name);
+                                        pojoV.setItemId(item_id);
+                                        pojoV.setMargin_price(margin_price);
+                                        pojoV.setOriginal_price(original_price);
+                                        variantArrayList.add(pojoV);
                                         productsArrayList.add(pojo);
 
-//                                    }
+                                    }
                                 }
 
                                 MainProductAdapter adapter=new MainProductAdapter(
                                         MainProductsActivity.this,productsArrayList
-//                                        ,variantArrayList
+                                        ,variantArrayList
                                 );
                                 recyclerView.setAdapter(adapter);
                             } catch (JSONException e) {
@@ -161,24 +165,28 @@ public class MainProductsActivity extends AppCompatActivity {
     public BroadcastReceiver mMessageReceiver=new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-//            String itemId=intent.getStringExtra("itemId");
-            String itemId="12";
+            String itemId=intent.getStringExtra("itemId");
+
             String actionToCart="add_to_cart";
-            String itemCount="25";
+            String itemCount="1";
             addToCart(actionToCart,itemId,itemCount);
+            Log.e(TAG, "response  "+actionToCart+","+itemId+","+session_id+","+itemId+","+resp_count+","+total_count );
+
         }
     };
 
     private void addToCart(String actionToCart, String itemId, String itemCount) {
-        new RetrofitHelper(MainProductsActivity.this).getApIs().addToCart(actionToCart,itemId,itemCount)
+        new RetrofitHelper(MainProductsActivity.this).getApIs().addToCart(actionToCart,itemId,itemCount,session_id)
                 .enqueue(new Callback<JsonElement>() {
+
                     @Override
                     public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                         try {
                             JSONObject jsonObject=new JSONObject(response.body().toString());
-                            String resp_count=jsonObject.getString("item_count");
+                             resp_count=jsonObject.getString("item_count");
+                             total_count=jsonObject.getString("total_count");
                             String cart_id=jsonObject.getString("cart_id");
-                            cartCount.setText(resp_count);
+                            cartCount.setText(total_count);
                         }
                         catch (JSONException e) {
                             e.printStackTrace();
