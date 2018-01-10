@@ -79,7 +79,9 @@ public class MainProductAdapter extends RecyclerView.Adapter<MainProductAdapter.
 
                 Intent intent=new Intent("getItemId");
                 String itemId=pojoV.getItemId();
+                String productId=pojo.getProduct_id();
                 intent.putExtra("itemId",itemId);
+                intent.putExtra("productId",productId);
                 LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
             }
         });

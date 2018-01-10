@@ -12,6 +12,7 @@
         android:id="@+id/toolbar_Cart"/>
     <ScrollView
         android:layout_width="match_parent"
+        android:id="@+id/scrollView_cart"
         android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,6 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10sp"
         android:layout_gravity="bottom"
+        android:id="@+id/cart_cardPriceDetails"
         android:foregroundGravity="bottom"
         app:cardCornerRadius="10sp">
         <LinearLayout
@@ -117,4 +119,11 @@
         android:textColor="#fff" />
     </LinearLayout>
     </ScrollView>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:id="@+id/no_items"
+        android:layout_marginTop="150sp"
+        android:src="@drawable/search_no_items"/>
 </LinearLayout>

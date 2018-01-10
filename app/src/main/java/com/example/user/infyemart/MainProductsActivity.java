@@ -24,6 +24,7 @@ import com.example.user.infyemart.Adapter.Main_RecyclerAdapter;
 import com.example.user.infyemart.Pojo.Pojo_Products;
 import com.example.user.infyemart.Pojo.Pojo_Variant;
 import com.example.user.infyemart.Retrofit.RetrofitHelper;
+import com.example.user.infyemart.Utils.RecyclerItemClickListener;
 import com.google.gson.JsonElement;
 
 import org.json.JSONArray;
@@ -39,13 +40,14 @@ import retrofit2.Response;
 public class MainProductsActivity extends AppCompatActivity {
 
     String action="product_listing";
-    String categoryId,sub_catId,subCategoryName,session_id,resp_count,total_count;
+    String categoryId,sub_catId,subCategoryName,session_id,resp_count,total_count,productId;
     ArrayList<Pojo_Products> productsArrayList=new ArrayList<>();
     ArrayList<Pojo_Variant>variantArrayList=new ArrayList<>();
     RecyclerView recyclerView;
     private String TAG="logg";
     TextView cartCount;
     SharedPreferences prefs;
+    ImageView noItems;
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -68,6 +70,7 @@ public class MainProductsActivity extends AppCompatActivity {
         ImageView mainCart=findViewById(R.id.mainToolbarCart);
          cartCount=findViewById(R.id.cartCountId);
         mainAccount.setVisibility(View.GONE);
+        noItems=findViewById(R.id.no_items);
 
 
         prefs=getSharedPreferences("SHARED_DATA",MODE_PRIVATE);
@@ -75,6 +78,8 @@ public class MainProductsActivity extends AppCompatActivity {
         if (restoredText !=null){
             session_id=prefs.getString("session_id","0");
         }
+
+
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,new IntentFilter("getItemId"));
 
         recyclerView=findViewById(R.id.recycler_products_Main);
@@ -82,6 +87,21 @@ public class MainProductsActivity extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(MainProductsActivity.this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                productId=productsArrayList.get(position).getProduct_id();
+                Intent intent=new Intent(MainProductsActivity.this,ProductViewActivity.class);
+                intent.putExtra("product_id",productId);
+                Log.e(TAG, "productId  "+productId);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+
+            }
+        }));
 
         Intent intent=getIntent();
         categoryId=intent.getExtras().getString("category_id");
@@ -112,7 +132,11 @@ public class MainProductsActivity extends AppCompatActivity {
                         public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                             try {
                                 JSONArray jsonArray=new JSONArray(response.body().toString());
+                                if (jsonArray.isNull(0)){
+                                    noItems.setVisibility(View.VISIBLE);
+                                }
                                 for (int i=0;i<jsonArray.length();i++){
+
                                     JSONObject jsonObject=jsonArray.getJSONObject(i);
                                     String status=jsonObject.getString("status");
                                     String product_name=jsonObject.getString("product_name");
@@ -175,10 +199,10 @@ public class MainProductsActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             String itemId=intent.getStringExtra("itemId");
 
+
             String actionToCart="add_to_cart";
           final  String itemCount="1";
             addToCart(actionToCart,itemId,itemCount);
-            Log.e(TAG, "response  "+itemId );
 
         }
     };

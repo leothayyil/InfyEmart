@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -15,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -51,8 +53,9 @@ public class CartActivity extends AppCompatActivity {
     private ArrayList<String>deliverySlot=new ArrayList<>();
     private ArrayList<String>deliveryCharge=new ArrayList<>();
     String[] deliverySlotStr;
-
-
+    CardView cardPriceDetails;
+    ImageView noItems;
+    ScrollView cartScrollView;
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -80,13 +83,15 @@ public class CartActivity extends AppCompatActivity {
         mainCart.setVisibility(View.GONE);
         deliverySpin=findViewById(R.id.deliverySpin);
         deliveryChargeTv=findViewById(R.id.deliveryAmount);
-
+        cartScrollView=findViewById(R.id.scrollView_cart);
+        noItems=findViewById(R.id.no_items);
+        cartScrollView.setVisibility(View.GONE);
 
         prefs=getSharedPreferences("SHARED_DATA",MODE_PRIVATE);
         String restoredText=prefs.getString("session_id",null);
         if (restoredText !=null){
             cartId=prefs.getString("session_id","0");
-            Log.e(TAG, "cartId  "+cartId);
+            Log.e(TAG, "cartId  "+ cartId);
         }
 
         recyclerView=findViewById(R.id.recyclerCart);
@@ -132,6 +137,7 @@ public class CartActivity extends AppCompatActivity {
                                 Log.e(TAG, "slot name and charge "+slot_name+delivery_charge );
 
                                 deliverySlot.add(slot_name);
+
 //                                if (!deliverySlot.isEmpty()){
 
 //                                    deliverySpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -154,7 +160,8 @@ public class CartActivity extends AppCompatActivity {
                                 Object[] objects=deliverySlot.toArray();
                                 deliverySlotStr= Arrays.copyOf(objects,objects.length,String[].class);
 
-                                ArrayAdapter<String>arrayAdapter=new ArrayAdapter<String>(CartActivity.this,android.R.layout
+                                ArrayAdapter<String>arrayAdapter=new ArrayAdapter<String>(
+                                        CartActivity.this,android.R.layout
                                 .simple_spinner_dropdown_item,deliverySlotStr);
                                 deliverySpin.setAdapter(arrayAdapter);
 
@@ -179,9 +186,15 @@ public class CartActivity extends AppCompatActivity {
                     public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                         try {
                             JSONArray jsonArray=new JSONArray(response.body().toString());
+                            if (jsonArray.isNull(0)){
+                                noItems.setVisibility(View.VISIBLE);
+                            }
+
                             for (int i=0;i<jsonArray.length();i++){
                                 JSONObject jsonObject=jsonArray.getJSONObject(i);
                                 String status=jsonObject.getString("status");
+                                cartScrollView.setVisibility(View.VISIBLE);
+                                noItems.setVisibility(View.GONE);
                                 String totalAmountS=jsonObject.getString("total_price");
                                 String totalCountS=jsonObject.getString("total_count");
 

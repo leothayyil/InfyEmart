@@ -78,8 +78,6 @@ public class MainActivity extends AppCompatActivity
         TextView toolbarTit = findViewById(R.id.toolbar_title);
         toolbarTit.setVisibility(View.INVISIBLE);
 
-
-
 //        initSlide();
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -87,8 +85,6 @@ public class MainActivity extends AppCompatActivity
              userNameNav=extras.getString("name");
         }
         MyASyncTask task=new MyASyncTask(MainActivity.this);
-
-
 
         task.execute();
 
