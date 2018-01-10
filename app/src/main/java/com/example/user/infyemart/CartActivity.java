@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -42,7 +43,7 @@ public class CartActivity extends AppCompatActivity {
     Button checkout;
     String action ="cart";
     String cartId;
-    TextView totalAmount,totalCount;
+    TextView totalAmount,totalCount,deliveryChargeTv;
     Spinner deliverySpin;
 
     SharedPreferences prefs;
@@ -78,6 +79,7 @@ public class CartActivity extends AppCompatActivity {
         totalCount=findViewById(R.id.cart_totalCount);
         mainCart.setVisibility(View.GONE);
         deliverySpin=findViewById(R.id.deliverySpin);
+        deliveryChargeTv=findViewById(R.id.deliveryAmount);
 
 
         prefs=getSharedPreferences("SHARED_DATA",MODE_PRIVATE);
@@ -122,13 +124,32 @@ public class CartActivity extends AppCompatActivity {
                     public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                         try {
                             JSONArray jsonArray=new JSONArray(response.body().toString());
-                            for (int i=1;i<jsonArray.length();i++){
+                            for (int i=0;i<jsonArray.length();i++){
                                 JSONObject jsonObject=jsonArray.getJSONObject(i);
                                 String slot_name=jsonObject.getString("slot_name");
                                 String delivery_charge=jsonObject.getString("delivery_charge");
+
                                 Log.e(TAG, "slot name and charge "+slot_name+delivery_charge );
 
                                 deliverySlot.add(slot_name);
+//                                if (!deliverySlot.isEmpty()){
+
+//                                    deliverySpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//                                        @Override
+//                                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//                                            deliveryChargeTv.setText(deliveryCharge.get(position));
+//                                        }
+//
+//                                        @Override
+//                                        public void onNothingSelected(AdapterView<?> parent) {
+//
+//                                        }
+//                                    });
+//                                }
+
+
+
 
                                 Object[] objects=deliverySlot.toArray();
                                 deliverySlotStr= Arrays.copyOf(objects,objects.length,String[].class);
@@ -168,7 +189,7 @@ public class CartActivity extends AppCompatActivity {
                                 totalCount.setText("Price of ("+totalCountS+" items)");
 
                                 JSONArray jsonArray1=jsonObject.getJSONArray("cart");
-                                for (int i1=1;i<jsonArray1.length();i1++){
+                                for (int i1=0;i<jsonArray1.length();i1++){
 
                                     JSONObject jsonObject1=jsonArray1.getJSONObject(i1);
                                     String product=jsonObject1.getString("product");

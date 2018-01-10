@@ -147,7 +147,7 @@ public class PurchaseActivity extends AppCompatActivity {
                                 purchaseCount.setText("Price of ("+totalCountS+" items)");
 
                                 JSONArray jsonArray1=jsonObject.getJSONArray("cart");
-                                for (int i1=1;i<jsonArray1.length();i1++) {
+                                for (int i1=0;i<jsonArray1.length();i1++) {
 
                                     JSONObject jsonObject1 = jsonArray1.getJSONObject(i1);
                                     String product = jsonObject1.getString("product");

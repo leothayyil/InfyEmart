@@ -112,7 +112,7 @@ public class MainProductsActivity extends AppCompatActivity {
                         public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                             try {
                                 JSONArray jsonArray=new JSONArray(response.body().toString());
-                                for (int i=1;i<jsonArray.length();i++){
+                                for (int i=0;i<jsonArray.length();i++){
                                     JSONObject jsonObject=jsonArray.getJSONObject(i);
                                     String status=jsonObject.getString("status");
                                     String product_name=jsonObject.getString("product_name");
