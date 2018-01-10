@@ -168,7 +168,6 @@ public class PurchaseActivity extends AppCompatActivity {
 
                                     CartAdapter cartAdapter = new CartAdapter(PurchaseActivity.this, cartProducts);
                                     recyclerView.setAdapter(cartAdapter);
-
                                 }
                                 }
 
