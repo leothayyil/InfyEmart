@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_margin="15sp"
     android:background="#fff"
     android:layout_height="match_parent"
     tools:context="com.example.user.infyemart.ProductViewActivity">
+    <include layout="@layout/toolbar_main"
+        android:id="@+id/toolbarProductView"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10sp"
+        android:id="@+id/scrollViewProductView"
+        >
+
    <android.support.v7.widget.CardView
        android:layout_width="match_parent"
        android:layout_height="match_parent"
@@ -23,6 +31,7 @@
     android:layout_height="wrap_content"
     android:textColor="@color/black"
     android:textSize="19dp"
+    android:id="@+id/PV_productNmae"
     android:layout_gravity="center"
     android:layout_margin="15sp"
     android:text="Product Name"
@@ -31,6 +40,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:textColor="@color/black"
+        android:id="@+id/PV_qty"
     android:text="Quantity"
     android:layout_marginLeft="15sp"
   />
@@ -42,6 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Discount"
+            android:id="@+id/PV_brand"
             android:layout_gravity="bottom"
         android:layout_marginLeft="15sp"/>
         <LinearLayout
@@ -55,12 +66,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="35%"
+                    android:id="@+id/PV_offer"
                     android:textColor="@color/red"
                     android:layout_marginLeft="15sp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Rs 430"
+                android:id="@+id/PV_marginPrice"
                 android:layout_marginLeft="15sp"/>
         </LinearLayout>
 
@@ -69,6 +82,7 @@
             android:layout_height="wrap_content"
             android:text="Rs 350"
             android:textSize="19sp"
+            android:id="@+id/PV_originalPrice"
             android:textColor="@color/black"
             android:layout_marginLeft="15sp"
             android:layout_marginTop="15sp"/>
@@ -78,7 +92,7 @@
         android:layout_width="250sp"
         android:layout_gravity="center"
         android:layout_margin="20sp"
-        android:src="@drawable/c_vegitable"
+        android:id="@+id/PV_imageView"
         android:layout_height="200sp" />
     <LinearLayout
         android:layout_width="wrap_content"
@@ -94,17 +108,17 @@
             android:layout_width="60sp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="45sp"
+            android:id="@+id/PV_add"
             android:text="add"/>
-        <Button
-            android:layout_width="60sp"
-            android:layout_height="wrap_content"
-            android:text="-"/>
+
     </LinearLayout>
     <TextView
         android:layout_width="300sp"
+        android:id="@+id/PV_description"
         android:text="@string/description"
         android:layout_height="wrap_content"
         />
     </LinearLayout>
    </android.support.v7.widget.CardView>
-</ScrollView>
+    </ScrollView>
+</LinearLayout>

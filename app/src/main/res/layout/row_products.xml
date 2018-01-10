@@ -89,9 +89,9 @@
 
 
                     <ImageButton
-                        android:layout_width="0sp"
+                        android:layout_width="50sp"
                         android:backgroundTint="@color/gr3"
-                        android:layout_height="40sp"
+                        android:layout_height="50sp"
                         android:layout_weight="1"
                         android:id="@+id/addToCart_btn"
                         android:src="@drawable/small_cart"/>

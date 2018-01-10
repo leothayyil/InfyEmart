@@ -73,15 +73,23 @@ public class MainProductAdapter extends RecyclerView.Adapter<MainProductAdapter.
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         holder.variantSpin.setAdapter(aa);
 
+        holder.productImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent=new Intent("getPosition");
+                String productId=pojo.getProduct_id();
+                intent.putExtra("position",String.valueOf(position));
+                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+            }
+        });
         holder.addToCartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Intent intent=new Intent("getItemId");
                 String itemId=pojoV.getItemId();
-                String productId=pojo.getProduct_id();
                 intent.putExtra("itemId",itemId);
-                intent.putExtra("productId",productId);
                 LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
             }
         });

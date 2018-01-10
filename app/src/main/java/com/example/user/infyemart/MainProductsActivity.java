@@ -15,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,13 +41,14 @@ import retrofit2.Response;
 public class MainProductsActivity extends AppCompatActivity {
 
     String action="product_listing";
-    String categoryId,sub_catId,subCategoryName,session_id,resp_count,total_count,productId;
+    String categoryId,sub_catId,subCategoryName,session_id,resp_count,total_count,position;
     ArrayList<Pojo_Products> productsArrayList=new ArrayList<>();
     ArrayList<Pojo_Variant>variantArrayList=new ArrayList<>();
     RecyclerView recyclerView;
     private String TAG="logg";
     TextView cartCount;
     SharedPreferences prefs;
+    Button addBtn;
     ImageView noItems;
 
     @Override
@@ -73,6 +75,7 @@ public class MainProductsActivity extends AppCompatActivity {
         noItems=findViewById(R.id.no_items);
 
 
+
         prefs=getSharedPreferences("SHARED_DATA",MODE_PRIVATE);
         String restoredText=prefs.getString("session_id",null);
         if (restoredText !=null){
@@ -80,34 +83,39 @@ public class MainProductsActivity extends AppCompatActivity {
         }
 
 
-        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,new IntentFilter("getItemId"));
 
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,new IntentFilter("getItemId"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver1,new IntentFilter("getPosition"));
         recyclerView=findViewById(R.id.recycler_products_Main);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
-        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(MainProductsActivity.this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                productId=productsArrayList.get(position).getProduct_id();
-                Intent intent=new Intent(MainProductsActivity.this,ProductViewActivity.class);
-                intent.putExtra("product_id",productId);
-                Log.e(TAG, "productId  "+productId);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onLongItemClick(View view, int position) {
-
-            }
-        }));
+//        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(MainProductsActivity.this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(View view, int position) {
+//                productId=productsArrayList.get(position).getProduct_id();
+//                String itemId=variantArrayList.get(position).getItemId();
+//                Intent intent=new Intent(MainProductsActivity.this,ProductViewActivity.class);
+//                intent.putExtra("product_id",productId);
+//                intent.putExtra("cart_id",session_id);
+//                intent.putExtra("item_id",itemId);
+//                Log.e(TAG, "productId  "+productId);
+//                startActivity(intent);
+//            }
+//
+//            @Override
+//            public void onLongItemClick(View view, int position) {
+//
+//            }
+//        }));
 
         Intent intent=getIntent();
         categoryId=intent.getExtras().getString("category_id");
         sub_catId=intent.getExtras().getString("sub_categoryId");
         subCategoryName=intent.getExtras().getString("sub_category");
         toolbarTit.setText(subCategoryName);
+
 
         AsycProductsList async=new AsycProductsList();
         async.execute();
@@ -206,7 +214,27 @@ public class MainProductsActivity extends AppCompatActivity {
 
         }
     };
+    final BroadcastReceiver mMessageReceiver1=new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
 
+
+            position=intent.getStringExtra("position");
+
+
+            Intent intent1=new Intent(MainProductsActivity.this,ProductViewActivity.class);
+                         String productId=productsArrayList.get(Integer.parseInt(position)).getProduct_id();
+                        String itemId=variantArrayList.get(Integer.parseInt(position)).getItemId();
+
+            intent1.putExtra("product_id",productId);
+            intent1.putExtra("cart_id",session_id);
+            intent1.putExtra("item_id",itemId);
+
+            Log.e(TAG, position+"  ,  "+productId+"  ,  "+session_id+"  ,  "+itemId );
+            startActivity(intent1);
+
+        }
+    };
     private void addToCart(String actionToCart, String itemId, final String itemCount) {
         new RetrofitHelper(MainProductsActivity.this).getApIs().addToCart(actionToCart,itemId,itemCount,session_id)
                 .enqueue(new Callback<JsonElement>() {
