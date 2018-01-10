@@ -68,5 +68,8 @@ public interface API {
     Call<JsonElement> addToCart(@Field("action") String action,@Field("item_id")String item_id,@Field("item_count")String count,
                                 @Field("cart_id")String session_id);
 
+    @FormUrlEncoded
+    @POST("api/android-api.php")
+    Call<JsonElement> product_details(@Field("action") String action,@Field("product_id")String product_id);
 }
 

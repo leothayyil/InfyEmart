@@ -7,6 +7,7 @@ import com.example.user.infyemart.CartActivity;
 import com.example.user.infyemart.LoginActivity;
 import com.example.user.infyemart.MainActivity;
 import com.example.user.infyemart.MainProductsActivity;
+import com.example.user.infyemart.ProductViewActivity;
 import com.example.user.infyemart.PurchaseActivity;
 import com.example.user.infyemart.SubCategoey_Activity;
 
@@ -58,6 +59,10 @@ public class RetrofitHelper {
     }
 
     public RetrofitHelper(AddressEnterActivity addressEnterActivity) {
+        initResstAdapter();
+    }
+
+    public RetrofitHelper(ProductViewActivity productViewActivity) {
         initResstAdapter();
     }
 
