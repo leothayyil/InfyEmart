@@ -300,7 +300,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
          if (id == R.id.orders_draw) {
-            Intent intent=new Intent(MainActivity.this,MyOrdersActivity.class);
+            Intent intent=new Intent(MainActivity.this,MyOrderList_Activity.class);
             startActivity(intent);
         } else if (id == R.id.notification_draw) {
              Intent intent=new Intent(MainActivity.this,NotificationActivity.class);
