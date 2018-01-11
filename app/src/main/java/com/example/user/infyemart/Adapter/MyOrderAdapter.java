@@ -8,7 +8,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.user.infyemart.MyOrdersActivity;
+import com.example.user.infyemart.Pojo.Pojo_orderedListDetails;
 import com.example.user.infyemart.R;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 /**
  * Created by USER on 18-12-2017.
@@ -16,67 +21,44 @@ import com.example.user.infyemart.R;
 
 public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyViewHolder> {
 
-    private Context mContext;
-    private final String[] category;
-    private final int[] catImage;
-    private static final int TYPE_HEADER=0;
-    public static final int TYPE_ITEM=1;
-    private static final int TYPE_FOOTER = 2;
+    Context context;
+    ArrayList <Pojo_orderedListDetails> listDetails;
+    public MyOrderAdapter(MyOrdersActivity myOrdersActivity, ArrayList<Pojo_orderedListDetails> listDetails) {
 
-
-    public MyOrderAdapter(Context mContext, String[] category, int[] catImage) {
-        this.mContext = mContext;
-        this.category = category;
-        this.catImage = catImage;
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        if (isPositionHeader(position)) {
-
-            return TYPE_HEADER;
-
-        }else if (isPositionFooter(position)){
-            return TYPE_FOOTER;
-        }
-        return TYPE_ITEM;
-    }
-    private boolean isPositionHeader(int position) {
-        return position == 0;
-    }
-
-    private boolean isPositionFooter(int position) {
-        return position >category.length;
+        this.context=myOrdersActivity;
+        this.listDetails=listDetails;
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.raw_order,parent,false);
-
+        View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.raw_order,parent,false);
         return new MyViewHolder(view);
-        }
+    }
+
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        if (holder instanceof MyViewHolder) {
-            holder.catName.setText(category[position]);
-            holder.catImage.setImageResource(catImage[position]);
-        }
+
+        Pojo_orderedListDetails pojo=listDetails.get(position);
+        holder.productName.setText(pojo.getProduct());
+        holder.unit.setText("Qty "+pojo.getUnit()+" * "+pojo.getQuantity());
+        Picasso.with(context).load(pojo.getImage()).placeholder(R.drawable.loading).error(R.drawable.error_image)
+                .into(holder.imageView);
     }
 
     @Override
     public int getItemCount() {
-        return category.length;
+        return listDetails.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView catName;
-        ImageView catImage;
+        TextView productName,unit;
+        ImageView imageView;
         public MyViewHolder(View itemView) {
             super(itemView);
+            productName=itemView.findViewById(R.id.orderProductId);
+            unit=itemView.findViewById(R.id.order_unit);
+            imageView=itemView.findViewById(R.id.order_itemIv);
 
-            catName=itemView.findViewById(R.id.orderProductId);
-            catImage=itemView.findViewById(R.id.order_itemIv);
         }
     }
 }

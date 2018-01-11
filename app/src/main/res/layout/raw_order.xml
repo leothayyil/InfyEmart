@@ -26,13 +26,13 @@
             android:id="@+id/orderProductId"
             android:layout_marginTop="10sp"
             android:layout_height="wrap_content"
-            android:text="Product Name"/>>
+            />>
         <TextView
             android:layout_width="180sp"
             android:gravity="center"
             android:layout_marginTop="10sp"
             android:layout_height="wrap_content"
-            android:text="Delivery Status"/>
+            android:id="@+id/order_unit"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -54,7 +54,7 @@
         android:layout_width="120sp"
         android:layout_height="140sp"
         android:id="@+id/order_itemIv"
-        android:src="@drawable/c_vegitable"/>
+        />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 

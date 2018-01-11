@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,6 +38,11 @@ public class MyOrderList_Activity extends AppCompatActivity {
     TextView toolbarTit,cartCount;
     ImageView mainCart;
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return  true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +77,9 @@ public class MyOrderList_Activity extends AppCompatActivity {
 
                         int num=Integer.parseInt(orderedLists.get(position).getId());
                         Intent intent=new Intent(MyOrderList_Activity.this,MyOrdersActivity.class);
-//                        intent.putExtra()
+                        intent.putExtra("table_id",num);
+                        startActivity(intent);
+                        Log.e("logg", "onItemClick: "+num);
                     }
 
                     @Override
@@ -97,7 +105,7 @@ public class MyOrderList_Activity extends AppCompatActivity {
                                     String order_id=jsonObject.getString("order_id");
                                     String grand_total=jsonObject.getString("grand_total");
                                     String total_count=jsonObject.getString("total_count");
-                                    String id=jsonObject.getString("id");
+                                    String id=jsonObject.getString("table_id");
                                     Pojo_OrderedList pojo=new Pojo_OrderedList();
                                     pojo.setBookedDate(booked_date);
                                     pojo.setGrandTotal(grand_total);

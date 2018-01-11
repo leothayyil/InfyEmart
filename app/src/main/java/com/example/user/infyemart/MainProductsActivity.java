@@ -123,7 +123,6 @@ public class MainProductsActivity extends AppCompatActivity {
         subCategoryName=intent.getExtras().getString("sub_category");
         toolbarTit.setText(subCategoryName);
 
-
         AsycProductsList async=new AsycProductsList();
         async.execute();
 
