@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -72,6 +73,7 @@ public class MainProductAdapter extends RecyclerView.Adapter<MainProductAdapter.
         ArrayAdapter aa=new ArrayAdapter(context,android.R.layout.simple_spinner_dropdown_item,variantsDum);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         holder.variantSpin.setAdapter(aa);
+        holder.linearLayout.setVisibility(View.GONE);
 
         holder.productImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +109,7 @@ public class MainProductAdapter extends RecyclerView.Adapter<MainProductAdapter.
         ImageButton addToCartBtn;
         ImageView  productImage;
         Spinner variantSpin;
+        LinearLayout linearLayout;
         public ViewHolder(View itemView) {
             super(itemView);
             productName=itemView.findViewById(R.id.productList_name);
@@ -117,6 +120,7 @@ public class MainProductAdapter extends RecyclerView.Adapter<MainProductAdapter.
             productImage=itemView.findViewById(R.id.productList_image);
             addToCartBtn=itemView.findViewById(R.id.addToCart_btn);
             variantSpin=itemView.findViewById(R.id.variant_spinnerId);
+            linearLayout=itemView.findViewById(R.id.linearCount);
         }
     }
 }

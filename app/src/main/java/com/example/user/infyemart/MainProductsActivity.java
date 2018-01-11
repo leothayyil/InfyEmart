@@ -16,7 +16,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,8 +50,10 @@ public class MainProductsActivity extends AppCompatActivity {
     private String TAG="logg";
     TextView cartCount;
     SharedPreferences prefs;
-    Button addBtn;
+    ImageButton addBtn;
+    Button productCount,productAdd;
     ImageView noItems;
+    LinearLayout linearLayoutCount;
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -73,7 +77,10 @@ public class MainProductsActivity extends AppCompatActivity {
          cartCount=findViewById(R.id.cartCountId);
         mainAccount.setVisibility(View.GONE);
         noItems=findViewById(R.id.no_items);
-
+        addBtn=findViewById(R.id.addToCart_btn);
+        productAdd=findViewById(R.id.productAddBtn);
+        productCount=findViewById(R.id.productCountBtn);
+        linearLayoutCount=findViewById(R.id.linearCount);
 
 
         prefs=getSharedPreferences("SHARED_DATA",MODE_PRIVATE);
@@ -129,47 +136,45 @@ public class MainProductsActivity extends AppCompatActivity {
         });
 
     }
-    private class AsycProductsList extends AsyncTask{
+    private class AsycProductsList extends AsyncTask {
 
         @Override
         protected Object doInBackground(Object[] objects) {
 
-            new RetrofitHelper(MainProductsActivity.this).getApIs().product_listing(action,categoryId,sub_catId)
+            new RetrofitHelper(MainProductsActivity.this).getApIs().product_listing(action, categoryId, sub_catId)
                     .enqueue(new Callback<JsonElement>() {
                         @Override
                         public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                             try {
-                                JSONArray jsonArray=new JSONArray(response.body().toString());
-                                if (jsonArray.isNull(0)){
+                                JSONArray jsonArray = new JSONArray(response.body().toString());
+                                if (jsonArray.isNull(0)) {
                                     noItems.setVisibility(View.VISIBLE);
                                 }
-                                for (int i=0;i<jsonArray.length();i++){
+                                for (int i = 0; i < jsonArray.length(); i++) {
 
-                                    JSONObject jsonObject=jsonArray.getJSONObject(i);
-                                    String status=jsonObject.getString("status");
-                                    String product_name=jsonObject.getString("product_name");
-                                    String product_image=jsonObject.getString("image");
-                                    String product_id=jsonObject.getString("product_id");
+                                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                    String status = jsonObject.getString("status");
+                                    String product_name = jsonObject.getString("product_name");
+                                    String product_image = jsonObject.getString("image");
+                                    String product_id = jsonObject.getString("product_id");
+
+                                    JSONArray jsonArray1 = jsonObject.getJSONArray("variant");
+                                    for (int ii = 0; ii < jsonArray1.length(); ii++) {
+                                        JSONObject jsonObject1 = jsonArray1.getJSONObject(ii);
 
 
-                                    JSONArray jsonArray1=jsonObject.getJSONArray("variant");
-                                    for (int ii=0;ii<jsonArray1.length();ii++){
-                                        JSONObject jsonObject1=jsonArray1.getJSONObject(ii);
+                                        String offer = jsonObject1.getString("offer");
+                                        String option_name = jsonObject1.getString("option_name");
+                                        String original_price = jsonObject1.getString("original_price");
+                                        String margin_price = jsonObject1.getString("margin_price");
+                                        String item_id = jsonObject1.getString("item_id");
 
-
-                                        String offer=jsonObject1.getString("offer");
-                                        String option_name=jsonObject1.getString("option_name");
-                                        String original_price=jsonObject1.getString("original_price");
-                                        String margin_price=jsonObject1.getString("margin_price");
-                                        String item_id=jsonObject1.getString("item_id");
-
-                                        Pojo_Products pojo=new Pojo_Products();
+                                        Pojo_Products pojo = new Pojo_Products();
                                         pojo.setProduct_id(product_id);
                                         pojo.setProduct_name(product_name);
                                         pojo.setProduct_image(product_image);
 
-
-                                        Pojo_Variant pojoV=new Pojo_Variant();
+                                        Pojo_Variant pojoV = new Pojo_Variant();
                                         pojoV.setOffer(offer);
                                         pojoV.setOptionName(option_name);
                                         pojoV.setItemId(item_id);
@@ -181,26 +186,22 @@ public class MainProductsActivity extends AppCompatActivity {
                                     }
                                 }
 
-                                MainProductAdapter adapter=new MainProductAdapter(
-                                        MainProductsActivity.this,productsArrayList
-                                        ,variantArrayList
+                                MainProductAdapter adapter = new MainProductAdapter(
+                                        MainProductsActivity.this, productsArrayList
+                                        , variantArrayList
                                 );
                                 recyclerView.setAdapter(adapter);
                             } catch (JSONException e) {
-
                                 e.printStackTrace();
                             }
                         }
 
                         @Override
                         public void onFailure(Call<JsonElement> call, Throwable t) {
-
                         }
                     });
-
             return null;
         }
-
     }
     public BroadcastReceiver mMessageReceiver=new BroadcastReceiver() {
         @Override
@@ -246,7 +247,8 @@ public class MainProductsActivity extends AppCompatActivity {
                              resp_count=jsonObject.getString("item_count");
                              total_count=jsonObject.getString("total_count");
                             String cartId=jsonObject.getString("cart_id");
-                            Log.e(TAG, "onResponse:"+cartId+","+total_count+","+itemCount );
+//                            productCount.setText(resp_count);
+//                            linearLayoutCount.setVisibility(View.VISIBLE);
                             cartCount.setText(total_count);
 
                         }

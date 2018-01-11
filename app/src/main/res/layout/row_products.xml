@@ -82,20 +82,53 @@
                         android:textColor="@color/black"
                         android:layout_marginLeft="70sp"/>
                 </RelativeLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center">
+                <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
 
 
-                    <ImageButton
-                        android:layout_width="50sp"
-                        android:backgroundTint="@color/gr3"
-                        android:layout_height="50sp"
-                        android:layout_weight="1"
-                        android:id="@+id/addToCart_btn"
-                        android:src="@drawable/small_cart"/>
-                </LinearLayout>
+                <ImageButton
+                    android:layout_width="50sp"
+                    android:backgroundTint="@color/gr3"
+                    android:layout_height="50sp"
+                    android:layout_weight="1"
+                    android:id="@+id/addToCart_btn"
+                    android:src="@drawable/small_cart"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:id="@+id/linearCount"
+                        >
+
+
+                        <Button
+                            android:layout_width="50sp"
+                            android:backgroundTint="@color/bl2"
+                            android:layout_height="50sp"
+                            android:text="+"
+                            android:id="@+id/productAddBtn"
+                            android:textColor="#fff"
+                            />
+                        <Button
+                            android:layout_width="70sp"
+                            android:layout_height="50sp"
+                            android:backgroundTint="@color/gr3"
+                            android:textColor="#fff"
+                            android:id="@+id/productCountBtn"
+                            android:text="Add"/>
+                        <Button
+                            android:layout_width="50sp"
+                            android:textColor="#fff"
+                            android:backgroundTint="@color/red"
+                            android:layout_height="50sp"
+                            android:text="-"
+                            />
+
+                    </LinearLayout>
+
+            </RelativeLayout>
 
             </LinearLayout>
         </LinearLayout>

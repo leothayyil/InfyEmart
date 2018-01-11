@@ -30,8 +30,8 @@ public class ProductViewActivity extends AppCompatActivity {
     String productId;
     String actionPV="product_details";
     ScrollView scrollView;
-    TextView productName,brand,quantity,offer,originalPrice,marginPrice,cartCount;
-    ImageView imageView;
+    TextView productName,brand,quantity,offer,originalPrice,marginPrice,cartCount,toolbarTit;
+    ImageView imageView,mainCart;
     Button addBtn;
     String itemId,cartId;
     String actionToCart="add_to_cart";
@@ -57,13 +57,16 @@ public class ProductViewActivity extends AppCompatActivity {
         addBtn=findViewById(R.id.PV_add);
         Toolbar toolbar =findViewById(R.id.toolbarProductView);
         setSupportActionBar(toolbar);
-        TextView toolbarTit = findViewById(R.id.toolbar_title);
+         toolbarTit = findViewById(R.id.toolbar_title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         ImageView mainAccount=findViewById(R.id.mainToolbarAccount);
-        ImageView mainCart=findViewById(R.id.mainToolbarCart);
+         mainCart=findViewById(R.id.mainToolbarCart);
          cartCount=findViewById(R.id.cartCountId);
         mainAccount.setVisibility(View.GONE);
+        toolbarTit.setVisibility(View.GONE);
+        mainCart.setVisibility(View.GONE);
+
 
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +104,7 @@ public class ProductViewActivity extends AppCompatActivity {
                             String item_count=jsonObject.getString("item_count");
                             String total_count=jsonObject.getString("total_count");
                             cartCount.setText(total_count);
+                            mainCart.setVisibility(View.VISIBLE);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -156,6 +160,8 @@ public class ProductViewActivity extends AppCompatActivity {
                                     marginPrice.setText("₹ "+margin_priceS);
                                     Picasso.with(ProductViewActivity.this).load(imageS).placeholder(R.drawable.loading).error(R.drawable.error_image)
                                             .into(imageView);
+                                    toolbarTit.setVisibility(View.VISIBLE);
+                                    toolbarTit.setText(product_nameS);
                                 }
 
 
