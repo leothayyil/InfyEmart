@@ -53,41 +53,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Address"
-                android:inputType="textPostalAddress"
+                android:inputType="textMultiLine"
                 android:padding="15sp"
                 android:id="@+id/addDelivery_address"
                 android:textColor="#000000" />
         </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+
             <Spinner
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="[ Select a district ]"
+                android:layout_height="40sp"
                 style="?android:attr/spinnerItemStyle"
+                android:background="@drawable/rectangle"
                 android:inputType="textPostalAddress"
-                android:padding="15sp"
+                android:layout_gravity="center_horizontal"
+                android:foregroundGravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:layout_marginLeft="10sp"
+                android:layout_marginRight="10sp"
                 android:id="@+id/addDelivery_district"
                 android:textColor="#000000" />
-        </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            >
+
 
             <Spinner
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Select a place"
-                android:padding="15sp"
+                android:layout_height="40sp"
+                android:layout_marginLeft="10sp"
+                android:layout_marginRight="10sp"
+                android:layout_marginTop="5sp"
+                android:background="@drawable/rectangle"             android:hint="Select a place"
                 android:id="@+id/addDelivery_place"
                 android:textColor="#000000" />
-        </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -99,7 +96,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Pin code"
-                android:inputType="textPostalAddress"
+                android:inputType="number"
                 android:padding="15sp"
                 android:id="@+id/addDelivery_pincode"
                 android:textColor="#000000" />
@@ -115,7 +112,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Landmark"
-                android:inputType="textEmailAddress"
+                android:inputType="textMultiLine"
                 android:padding="15sp"
                 android:id="@+id/addDelivery_landmark"
                 android:textColor="#000000" />

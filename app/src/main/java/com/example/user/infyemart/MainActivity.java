@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity
          contentMain=findViewById(R.id.contentMain);
         recycler=findViewById(R.id.categoryMainList);
         recycler.setHasFixedSize(true);
-         layoutManager=new GridLayoutManager(MainActivity.this,2);
+         layoutManager=new LinearLayoutManager(MainActivity.this);
         recycler.setLayoutManager(layoutManager);
         final Main_RecyclerAdapter adapter=new Main_RecyclerAdapter(MainActivity.this,categories_call);
         recycler.setAdapter(adapter);

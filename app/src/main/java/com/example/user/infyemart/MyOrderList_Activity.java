@@ -37,7 +37,7 @@ public class MyOrderList_Activity extends AppCompatActivity {
     ArrayList<Pojo_OrderedList> orderedLists=new ArrayList<>();
     TextView toolbarTit,cartCount;
     ImageView mainCart;
-
+    String order_id;
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
@@ -78,6 +78,7 @@ public class MyOrderList_Activity extends AppCompatActivity {
                         int num=Integer.parseInt(orderedLists.get(position).getId());
                         Intent intent=new Intent(MyOrderList_Activity.this,MyOrdersActivity.class);
                         intent.putExtra("table_id",num);
+                        intent.putExtra("order_id",order_id);
                         startActivity(intent);
                         Log.e("logg", "onItemClick: "+num);
                     }
@@ -102,7 +103,7 @@ public class MyOrderList_Activity extends AppCompatActivity {
                                     JSONObject jsonObject=jsonArray.getJSONObject(i);
                                     String status=jsonObject.getString("status");
                                     String booked_date=jsonObject.getString("booked_date");
-                                    String order_id=jsonObject.getString("order_id");
+                                     order_id=jsonObject.getString("order_id");
                                     String grand_total=jsonObject.getString("grand_total");
                                     String total_count=jsonObject.getString("total_count");
                                     String id=jsonObject.getString("table_id");

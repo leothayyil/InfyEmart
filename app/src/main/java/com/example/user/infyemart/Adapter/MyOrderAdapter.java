@@ -40,11 +40,10 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyViewHo
 
         Pojo_orderedListDetails pojo=listDetails.get(position);
         holder.productName.setText(pojo.getProduct());
-        holder.unit.setText("Qty "+pojo.getUnit()+" * "+pojo.getQuantity());
+        holder.unit.setText("Qty "+pojo.getUnit()+"  "+pojo.getQuantity()+" Items");
         Picasso.with(context).load(pojo.getImage()).placeholder(R.drawable.loading).error(R.drawable.error_image)
                 .into(holder.imageView);
     }
-
     @Override
     public int getItemCount() {
         return listDetails.size();

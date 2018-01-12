@@ -27,7 +27,8 @@
             android:layout_marginBottom="8dp">
             <EditText android:id="@+id/input_email"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40sp"
+                android:background="@drawable/rectangle"
                 android:inputType="textEmailAddress"
                 android:hint="Email" />
         </android.support.design.widget.TextInputLayout>
@@ -37,10 +38,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
+            >
             <EditText android:id="@+id/input_password"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:background="@drawable/rectangle"
+                android:layout_height="40sp"
                 android:inputType="textPassword"
                 android:hint="Password"/>
         </android.support.design.widget.TextInputLayout>

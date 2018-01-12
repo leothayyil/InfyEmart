@@ -13,10 +13,10 @@
     <ScrollView
         android:layout_width="match_parent"
         android:id="@+id/scrollView_cart"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
 
@@ -83,28 +83,23 @@
                 />
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="40sp"
+                android:layout_marginTop="5sp"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@drawable/rectangle">
                 <Spinner
                     android:layout_width="wrap_content"
-                    android:layout_marginTop="5sp"
                     android:textSize="15sp"
-                    android:gravity="left"
+                    android:gravity="center"
+                    android:background="@drawable/rectangle"
                     android:id="@+id/deliverySpin"
                     android:layout_gravity="left|center"
                     android:textColor="@color/black"
-                    android:layout_height="wrap_content"
-                    android:text="select delivery"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_marginTop="10sp"
-                    android:textSize="15sp"
-                    android:id="@+id/deliveryAmount"
-                    android:textColor="@color/black"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40sp"
                     />
 
             </LinearLayout>
-
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
@@ -121,9 +116,10 @@
     </ScrollView>
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:visibility="gone"
         android:id="@+id/no_items"
         android:layout_marginTop="150sp"
         android:src="@drawable/search_no_items"/>
+
 </LinearLayout>

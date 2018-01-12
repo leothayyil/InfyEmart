@@ -1,11 +1,13 @@
 package com.example.user.infyemart;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.user.infyemart.Pojo.Pojo_Delivery_Address;
@@ -27,6 +29,8 @@ public class AddressFieldsActivity extends AppCompatActivity {
     String action="delivery_details";
     String userId="4";
     TextView namee,emaill,addresss,districtt,landmarkk,pincodee;
+    LinearLayout linearAddress;
+    ProgressDialog dialog;
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
@@ -55,7 +59,11 @@ public class AddressFieldsActivity extends AppCompatActivity {
         addresss=findViewById(R.id.delvery_address);
         districtt=findViewById(R.id.delvery_district);
         pincodee=findViewById(R.id.delvery_pincode);
-
+        linearAddress=findViewById(R.id.linearAddressFields);
+        linearAddress.setVisibility(View.GONE);
+        dialog=new ProgressDialog(this);
+        dialog.setMessage("Fetching data, please wait..");
+        dialog.show();
 
         new RetrofitHelper(AddressFieldsActivity.this).getApIs().delivery_details(action,userId)
                 .enqueue(new Callback<JsonElement>() {
@@ -72,13 +80,17 @@ public class AddressFieldsActivity extends AppCompatActivity {
                             String city=jsonObject.getString("city");
                             String pincode=jsonObject.getString("pincode");
 
-
                             namee.setText(name);
                             landmarkk.setText(landmark);
                             emaill.setText(email);
                             addresss.setText("Address :"+address);
                             districtt.setText(city +", "+district);
                             pincodee.setText("Pin Code "+pincode);
+
+                            if (dialog.isShowing()) {
+                                dialog.dismiss();
+                                linearAddress.setVisibility(View.VISIBLE);
+                            }
 
 
                         } catch (JSONException e) {

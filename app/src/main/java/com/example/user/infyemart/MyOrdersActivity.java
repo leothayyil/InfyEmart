@@ -56,7 +56,7 @@ onBackPressed();
         ImageView mainCart=findViewById(R.id.mainToolbarCart);
         mainAccount.setVisibility(View.GONE);
         mainCart.setVisibility(View.GONE);
-
+        toolbarTit.setVisibility(View.GONE);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 

@@ -82,7 +82,6 @@ public class CartActivity extends AppCompatActivity {
         totalCount=findViewById(R.id.cart_totalCount);
         mainCart.setVisibility(View.GONE);
         deliverySpin=findViewById(R.id.deliverySpin);
-        deliveryChargeTv=findViewById(R.id.deliveryAmount);
         cartScrollView=findViewById(R.id.scrollView_cart);
         noItems=findViewById(R.id.no_items);
         cartScrollView.setVisibility(View.GONE);
@@ -93,7 +92,6 @@ public class CartActivity extends AppCompatActivity {
             cartId=prefs.getString("session_id","0");
             Log.e(TAG, "cartId  "+ cartId);
         }
-
         recyclerView=findViewById(R.id.recyclerCart);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -178,7 +176,6 @@ public class CartActivity extends AppCompatActivity {
                     }
                 });
     }
-
     private void showcart() {
         new RetrofitHelper(CartActivity.this).getApIs().cart(action,cartId)
                 .enqueue(new Callback<JsonElement>() {

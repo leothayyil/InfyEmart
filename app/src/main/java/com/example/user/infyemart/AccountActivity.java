@@ -1,5 +1,6 @@
 package com.example.user.infyemart;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -9,6 +10,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.user.infyemart.Retrofit.RetrofitHelper;
@@ -29,7 +31,10 @@ public class AccountActivity extends AppCompatActivity {
     CardView cmyOrder,cmyNottif,cmyAddres;
     String action="my_account";
     TextView name,email,address;
+    CardView accountCard;
     String user_id;
+    LinearLayout accountLinear;
+    private ProgressDialog dialog;
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -51,10 +56,15 @@ public class AccountActivity extends AppCompatActivity {
         ImageView mainCart=findViewById(R.id.mainToolbarCart);
         mainAccount.setVisibility(View.GONE);
         mainCart.setVisibility(View.GONE);
-
+        accountCard=findViewById(R.id.accountCardId);
+        dialog = new ProgressDialog(this);
         name=findViewById(R.id.account_name);
         address=findViewById(R.id.account_address);
         email=findViewById(R.id.account_email);
+        accountLinear=findViewById(R.id.account_linear);
+        accountLinear.setVisibility(View.INVISIBLE);
+        dialog.setMessage("Getting data, please wait...");
+        dialog.show();
 
         SharedPreferences prefs = getSharedPreferences("SHARED_DATA", MODE_PRIVATE);
         String restoredText = prefs.getString("user_id", null);
@@ -81,7 +91,7 @@ public class AccountActivity extends AppCompatActivity {
         cmyOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(AccountActivity.this,MyOrdersActivity.class);
+                Intent intent=new Intent(AccountActivity.this,MyOrderList_Activity.class);
                 startActivity(intent);
             }
         });
@@ -105,6 +115,10 @@ public class AccountActivity extends AppCompatActivity {
 
     }
     private class AsyncAccount extends AsyncTask{
+        @Override
+        protected void onPreExecute() {
+
+        }
 
         @Override
         protected Object doInBackground(Object[] objects) {
@@ -123,10 +137,16 @@ public class AccountActivity extends AppCompatActivity {
                                 email.setText(emailS);
                                 address.setText(addressS);
 
+                                if (dialog.isShowing()) {
+                                    dialog.dismiss();
+                                    accountLinear.setVisibility(View.VISIBLE);
+                                }
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         }
+
 
                         @Override
                         public void onFailure(Call<JsonElement> call, Throwable t) {
@@ -134,6 +154,11 @@ public class AccountActivity extends AppCompatActivity {
                         }
                     });
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+
         }
     }
 }

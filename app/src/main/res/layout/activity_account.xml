@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/account_linear"
     tools:context="com.example.user.infyemart.AccountActivity"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <include layout="@layout/toolbar_main"
@@ -13,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10sp"
+        android:id="@+id/accountCardId"
         app:cardElevation="10sp">
         <LinearLayout
             android:layout_width="match_parent"
@@ -85,11 +87,12 @@
                 android:layout_marginLeft="20sp"
                 android:padding="10sp"
                 android:layout_gravity="center"
-                android:src="@drawable/recent_small"/>
+                android:src="@drawable/c_recent"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="My Orders"
+                android:textColor="@color/bl4"
                 android:id="@+id/Et_account_myOrderId"
                 android:layout_gravity="center"
                 android:textSize="20sp"
@@ -113,12 +116,13 @@
                 android:layout_marginLeft="20sp"
                 android:padding="10sp"
                 android:layout_gravity="center"
-                android:src="@drawable/notific_small"/>
+                android:src="@drawable/c_notiff"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Notifications"
                 android:layout_gravity="center"
+                android:textColor="@color/bl4"
                 android:id="@+id/Et_account_notificationsId"
                 android:textSize="20sp"
                 />
@@ -140,11 +144,12 @@
             android:layout_marginLeft="20sp"
             android:padding="10sp"
             android:layout_gravity="center"
-            android:src="@drawable/location_small"/>
+            android:src="@drawable/c_location"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="My Delivery Address"
+            android:textColor="@color/bl4"
             android:layout_gravity="center"
             android:textSize="20sp"
             android:id="@+id/Et_account_myDeliveryAddId"
@@ -166,11 +171,12 @@
                 android:layout_marginLeft="20sp"
                 android:padding="10sp"
                 android:layout_gravity="center"
-                android:src="@drawable/passw_small"/>
+                android:src="@drawable/c_changepassword"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Password Change"
+                android:textColor="@color/bl4"
                 android:layout_gravity="center"
                 android:textSize="20sp"
                 />
@@ -192,11 +198,12 @@
                 android:layout_marginLeft="20sp"
                 android:padding="10sp"
                 android:layout_gravity="center"
-                android:src="@drawable/logout_small"/>
+                android:src="@drawable/c_logout"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Logout"
+                android:textColor="@color/bl4"
                 android:layout_gravity="center"
                 android:textSize="20sp"
                 />
