@@ -90,7 +90,6 @@ public class CartActivity extends AppCompatActivity {
         String restoredText=prefs.getString("session_id",null);
         if (restoredText !=null){
             cartId=prefs.getString("session_id","0");
-            Log.e(TAG, "cartId  "+ cartId);
         }
         recyclerView=findViewById(R.id.recyclerCart);
 
@@ -99,7 +98,6 @@ public class CartActivity extends AppCompatActivity {
 
         AsyncCart asyncCart=new AsyncCart();
         asyncCart.execute();
-
 
         checkout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,9 +130,9 @@ public class CartActivity extends AppCompatActivity {
                                 String slot_name=jsonObject.getString("slot_name");
                                 String delivery_charge=jsonObject.getString("delivery_charge");
 
-                                Log.e(TAG, "slot name and charge "+slot_name+delivery_charge );
 
                                 deliverySlot.add(slot_name);
+
 
 //                                if (!deliverySlot.isEmpty()){
 
@@ -166,7 +164,6 @@ public class CartActivity extends AppCompatActivity {
                             }
                         } catch (JSONException e) {
 
-                            Log.e(TAG, "onResponse: "+ e );
                         }
                     }
 
@@ -220,8 +217,6 @@ public class CartActivity extends AppCompatActivity {
 
                                     CartAdapter cartAdapter=new CartAdapter(CartActivity.this,cart_arraylist);
                                     recyclerView.setAdapter(cartAdapter);
-                                    Log.e(TAG, cartId+","+cart_arraylist.size());
-
 
                                 }
 
