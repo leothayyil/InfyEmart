@@ -6,13 +6,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bl_lit"
-    tools:context="com.example.user.infyemart.MyOrdersActivity">
+    tools:context="com.example.user.infyemart.MyOrdersActivity"
+    android:orientation="vertical">
     <include layout="@layout/toolbar_main"
         android:id="@+id/myOrderToolbar"/>
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/myOrderToolbar"
-        android:id="@+id/recycler_order">
+        android:id="@+id/recycler_order"
+        android:layout_marginBottom="58sp">
     </android.support.v7.widget.RecyclerView>
+    <include layout="@layout/bottombar"
+        android:id="@+id/cart_Bottombar"
+        />
 </RelativeLayout>

@@ -2,6 +2,7 @@ package com.example.user.infyemart;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +17,7 @@ import com.example.user.infyemart.Adapter.MyOrderAdapter;
 import com.example.user.infyemart.Pojo.Pojo_orderedListDetails;
 import com.example.user.infyemart.Retrofit.RetrofitHelper;
 import com.google.gson.JsonElement;
+import com.roughike.bottombar.BottomBar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,6 +36,8 @@ public class MyOrdersActivity extends AppCompatActivity {
     String action="my_order_details";
     ArrayList<Pojo_orderedListDetails> listDetails=new ArrayList<>();
     MyOrderAdapter adapter;
+    BottomNavigationView bottom;
+    TextView bottomAmount,bottom1,bottom2,bottom3;
 
 
     @Override
@@ -59,6 +63,12 @@ onBackPressed();
         toolbarTit.setVisibility(View.GONE);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        bottom=findViewById(R.id.cart_Bottombar);
+        bottomAmount=findViewById(R.id.bottomAmount);
+        bottom1=findViewById(R.id.bottomDetails1);
+        bottom2=findViewById(R.id.bottomDetails2);
+        bottom3=findViewById(R.id.bottomDetails3);
+
 
         AsyncOrders asyncOrders=new AsyncOrders();
         asyncOrders.execute();
@@ -104,6 +114,10 @@ onBackPressed();
                                         pojo.setQuantity(quantity);
                                         pojo.setUnit(unit);
                                         listDetails.add(pojo);
+                                        bottomAmount.setText("Rs "+grand_total);
+                                        bottom1.setText(status);
+                                        bottom2.setText(booked_date+"   Count -"+total_count);
+                                        bottom3.setText("Order id "+order_id);
 
 
                                     }

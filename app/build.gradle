@@ -34,6 +34,7 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.aurelhubert:ahbottomnavigation:2.1.0'
     compile 'com.github.tosslife:pullloadview:1.1.0'
+    compile 'com.roughike:bottom-bar:2.3.1'
 
 
 }

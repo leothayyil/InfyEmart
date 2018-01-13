@@ -122,4 +122,5 @@
         android:layout_marginTop="150sp"
         android:src="@drawable/search_no_items"/>
 
+
 </LinearLayout>

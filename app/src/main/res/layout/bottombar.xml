@@ -4,33 +4,39 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/bl2">
+    android:layout_alignParentBottom="true"
+    android:background="@color/bl1">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="3"
         android:layout_marginBottom="5sp">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="vertical">
+
             <TextView
+                android:id="@+id/bottomAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10sp"
                 android:layout_marginTop="5sp"
                 android:text="RS 3895556"
                 android:textColor="@color/white"
-                android:textSize="20sp"
-                android:layout_marginLeft="10sp"/>
+                android:textSize="20sp" />
+
             <TextView
+                android:id="@+id/bottomDetails1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="14sp"
                 android:layout_marginTop="5sp"
                 android:text="RS 3895556"
                 android:textColor="@color/white"
-                android:textSize="14sp"
-                android:layout_marginLeft="14sp"/>
+                android:textSize="17sp" />
         </LinearLayout>
 
         <Button
@@ -39,9 +45,38 @@
             android:layout_marginTop="5sp"
             android:layout_weight="2"
             android:text="continue"
+            android:id="@+id/bottomContinue"
             android:textColor="@color/white"
             android:backgroundTint="@color/red"
+            android:visibility="gone"
             android:foregroundGravity="right" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="5sp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10sp"
+                android:layout_marginTop="5sp"
+                android:text="RS 3895556"
+                android:id="@+id/bottomDetails2"
+                android:textColor="@color/white"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14sp"
+                android:layout_marginTop="5sp"
+                android:text="RS 3895556"
+                android:id="@+id/bottomDetails3"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
