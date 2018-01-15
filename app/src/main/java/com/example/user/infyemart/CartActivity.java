@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.user.infyemart.Adapter.CartAdapter;
 import com.example.user.infyemart.Pojo.Pojo_Cart;
@@ -37,14 +38,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CartActivity extends AppCompatActivity {
+public class CartActivity extends AppCompatActivity implements CartAdapter.ItemClickCallback{
 
     private static final String TAG = "logg";
     private RecyclerView  recyclerView;
     CartAdapter mAdapter;
     Button checkout;
     String action ="cart";
-    String cartId;
+    String cartId,idGot;
     TextView totalAmount,totalCount,deliveryChargeTv;
     Spinner deliverySpin;
 
@@ -96,6 +97,8 @@ public class CartActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(mAdapter);
+        mAdapter.setItemClickCallback(this);
+
 
         AsyncCart asyncCart=new AsyncCart();
         asyncCart.execute();
@@ -107,6 +110,13 @@ public class CartActivity extends AppCompatActivity {
                 startActivity(purchaseIntent);
             }
         });
+    }
+
+    @Override
+    public void onItemClick(String value) {
+
+
+        Toast.makeText(this, value, Toast.LENGTH_SHORT).show();
     }
 
     private class AsyncCart extends AsyncTask{
@@ -192,6 +202,9 @@ public class CartActivity extends AppCompatActivity {
                                     pojo.setQuantity("Qty "+quantity);
                                     pojo.setProduct(product);
                                     cart_arraylist.add(pojo);
+
+                                    Log.e("loggg", "inter2: "+pojo.getId() );
+
 
                                     CartAdapter cartAdapter=new CartAdapter(CartActivity.this,cart_arraylist);
                                     recyclerView.setAdapter(cartAdapter);
