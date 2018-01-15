@@ -119,7 +119,6 @@ onBackPressed();
                                         bottom2.setText(booked_date+"   Count -"+total_count);
                                         bottom3.setText("Order id "+order_id);
 
-
                                     }
                                 }
                                 adapter=new MyOrderAdapter(MyOrdersActivity.this,listDetails);
