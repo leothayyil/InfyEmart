@@ -60,6 +60,7 @@ public class CartActivity extends AppCompatActivity {
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
+        finish();
         return true;
     }
 
@@ -133,26 +134,6 @@ public class CartActivity extends AppCompatActivity {
 
                                 deliverySlot.add(slot_name);
 
-
-//                                if (!deliverySlot.isEmpty()){
-
-//                                    deliverySpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//                                        @Override
-//                                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//
-//                                            deliveryChargeTv.setText(deliveryCharge.get(position));
-//                                        }
-//
-//                                        @Override
-//                                        public void onNothingSelected(AdapterView<?> parent) {
-//
-//                                        }
-//                                    });
-//                                }
-
-
-
-
                                 Object[] objects=deliverySlot.toArray();
                                 deliverySlotStr= Arrays.copyOf(objects,objects.length,String[].class);
 
@@ -160,13 +141,10 @@ public class CartActivity extends AppCompatActivity {
                                         CartActivity.this,android.R.layout
                                 .simple_spinner_dropdown_item,deliverySlotStr);
                                 deliverySpin.setAdapter(arrayAdapter);
-
                             }
                         } catch (JSONException e) {
-
                         }
                     }
-
                     @Override
                     public void onFailure(Call<JsonElement> call, Throwable t) {
 

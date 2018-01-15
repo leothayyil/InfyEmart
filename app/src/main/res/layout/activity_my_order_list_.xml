@@ -6,7 +6,6 @@
     android:layout_height="wrap_content"
     android:background="@color/bl_lit"
     tools:context="com.example.user.infyemart.MyOrderList_Activity">
-
     <include layout="@layout/toolbar_main"
         android:id="@+id/toolbar_orderedList"/>
     <android.support.v7.widget.RecyclerView
@@ -14,7 +13,7 @@
         android:id="@+id/recyclerMyOrder"
         android:layout="@+id/toolbarOrderList"
         android:layout_below="@+id/toolbar_orderedList"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
 </RelativeLayout>

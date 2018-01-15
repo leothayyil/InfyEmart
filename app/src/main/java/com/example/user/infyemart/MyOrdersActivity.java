@@ -1,5 +1,6 @@
 package com.example.user.infyemart;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.design.widget.BottomNavigationView;
@@ -11,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.user.infyemart.Adapter.MyOrderAdapter;
@@ -38,6 +40,8 @@ public class MyOrdersActivity extends AppCompatActivity {
     MyOrderAdapter adapter;
     BottomNavigationView bottom;
     TextView bottomAmount,bottom1,bottom2,bottom3;
+    RelativeLayout relativeLayout;
+    ProgressDialog dialog;
 
 
     @Override
@@ -51,7 +55,7 @@ onBackPressed();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_orders);
         recyclerView=findViewById(R.id.recycler_order);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.myOrderToolbar);
+        Toolbar toolbar = findViewById(R.id.myOrderToolbar);
         setSupportActionBar(toolbar);
         TextView toolbarTit = findViewById(R.id.toolbar_title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -60,6 +64,8 @@ onBackPressed();
         ImageView mainCart=findViewById(R.id.mainToolbarCart);
         mainAccount.setVisibility(View.GONE);
         mainCart.setVisibility(View.GONE);
+        relativeLayout=findViewById(R.id.relativeLayoutId);
+        relativeLayout.setVisibility(View.GONE);
         toolbarTit.setVisibility(View.GONE);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -68,8 +74,9 @@ onBackPressed();
         bottom1=findViewById(R.id.bottomDetails1);
         bottom2=findViewById(R.id.bottomDetails2);
         bottom3=findViewById(R.id.bottomDetails3);
-
-
+        dialog=new ProgressDialog(this);
+        dialog.setMessage("Getting data,Please wait..");
+        dialog.show();
         AsyncOrders asyncOrders=new AsyncOrders();
         asyncOrders.execute();
         Bundle extras=getIntent().getExtras();
@@ -114,10 +121,16 @@ onBackPressed();
                                         pojo.setQuantity(quantity);
                                         pojo.setUnit(unit);
                                         listDetails.add(pojo);
-                                        bottomAmount.setText("Rs "+grand_total);
+                                        bottomAmount.setText("Grand Total : "+grand_total);
                                         bottom1.setText(status);
-                                        bottom2.setText(booked_date+"   Count -"+total_count);
+                                        bottom2.setText(booked_date+"  ( "+total_count+" Items )");
                                         bottom3.setText("Order id "+order_id);
+
+                                        if (dialog.isShowing()) {
+                                            dialog.dismiss();
+                                            relativeLayout.setVisibility(View.VISIBLE);
+                                        }
+
 
                                     }
                                 }

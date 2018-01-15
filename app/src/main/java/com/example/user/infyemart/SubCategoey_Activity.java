@@ -41,7 +41,9 @@ public class SubCategoey_Activity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        onBackPressed();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
         return true;
     }
 
@@ -107,7 +109,6 @@ public class SubCategoey_Activity extends AppCompatActivity {
                                      category_Id=jsonObject.getString("category");
 
                                     Log.d(TAG, "json  "+category_Id+","+sub_cat_id+","+sub_category);
-
                                     Pojo_SubCat pojo=new Pojo_SubCat();
                                     pojo.setCategoryId(category_Id);
                                     pojo.setSubCategoryName(sub_category);

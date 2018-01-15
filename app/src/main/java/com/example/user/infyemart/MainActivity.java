@@ -2,6 +2,7 @@ package com.example.user.infyemart;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity
     TextView mainPageName,mainPageAddress;
     CardView cardrecentHead,cardMainHead;
     LinearLayout contentMain;
-
+    String count;
     private ViewPager mPager;
     private static int currentPage=0;
     private ArrayList<Pojo_Banner> bannerImgsArray=new ArrayList<>();
@@ -67,7 +68,10 @@ public class MainActivity extends AppCompatActivity
     String category;
     Object[] objectList;
     String[] stringImgs;
+    String cart_id;
+    TextView toolbarTit,toolbarCount;
     String userAddressNav,userNameNav;
+    SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,22 +79,29 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
-        TextView toolbarTit = findViewById(R.id.toolbar_title);
-        toolbarTit.setVisibility(View.INVISIBLE);
+         toolbarTit = findViewById(R.id.toolbar_title);
+         toolbarTit.setVisibility(View.INVISIBLE);
+         toolbarCount=findViewById(R.id.cartCountId);
 
-//        initSlide();
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-             userAddressNav= extras.getString("address");
-             userNameNav=extras.getString("name");
+        prefs=getSharedPreferences("SHARED_DATA",MODE_PRIVATE);
+        String restoredText=prefs.getString("session_id",null);
+        if (restoredText !=null){
+            cart_id=prefs.getString("session_id","0");
+            userNameNav=prefs.getString("user_name","0");
+            userAddressNav=prefs.getString("addressString","0");
         }
-        MyASyncTask task=new MyASyncTask(MainActivity.this);
 
+
+//        Bundle extras = getIntent().getExtras();
+//        if (extras != null) {
+//             userAddressNav= extras.getString("address");
+//             userNameNav=extras.getString("name");
+//        }
+        MyASyncTask task=new MyASyncTask(MainActivity.this);
         task.execute();
 
         ImageView mainAccount=findViewById(R.id.mainToolbarAccount);
          ImageView mainCart=findViewById(R.id.mainToolbarCart);
-
 
          cardMainHead=findViewById(R.id.cardTopCat_main);
          cardrecentHead=findViewById(R.id.cardRecent_main);
@@ -136,16 +147,7 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
-//           recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @Override
-//            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-//                super.onScrollStateChanged(recyclerView, newState);
-//            }
-//            @Override
-//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-//                super.onScrolled(recyclerView, dx, dy);
-//            }
-//        });
+
         adapter.notifyDataSetChanged();
 
 
@@ -206,11 +208,6 @@ public class MainActivity extends AppCompatActivity
                                 objectList = banStrImgsArray.toArray();
                                      stringImgs=  Arrays.copyOf(objectList,objectList.length,String[].class);
 
-                                    Log.e(TAG, "string images "+stringImgs.length );
-                                    Log.e(TAG, "banner images  "+bannerImgsArray.size());
-                                Log.e(TAG, "banner Str images  "+banStrImgsArray.size());
-
-
                                 mPager=findViewById(R.id.pager);
                                 mPager.setAdapter(new Slider_Adapter(MainActivity.this,bannerImgsArray,stringImgs));
                             }
@@ -228,13 +225,16 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void categories() {
-        new RetrofitHelper(MainActivity.this).getApIs().categoryMain("category")
+        new RetrofitHelper(MainActivity.this).getApIs().categoryMain("category",cart_id)
                 .enqueue(new Callback<JsonElement>() {
                     @Override
                     public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                         try {
-                            JSONArray  jsonArray=new JSONArray(response.body().toString());
 
+                            JSONObject object=new JSONObject(response.body().toString());
+
+
+                            JSONArray  jsonArray=object.getJSONArray("category");
                             for (int i=0;i<jsonArray.length();i++){
                                 JSONObject jsonObject=jsonArray.getJSONObject(i);
 
@@ -249,16 +249,21 @@ public class MainActivity extends AppCompatActivity
                                 pojo.setIcon(icons);
                                 pojo.setCategory(category);
                                 categories_call.add(pojo);
-
-
                             }
+                            count=object.getString("count");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                         cardMainHead.setVisibility(View.VISIBLE);
                         cardrecentHead.setVisibility(View.VISIBLE);
-                    }
+                        if (count.equals("null")){
+                            count="0";
+                        }else {
+                            toolbarCount.setText(count);
+                        }
+                        Log.e(TAG, "session Id: "+ count );
 
+                    }
                     @Override
                     public void onFailure(Call<JsonElement> call, Throwable t) {
                     }
@@ -273,7 +278,6 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);

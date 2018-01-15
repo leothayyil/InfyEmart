@@ -23,17 +23,18 @@ public class LoginActivity extends AppCompatActivity {
 
     Button login;
     TextView signup;
-    String userName="afsal345@live.com";
+    String userName = "afsal345@live.com";
     String passWord;
     String action;
-    String addressString,user_name;
+    String addressString, user_name;
     SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        login=findViewById(R.id.btn_login);
-        signup=findViewById(R.id.link_signup);
+        login = findViewById(R.id.btn_login);
+        signup = findViewById(R.id.link_signup);
 
         editor = getSharedPreferences("SHARED_DATA", MODE_PRIVATE).edit();
         editor.clear();
@@ -43,9 +44,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                action="login";
-                userName="afsal345@live.com";
-                 passWord="redhat";
+                action = "login";
+                userName = "afsal345@live.com";
+                passWord = "redhat";
 
                 loginCall();
 
@@ -63,32 +64,29 @@ public class LoginActivity extends AppCompatActivity {
 
     private void loginCall() {
         new RetrofitHelper(LoginActivity.this)
-                .getApIs().login(action,userName,passWord)
+                .getApIs().login(action, userName, passWord)
                 .enqueue(new Callback<JsonElement>() {
                     @Override
                     public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                         try {
-                            JSONObject jsonObject=new JSONObject(response.body().toString());
-                             String status=jsonObject.getString("status");
-                             String user_id=jsonObject.getString("user_id");
-                             String session_id=jsonObject.getString("session_id");
-                              user_name=jsonObject.getString("name");
-                             String address=jsonObject.getString("address");
-                             String district=jsonObject.getString("district");
-                             String place=jsonObject.getString("place");
-                             String phone=jsonObject.getString("phone");
+                            JSONObject jsonObject = new JSONObject(response.body().toString());
+                            String status = jsonObject.getString("status");
+                            String user_id = jsonObject.getString("user_id");
+                            String session_id = jsonObject.getString("session_id");
+                            user_name = jsonObject.getString("name");
+                            String address = jsonObject.getString("address");
+                            String district = jsonObject.getString("district");
+                            String place = jsonObject.getString("place");
+                            String phone = jsonObject.getString("phone");
 
-                              addressString=address+"\n"+district+","+place+"\n"+phone;
+                            addressString = address + "\n" + district + "," + place + "\n" + phone;
 
-
-                            editor.putString("user_id",user_id);
+                            editor.putString("user_id", user_id);
                             editor.putString("session_id", session_id);
-                            editor.putString("user_name",user_name);
+                            editor.putString("user_name", user_name);
+                            editor.putString("addressString", addressString);
                             editor.apply();
-
-                            Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-                            intent.putExtra("address",addressString);
-                            intent.putExtra("name",user_name);
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
 
                         } catch (JSONException e) {

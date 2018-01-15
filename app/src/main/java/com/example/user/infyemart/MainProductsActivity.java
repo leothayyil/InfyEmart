@@ -82,11 +82,11 @@ public class MainProductsActivity extends AppCompatActivity {
         productCount=findViewById(R.id.productCountBtn);
         linearLayoutCount=findViewById(R.id.linearCount);
 
-
         prefs=getSharedPreferences("SHARED_DATA",MODE_PRIVATE);
         String restoredText=prefs.getString("session_id",null);
         if (restoredText !=null){
             session_id=prefs.getString("session_id","0");
+            Log.e(TAG, session_id+"   session Id: "+total_count );
         }
 
 
@@ -230,7 +230,6 @@ public class MainProductsActivity extends AppCompatActivity {
             intent1.putExtra("cart_id",session_id);
             intent1.putExtra("item_id",itemId);
 
-            Log.e(TAG, position+"  ,  "+productId+"  ,  "+session_id+"  ,  "+itemId );
             startActivity(intent1);
 
         }
