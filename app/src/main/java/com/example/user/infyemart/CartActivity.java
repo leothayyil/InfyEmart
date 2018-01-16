@@ -11,16 +11,20 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.user.infyemart.Adapter.CartAdapter;
 import com.example.user.infyemart.Pojo.Pojo_Cart;
 import com.example.user.infyemart.Retrofit.RetrofitHelper;
+import com.example.user.infyemart.Utils.ClickListener;
 import com.google.gson.JsonElement;
 
 import org.json.JSONArray;
@@ -34,7 +38,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CartActivity extends AppCompatActivity {
+public class CartActivity extends AppCompatActivity  {
 
     private static final String TAG = "logg";
     private RecyclerView  recyclerView;
@@ -94,8 +98,6 @@ public class CartActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(mAdapter);
-//        mAdapter.setItemClickCallback(this);
-
 
         AsyncCart asyncCart=new AsyncCart();
         asyncCart.execute();
@@ -109,11 +111,8 @@ public class CartActivity extends AppCompatActivity {
         });
     }
 
-
 //    @Override
-//    public void onItemClick(String value) {
-//
-//        Toast.makeText(this, value, Toast.LENGTH_SHORT).show();
+//    public void onClicked(String value) {
 //    }
 
     private class AsyncCart extends AsyncTask{
@@ -189,7 +188,7 @@ public class CartActivity extends AppCompatActivity {
                                     String image=jsonObject1.getString("image");
                                     String id=jsonObject1.getString("id");
 
-                                    Pojo_Cart pojo = new Pojo_Cart();
+                                    final Pojo_Cart pojo = new Pojo_Cart();
                                     pojo.setId(id);
                                     pojo.setImage(image);
                                     pojo.setmPrice("Rs "+m_price);
@@ -201,7 +200,14 @@ public class CartActivity extends AppCompatActivity {
                                     Log.e("loggg", "inter2: "+pojo.getId() );
 
 
-                                    CartAdapter cartAdapter=new CartAdapter(CartActivity.this,cart_arraylist);
+                                    CartAdapter cartAdapter=new CartAdapter(CartActivity.this, cart_arraylist, new ClickListener() {
+                                        @Override
+                                        public void onClicked(String value) {
+                                            String actionDlte="cart_delete";
+                                            deleteCart(actionDlte, Integer.parseInt(value),cartId);
+                                            Toast.makeText(CartActivity.this, value+"  got ", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
                                     recyclerView.setAdapter(cartAdapter);
 
                                 }
@@ -210,6 +216,36 @@ public class CartActivity extends AppCompatActivity {
                             }
 
 
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonElement> call, Throwable t) {
+
+                    }
+                });
+    }
+
+    private void deleteCart(String actionDlte, int value, String cartId) {
+
+        new RetrofitHelper(CartActivity.this).getApIs().cart_delete(actionDlte,value,cartId)
+                .enqueue(new Callback<JsonElement>() {
+                    @Override
+                    public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
+
+                        try {
+                            JSONObject  jsonObject=new JSONObject(response.body().toString());
+                            String status=jsonObject.getString("status");
+                            Log.e(TAG, "onResponse: "+status );
+
+                            CookieSyncManager.createInstance(CartActivity.this);
+                            CookieManager cookieManager = CookieManager.getInstance();
+                            cookieManager.removeAllCookie();
+                            Intent intent= new Intent(CartActivity.this, CartActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

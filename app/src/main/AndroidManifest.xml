@@ -36,7 +36,8 @@
         <activity android:name=".AddressFieldsActivity" />
         <activity android:name=".AddressEnterActivity" />
         <activity android:name=".SubCategoey_Activity" />
-        <activity android:name=".MyOrderList_Activity"></activity>
+        <activity android:name=".MyOrderList_Activity" />
+        <activity android:name=".PasswordChangeActivity"></activity>
     </application>
 
 </manifest>

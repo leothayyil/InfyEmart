@@ -6,7 +6,6 @@ package com.example.user.infyemart.Utils;
 
 public interface ClickListener {
 
-    void onPositionClicked(int position);
+    void onClicked(String value);
 
-    void onLongClicked(int position);
 }

@@ -14,6 +14,7 @@ import com.example.user.infyemart.CartActivity;
 import com.example.user.infyemart.Pojo.Pojo_Cart;
 import com.example.user.infyemart.PurchaseActivity;
 import com.example.user.infyemart.R;
+import com.example.user.infyemart.Utils.ClickListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -24,12 +25,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
     Context context;
     ArrayList<Pojo_Cart>arrayListCart;
+    ClickListener mClickListener;
 
-
-
-    public CartAdapter(CartActivity cartActivity, ArrayList<Pojo_Cart> cart_arraylist) {
+    public CartAdapter(CartActivity cartActivity, ArrayList<Pojo_Cart> cart_arraylist,ClickListener listener) {
         this.arrayListCart=cart_arraylist;
         this.context=cartActivity;
+        this.mClickListener=listener;
     }
 
     public CartAdapter(PurchaseActivity purchaseActivity, ArrayList<Pojo_Cart> cartProducts) {
@@ -58,7 +59,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(context, pojo.getId(), Toast.LENGTH_SHORT).show();
+                mClickListener.onClicked(pojo.getId());
             }
         });
     }
