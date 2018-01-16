@@ -1,6 +1,5 @@
 package com.example.user.infyemart;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -12,18 +11,15 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.user.infyemart.Adapter.CartAdapter;
 import com.example.user.infyemart.Pojo.Pojo_Cart;
-import com.example.user.infyemart.Pojo.Pojo_deliverySlot;
 import com.example.user.infyemart.Retrofit.RetrofitHelper;
 import com.google.gson.JsonElement;
 
@@ -38,7 +34,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CartActivity extends AppCompatActivity implements CartAdapter.ItemClickCallback{
+public class CartActivity extends AppCompatActivity {
 
     private static final String TAG = "logg";
     private RecyclerView  recyclerView;
@@ -64,6 +60,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.ItemC
         finish();
         return true;
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +94,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.ItemC
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(mAdapter);
-        mAdapter.setItemClickCallback(this);
+//        mAdapter.setItemClickCallback(this);
 
 
         AsyncCart asyncCart=new AsyncCart();
@@ -112,12 +109,12 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.ItemC
         });
     }
 
-    @Override
-    public void onItemClick(String value) {
 
-
-        Toast.makeText(this, value, Toast.LENGTH_SHORT).show();
-    }
+//    @Override
+//    public void onItemClick(String value) {
+//
+//        Toast.makeText(this, value, Toast.LENGTH_SHORT).show();
+//    }
 
     private class AsyncCart extends AsyncTask{
 
@@ -128,7 +125,6 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.ItemC
             return null;
         }
     }
-
     private void delverySpin() {
         new RetrofitHelper(CartActivity.this).getApIs().delivery_slot_details("delivery_slot_details")
                 .enqueue(new Callback<JsonElement>() {
@@ -140,7 +136,6 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.ItemC
                                 JSONObject jsonObject=jsonArray.getJSONObject(i);
                                 String slot_name=jsonObject.getString("slot_name");
                                 String delivery_charge=jsonObject.getString("delivery_charge");
-
 
                                 deliverySlot.add(slot_name);
 
