@@ -39,7 +39,7 @@ public class AccountActivity extends AppCompatActivity {
     String user_id,cart_id;
     LinearLayout accountLinear;
     private ProgressDialog dialog;
-    private LinearLayout logout;
+    private LinearLayout logout,changePassword;
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -67,6 +67,7 @@ public class AccountActivity extends AppCompatActivity {
         address=findViewById(R.id.account_address);
         email=findViewById(R.id.account_email);
         accountLinear=findViewById(R.id.account_linear);
+        changePassword=findViewById(R.id.account_passwordChange);
         accountLinear.setVisibility(View.INVISIBLE);
         logout=findViewById(R.id.account_logout);
         dialog.setMessage("Getting data, please wait...");
@@ -78,7 +79,6 @@ public class AccountActivity extends AppCompatActivity {
         if (restoredText != null) {
             user_id = prefs.getString("user_id", "0");
             cart_id=prefs.getString("session_id","0");
-
         }
 
         edt_address=findViewById(R.id.iv_address_edit);
@@ -121,7 +121,15 @@ public class AccountActivity extends AppCompatActivity {
         });
         AsyncAccount account=new AsyncAccount();
         account.execute();
+        changePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                Intent intent=new Intent(AccountActivity.this,PasswordChangeActivity.class);
+                intent.putExtra("user_id",user_id);
+                startActivity(intent);
+            }
+        });
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

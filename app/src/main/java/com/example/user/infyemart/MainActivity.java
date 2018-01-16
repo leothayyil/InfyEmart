@@ -250,7 +250,7 @@ public class MainActivity extends AppCompatActivity
                                 pojo.setCategory(category);
                                 categories_call.add(pojo);
                             }
-                            count=object.getString("count");
+                             count=object.getString("count");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
