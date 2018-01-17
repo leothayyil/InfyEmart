@@ -70,8 +70,8 @@ public class SignUpActivity extends AppCompatActivity {
                                 Log.e(TAG, "onResponse "+user_id+" "+name+" "+email );
 
                                 new AlertDialog.Builder(SignUpActivity.this)
-                                        .setTitle("do you want to complete profile?")
-                                        .setMessage("Go to..")
+                                        .setTitle("do you want to complete profile? \n Go to..")
+
                                         .setPositiveButton("Profile", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {

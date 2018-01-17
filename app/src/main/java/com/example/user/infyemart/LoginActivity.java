@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.user.infyemart.Retrofit.RetrofitHelper;
 import com.google.gson.JsonElement;
@@ -23,11 +25,11 @@ public class LoginActivity extends AppCompatActivity {
 
     Button login;
     TextView signup;
-    String userName = "afsal345@live.com";
-    String passWord;
+    String passWord,userName;
     String action;
     String addressString, user_name;
     SharedPreferences.Editor editor;
+    EditText edtUserName,edtPassWord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         login = findViewById(R.id.btn_login);
         signup = findViewById(R.id.link_signup);
+        edtUserName=findViewById(R.id.input_email_login);
+        edtPassWord=findViewById(R.id.input_password_login);
 
         editor = getSharedPreferences("SHARED_DATA", MODE_PRIVATE).edit();
         editor.clear();
@@ -44,11 +48,17 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                action = "login";
-                userName = "afsal345@live.com";
-                passWord = "redhat";
-
-                loginCall();
+                userName=edtUserName.getText().toString();
+                passWord=edtPassWord.getText().toString();
+                if (userName.equals("")){
+                    Toast.makeText(LoginActivity.this, "login id field is blank!", Toast.LENGTH_SHORT).show();
+                } else if (passWord.equals("")) {
+                    Toast.makeText(LoginActivity.this, "Password field is blank!", Toast.LENGTH_SHORT).show();
+                }else {
+                    action = "login";
+                    loginCall();
+                }
+               
 
             }
         });
@@ -59,7 +69,6 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 
     private void loginCall() {
@@ -80,17 +89,22 @@ public class LoginActivity extends AppCompatActivity {
                             String phone = jsonObject.getString("phone");
 
                             addressString = address + "\n" + district + "," + place + "\n" + phone;
+                      
+                            if (status.equals("Success")){
+                                editor.putString("user_id", user_id);
+                                editor.putString("session_id", session_id);
+                                editor.putString("user_name", user_name);
+                                editor.putString("addressString", addressString);
+                                editor.apply();
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                startActivity(intent);
+                            }
 
-                            editor.putString("user_id", user_id);
-                            editor.putString("session_id", session_id);
-                            editor.putString("user_name", user_name);
-                            editor.putString("addressString", addressString);
-                            editor.apply();
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(intent);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            Toast.makeText(LoginActivity.this, "Invalid login details!", Toast.LENGTH_SHORT).show();
+
                         }
                     }
 

@@ -90,15 +90,26 @@ public interface API {
 
     @FormUrlEncoded
     @POST("api/android-api.php")
-    Call<JsonElement> checkPassword(@Field("action") String action,@Field("user_id")String user_id,@Field("current_password")String current_password);
+    Call<JsonElement> checkPassword(@Field("action") String action,@Field("user_id")String user_id,@Field
+            ("current_password")String current_password);
 
     @FormUrlEncoded
     @POST("api/android-api.php")
-    Call<JsonElement> changePassword(@Field("action") String action,@Field("user_id")String user_id,@Field("current_password")String current_password,@Field("new_password")String new_password);
+    Call<JsonElement> changePassword(@Field("action") String action,@Field("user_id")String user_id,@Field
+            ("current_password")String current_password,@Field("new_password")String new_password);
 
     @FormUrlEncoded
     @POST("api/android-api.php")
-    Call<JsonElement> registerFirst(@Field("action") String action,@Field("name")String name,@Field("email")String email,@Field("password")String password);
+    Call<JsonElement> registerFirst(@Field("action") String action,@Field("name")String name,@Field("email")
+            String email,@Field("password")String password);
+
+    @FormUrlEncoded
+    @POST("api/android-api.php")
+    Call<JsonElement> registerSecond(@Field("action") String action,@Field("phone")String phone,@Field("address")
+            String address,@Field("district")String district,@Field("place")String place,@Field("pincode")
+            String pincode,@Field("user_id")String userId,@Field("name")
+            String name,@Field("email")String email);
+
 
 
 }
