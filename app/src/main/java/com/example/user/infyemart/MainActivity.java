@@ -91,12 +91,6 @@ public class MainActivity extends AppCompatActivity
             userAddressNav=prefs.getString("addressString","0");
         }
 
-
-//        Bundle extras = getIntent().getExtras();
-//        if (extras != null) {
-//             userAddressNav= extras.getString("address");
-//             userNameNav=extras.getString("name");
-//        }
         MyASyncTask task=new MyASyncTask(MainActivity.this);
         task.execute();
 
@@ -170,7 +164,7 @@ public class MainActivity extends AppCompatActivity
         pencilEdt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this,AddressFieldsActivity.class);
+                Intent intent=new Intent(MainActivity.this,ProfileActivity.class);
                 startActivity(intent);
             }
         });

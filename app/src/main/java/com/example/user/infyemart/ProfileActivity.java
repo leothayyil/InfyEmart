@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.user.infyemart.Retrofit.RetrofitHelper;
 import com.google.gson.JsonElement;
@@ -31,11 +32,13 @@ public class ProfileActivity extends AppCompatActivity {
         return true;
     }
     SharedPreferences.Editor editor;
-    EditText proName,proEmail,proNumber,proAddress,proPlace,proDistrict,proPincode;
-    String sName,sEmail,sNumber,sAddress,sPincode,sDistrict,sPlace;
+    EditText proName,proEmail,proNumber,proAddress,proPlace,proDistrict,proPincode,proPassword;
+    String sName,sEmail,sNumber,sAddress,sPincode,sDistrict,sPlace,sPassword;
     Button submit;
-    String user_id="8";
+    String user_id;
     String action_reg2="register_second";
+    SharedPreferences prefs;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,7 @@ public class ProfileActivity extends AppCompatActivity {
         submit=findViewById(R.id.profile_btn);
         proPlace=findViewById(R.id.profile_place);
         proDistrict=findViewById(R.id.profile_district);
+        proPassword=findViewById(R.id.profile_password);
 
 
         Toolbar toolbar =findViewById(R.id.toolbarProfile);
@@ -66,29 +70,98 @@ public class ProfileActivity extends AppCompatActivity {
         editor.clear();
         editor.commit();
 
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sName=proName.getText().toString();
-                sEmail=proEmail.getText().toString();
-                sAddress=proAddress.getText().toString();
-                sNumber=proNumber.getText().toString();
-                sPincode=proPincode.getText().toString();
-                sPlace=proPlace.getText().toString();
-                proDistrict=findViewById(R.id.profile_district);
+        prefs=getSharedPreferences("SHARED_DATA",MODE_PRIVATE);
+        String restoredText=prefs.getString("session_id",null);
+        if (restoredText !=null){
+            user_id=prefs.getString("session_id","0");
+           if (!user_id.equals("")) {
+               submit.setOnClickListener(new View.OnClickListener() {
+                   @Override
+                   public void onClick(View v) {
+                       sName=proName.getText().toString();
+                       sEmail=proEmail.getText().toString();
+                       sAddress=proAddress.getText().toString();
+                       sNumber=proNumber.getText().toString();
+                       sPincode=proPincode.getText().toString();
+                       sPlace=proPlace.getText().toString();
+                       sDistrict=proDistrict.getText().toString();
+                       sPassword=proPassword.getText().toString();
 
-                updateProfile();
-            }
-        });
+                       updateProfile();
+                   }
+               });
+           }
+
+        }
+        else {
+            submit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    sName=proName.getText().toString();
+                    sEmail=proEmail.getText().toString();
+                    sAddress=proAddress.getText().toString();
+                    sNumber=proNumber.getText().toString();
+                    sPincode=proPincode.getText().toString();
+                    sPlace=proPlace.getText().toString();
+                    sDistrict=proDistrict.getText().toString();
+                    sPassword=proPassword.getText().toString();
+
+                    createProfile();
+                }
+
+            });
+        }
+
+
+
     }
 
     private void updateProfile() {
 
-        new RetrofitHelper(ProfileActivity.this).getApIs().registerSecond(action_reg2,sNumber,sAddress,sDistrict,sPlace,sPincode,user_id,sName,sEmail)
+        String actionUpdate="update_profile";
+        new RetrofitHelper(ProfileActivity.this).getApIs().updateProfile(actionUpdate,sNumber,sAddress,sDistrict,sPlace,sPincode,sPassword,sName,sEmail,user_id)
                 .enqueue(new Callback<JsonElement>() {
                     @Override
                     public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
+                        try {
+                            JSONObject jsonObject=new JSONObject(response.body().toString());
+                            String status,user_id,name,email,phone,address,district,place,pincode;
+                            status=jsonObject.getString("status");
+                            user_id=jsonObject.getString("user_id");
+                            name=jsonObject.getString("name");
+                            email=jsonObject.getString("phone");
+                            address=jsonObject.getString("address");
+                            district=jsonObject.getString("district");
+                            place=jsonObject.getString("place");
+                            pincode=jsonObject.getString("pincode");
 
+
+                            if (status.equals("Success")){
+
+                                Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                Toast.makeText(ProfileActivity.this,"Updated ", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonElement> call, Throwable t) {
+
+                    }
+                });
+    }
+
+    private void createProfile() {
+
+        new RetrofitHelper(ProfileActivity.this).getApIs().registerSecond(action_reg2,sNumber,
+                sAddress,sDistrict,sPlace,sPincode,sPassword,sName,sEmail)
+                .enqueue(new Callback<JsonElement>() {
+                    @Override
+                    public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                         try {
                             JSONObject jsonObject=new JSONObject(response.body().toString());
                             String status=jsonObject.getString("status");
@@ -96,26 +169,29 @@ public class ProfileActivity extends AppCompatActivity {
                             String name=jsonObject.getString("name");
                             String email=jsonObject.getString("email");
                             String phone=jsonObject.getString("phone");
-                            String address=jsonObject.getString("district");
-                            String district=jsonObject.getString("status");
+                            String address=jsonObject.getString("address");
+                            String district=jsonObject.getString("district");
                             String place=jsonObject.getString("place");
                             String pincode=jsonObject.getString("pincode");
+                            String session_id=jsonObject.getString("session_id");
 
-//                            addressString = address + "\n" + district + "," + place + "\n" + phone;
+                            String addressString = address + "\n" + district + "," + place + "\n" + phone;
 
                             if (status.equals("Success")){
                                 editor.putString("user_id", user_id);
-//                                editor.putString("session_id", session_id);
+                                editor.putString("session_id", session_id);
                                 editor.putString("user_name", name);
-//                                editor.putString("addressString", addressString);
+                                editor.putString("addressString", addressString);
                                 editor.apply();
                                 Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
                                 startActivity(intent);
+                                Toast.makeText(ProfileActivity.this,"Success ", Toast.LENGTH_SHORT).show();
+
                             }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Log.e("loggg", "onResponse: "+e.toString() );
+
                         }
                     }
 

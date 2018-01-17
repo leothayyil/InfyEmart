@@ -100,17 +100,18 @@ public interface API {
 
     @FormUrlEncoded
     @POST("api/android-api.php")
-    Call<JsonElement> registerFirst(@Field("action") String action,@Field("name")String name,@Field("email")
-            String email,@Field("password")String password);
+    Call<JsonElement> updateProfile(@Field("action") String action,@Field("phone")String phone,@Field("address")
+            String address,@Field("district")String district,@Field("place")String place,@Field("pincode")
+                                             String pincode,@Field("password")String password,@Field("name")
+                                             String name,@Field("email")String email,@Field("user_id")String userId);
+
 
     @FormUrlEncoded
     @POST("api/android-api.php")
     Call<JsonElement> registerSecond(@Field("action") String action,@Field("phone")String phone,@Field("address")
             String address,@Field("district")String district,@Field("place")String place,@Field("pincode")
-            String pincode,@Field("user_id")String userId,@Field("name")
+            String pincode,@Field("password")String password,@Field("name")
             String name,@Field("email")String email);
-
-
 
 }
 
