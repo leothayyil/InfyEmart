@@ -15,7 +15,7 @@
         android:layout_weight="3"
         android:gravity="center|left"
         android:paddingLeft="15sp"
-        android:paddingTop="25sp"
+        android:paddingTop="5sp"
         android:id="@+id/mainPageName"
         android:foregroundGravity="top"
         android:background="@color/bl3"

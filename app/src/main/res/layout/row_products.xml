@@ -12,22 +12,28 @@
         >
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:weightSum="5">
 
         <ImageView
             android:layout_width="170sp"
             android:layout_height="180sp"
             android:padding="10sp"
+            android:layout_weight="2"
+            android:layout_marginTop="10sp"
             android:id="@+id/productList_image"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingLeft="20sp"
+                android:layout_weight="3">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Offer"
+                    android:textColor="@color/red"
                     android:id="@+id/productList_offer"
                     android:layout_gravity="center"/>
                 <TextView
@@ -35,82 +41,90 @@
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
                     android:gravity="center"
-                    android:textColor="@color/black"
+                    android:textColor="@color/bl4"
                     android:id="@+id/productList_name"
                     android:text="Paneer-Premium Fresh"
                     />
-                <Spinner
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_marginBottom="5sp"
-                    android:id="@+id/variant_spinnerId"
-                    android:layout_gravity="center">
-                </Spinner>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="RS 90"
+                    android:weightSum="5"
+                    android:gravity="center">
+                    <TextView
+                        android:id="@+id/productList_optionName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:text="RS 90"
+                        android:textColor="@color/red"
+                        android:textSize="15sp" />
+                    <Spinner
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_weight="3"
+                        android:layout_marginTop="5sp"
+                        android:foregroundGravity="center"
+                        android:layout_marginBottom="5sp"
+                        android:id="@+id/variant_spinnerId"
+                        android:layout_gravity="center">
+                    </Spinner>
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_gravity="center"
-                    android:id="@+id/productList_optionName"
-                    android:textSize="15sp"
-                    android:layout_marginLeft="10sp"/>
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_gravity="center"
+                    android:weightSum="5"
                     android:layout_height="wrap_content">
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50sp"
                         android:text="RS 90"
+                        android:layout_weight="2"
+                        android:textColor="@color/black"
+                        android:gravity="center"
                         android:id="@+id/productList_marginPrice"
                         android:textSize="15sp"
-                        android:layout_marginLeft="10sp"/>
-                    <View
-                        android:layout_width="30sp"
-                        android:layout_marginLeft="10sp"
-                        android:layout_marginTop="11sp"
-                        android:background="@color/black"
-                        android:layout_height="1sp"/>
+                        />
+
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="15sp"
+                        android:layout_height="50sp"
+                        android:textSize="18sp"
+                        android:layout_weight="2"
                         android:text="RS 77.55"
+                        android:gravity="center"
                         android:id="@+id/productList_originalPrice"
-                        android:textColor="@color/black"
-                        android:layout_marginLeft="70sp"/>
-                </RelativeLayout>
+                        android:textColor="@color/bl4"
+                        />
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:backgroundTint="@color/gr3"
+                        android:layout_height="50sp"
+                        android:layout_weight="1"
+                        android:id="@+id/addToCart_btn"
+                        android:src="@drawable/small_cart"/>
+
+                </LinearLayout>
                 <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center">
 
 
-                <ImageButton
-                    android:layout_width="50sp"
-                    android:backgroundTint="@color/gr3"
-                    android:layout_height="50sp"
-                    android:layout_weight="1"
-                    android:id="@+id/addToCart_btn"
-                    android:src="@drawable/small_cart"/>
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:id="@+id/linearCount"
+                        android:visibility="gone"
                         >
-
-
-                        <Button
-                            android:layout_width="50sp"
-                            android:backgroundTint="@color/bl2"
-                            android:layout_height="50sp"
-                            android:text="+"
-                            android:id="@+id/productAddBtn"
-                            android:textColor="#fff"
-                            />
                         <Button
                             android:layout_width="70sp"
                             android:layout_height="50sp"
@@ -118,13 +132,6 @@
                             android:textColor="#fff"
                             android:id="@+id/productCountBtn"
                             android:text="Add"/>
-                        <Button
-                            android:layout_width="50sp"
-                            android:textColor="#fff"
-                            android:backgroundTint="@color/red"
-                            android:layout_height="50sp"
-                            android:text="-"
-                            />
 
                     </LinearLayout>
 

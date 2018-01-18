@@ -27,6 +27,7 @@ import com.example.user.infyemart.Adapter.Main_RecyclerAdapter;
 import com.example.user.infyemart.Pojo.Pojo_Products;
 import com.example.user.infyemart.Pojo.Pojo_Variant;
 import com.example.user.infyemart.Retrofit.RetrofitHelper;
+import com.example.user.infyemart.Utils.ClickListener;
 import com.example.user.infyemart.Utils.RecyclerItemClickListener;
 import com.google.gson.JsonElement;
 
@@ -78,7 +79,7 @@ public class MainProductsActivity extends AppCompatActivity {
         mainAccount.setVisibility(View.GONE);
         noItems=findViewById(R.id.no_items);
         addBtn=findViewById(R.id.addToCart_btn);
-        productAdd=findViewById(R.id.productAddBtn);
+//        productAdd=findViewById(R.id.productAddBtn);
         productCount=findViewById(R.id.productCountBtn);
         linearLayoutCount=findViewById(R.id.linearCount);
 
@@ -91,7 +92,6 @@ public class MainProductsActivity extends AppCompatActivity {
 
 
 
-        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,new IntentFilter("getItemId"));
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver1,new IntentFilter("getPosition"));
         recyclerView=findViewById(R.id.recycler_products_Main);
         recyclerView.setHasFixedSize(true);
@@ -133,10 +133,8 @@ public class MainProductsActivity extends AppCompatActivity {
                 startActivity(intent1);
             }
         });
-
     }
     private class AsycProductsList extends AsyncTask {
-
         @Override
         protected Object doInBackground(Object[] objects) {
 
@@ -157,6 +155,13 @@ public class MainProductsActivity extends AppCompatActivity {
                                     String product_image = jsonObject.getString("image");
                                     String product_id = jsonObject.getString("product_id");
 
+
+                                    Pojo_Products pojo = new Pojo_Products();
+                                    pojo.setProduct_id(product_id);
+                                    pojo.setProduct_name(product_name);
+                                    pojo.setProduct_image(product_image);
+
+
                                     JSONArray jsonArray1 = jsonObject.getJSONArray("variant");
                                     for (int ii = 0; ii < jsonArray1.length(); ii++) {
                                         JSONObject jsonObject1 = jsonArray1.getJSONObject(ii);
@@ -168,26 +173,30 @@ public class MainProductsActivity extends AppCompatActivity {
                                         String margin_price = jsonObject1.getString("margin_price");
                                         String item_id = jsonObject1.getString("item_id");
 
-                                        Pojo_Products pojo = new Pojo_Products();
-                                        pojo.setProduct_id(product_id);
-                                        pojo.setProduct_name(product_name);
-                                        pojo.setProduct_image(product_image);
 
                                         Pojo_Variant pojoV = new Pojo_Variant();
                                         pojoV.setOffer(offer);
                                         pojoV.setOptionName(option_name);
                                         pojoV.setItemId(item_id);
-                                        pojoV.setMargin_price(margin_price);
-                                        pojoV.setOriginal_price(original_price);
+                                        pojoV.setMargin_price("Price \n"+margin_price);
+                                        pojoV.setOriginal_price("Offer price \n"+original_price);
                                         variantArrayList.add(pojoV);
                                         productsArrayList.add(pojo);
 
                                     }
                                 }
-
                                 MainProductAdapter adapter = new MainProductAdapter(
                                         MainProductsActivity.this, productsArrayList
-                                        , variantArrayList
+                                        , variantArrayList, new ClickListener() {
+                                    @Override
+                                    public void onClicked(String value) {
+
+                                        String itemId=value;
+                                        String actionToCart="add_to_cart";
+                                        final  String itemCount="1";
+                                        addToCart(actionToCart,itemId,itemCount);
+                                    }
+                                }
                                 );
                                 recyclerView.setAdapter(adapter);
                             } catch (JSONException e) {
@@ -202,18 +211,7 @@ public class MainProductsActivity extends AppCompatActivity {
             return null;
         }
     }
-    public BroadcastReceiver mMessageReceiver=new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String itemId=intent.getStringExtra("itemId");
 
-
-            String actionToCart="add_to_cart";
-          final  String itemCount="1";
-            addToCart(actionToCart,itemId,itemCount);
-
-        }
-    };
     final BroadcastReceiver mMessageReceiver1=new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {

@@ -32,7 +32,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         this.context=cartActivity;
         this.mClickListener=listener;
     }
-
     public CartAdapter(PurchaseActivity purchaseActivity, ArrayList<Pojo_Cart> cartProducts) {
         this.arrayListCart=cartProducts;
         context=purchaseActivity;

@@ -21,6 +21,8 @@ import com.example.user.infyemart.MainProductsActivity;
 import com.example.user.infyemart.Pojo.Pojo_Products;
 import com.example.user.infyemart.Pojo.Pojo_Variant;
 import com.example.user.infyemart.R;
+import com.example.user.infyemart.Retrofit.RetrofitHelper;
+import com.example.user.infyemart.Utils.ClickListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -37,13 +39,16 @@ public class MainProductAdapter extends RecyclerView.Adapter<MainProductAdapter.
     private ArrayList<Pojo_Products>arrayListProducts;
     private ArrayList<Pojo_Variant>arrayListVariant;
     String [] variantsDum={"500 gms","1 kg","2 kg", "5 kg"};
+    ClickListener mClickListener;
 
 
     public MainProductAdapter(MainProductsActivity mainProductsActivity, ArrayList<Pojo_Products> productsArrayList,
-                              ArrayList<Pojo_Variant> variantArrayList) {
+                              ArrayList<Pojo_Variant> variantArrayList,ClickListener listener) {
         this.arrayListProducts=productsArrayList;
         this.context=mainProductsActivity;
         this.arrayListVariant=variantArrayList;
+        this.mClickListener=listener;
+
     }
 
     @Override
@@ -89,10 +94,11 @@ public class MainProductAdapter extends RecyclerView.Adapter<MainProductAdapter.
             @Override
             public void onClick(View v) {
 
-                Intent intent=new Intent("getItemId");
+//                Intent intent=new Intent("getItemId");
                 String itemId=pojoV.getItemId();
-                intent.putExtra("itemId",itemId);
-                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+                mClickListener.onClicked(itemId);
+//                intent.putExtra("itemId",itemId);
+//                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
             }
         });
     }

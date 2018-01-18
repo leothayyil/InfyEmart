@@ -92,7 +92,7 @@ public class CartActivity extends AppCompatActivity  {
         prefs=getSharedPreferences("SHARED_DATA",MODE_PRIVATE);
         String restoredText=prefs.getString("session_id",null);
         if (restoredText !=null){
-            cartId=prefs.getString("session_id","0");
+            cartId=prefs.getString("user_id","0");
         }
         recyclerView=findViewById(R.id.recyclerCart);
 
@@ -209,13 +209,8 @@ public class CartActivity extends AppCompatActivity  {
                                         }
                                     });
                                     recyclerView.setAdapter(cartAdapter);
-
                                 }
-
-
                             }
-
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

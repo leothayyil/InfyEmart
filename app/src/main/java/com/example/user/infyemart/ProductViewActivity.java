@@ -39,6 +39,9 @@ public class ProductViewActivity extends AppCompatActivity {
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
+//        Intent intent=new Intent(ProductViewActivity.this,MainProductsActivity.class);
+//        startActivity(intent);
+        finish();
         return true;
     }
 
@@ -47,7 +50,6 @@ public class ProductViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_view);
         productName=findViewById(R.id.PV_productNmae);
-        brand=findViewById(R.id.PV_brand);
         quantity=findViewById(R.id.PV_qty);
         offer=findViewById(R.id.PV_offer);
         originalPrice=findViewById(R.id.PV_originalPrice);
@@ -153,11 +155,11 @@ public class ProductViewActivity extends AppCompatActivity {
                                     String original_priceS=jsonObject1.getString("original_price");
                                     String margin_priceS=jsonObject1.getString("margin_price");
                                     productName.setText(product_nameS);
-                                    brand.setText(brandS);
-                                    quantity.setText("Quantity "+quantityS);
-                                    offer.setText(offerS);
-                                    originalPrice.setText("₹ "+original_priceS);
-                                    marginPrice.setText("₹ "+margin_priceS);
+//                                    brand.setText(brandS);
+                                    quantity.setText("Quantity "+quantityS+" \n"+brandS);
+                                    offer.setText(offerS+" Off" );
+                                    originalPrice.setText("Offer price ₹ "+original_priceS+"");
+                                    marginPrice.setText("Original price ₹ "+margin_priceS+" ");
                                     Picasso.with(ProductViewActivity.this).load(imageS).placeholder(R.drawable.loading).error(R.drawable.error_image)
                                             .into(imageView);
                                     toolbarTit.setVisibility(View.VISIBLE);

@@ -43,22 +43,17 @@ public interface API {
     @FormUrlEncoded
     @POST("api/android-api.php")
     Call<JsonElement> delivery_details(@Field("action") String action,@Field("user_id")String user_id);
-
     @FormUrlEncoded
     @POST("api/android-api.php")
     Call<JsonElement> delivery_slot_details(@Field("action") String action);
-
-
     @FormUrlEncoded
     @POST("api/android-api.php")
     Call<JsonElement> addDelivery_details(@Field("action") String action,@Field("user_id")String user_id,@Field("name")String name,
                                           @Field("email")String email,@Field("address")String address,@Field("district")String district,
                                           @Field("city")String city,@Field("landmark")String landmark,@Field("pincode")String pincode);
-
     @FormUrlEncoded
     @POST("api/android-api.php")
     Call<JsonElement> district(@Field("action") String action);
-
     @FormUrlEncoded
     @POST("api/android-api.php")
     Call<JsonElement> getPlace(@Field("action") String action,@Field("district")String district);
@@ -102,9 +97,8 @@ public interface API {
     @POST("api/android-api.php")
     Call<JsonElement> updateProfile(@Field("action") String action,@Field("phone")String phone,@Field("address")
             String address,@Field("district")String district,@Field("place")String place,@Field("pincode")
-                                             String pincode,@Field("password")String password,@Field("name")
+                                             String pincode,@Field("name")
                                              String name,@Field("email")String email,@Field("user_id")String userId);
-
 
     @FormUrlEncoded
     @POST("api/android-api.php")
@@ -112,6 +106,4 @@ public interface API {
             String address,@Field("district")String district,@Field("place")String place,@Field("pincode")
             String pincode,@Field("password")String password,@Field("name")
             String name,@Field("email")String email);
-
 }
-

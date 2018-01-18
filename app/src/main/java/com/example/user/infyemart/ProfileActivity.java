@@ -2,6 +2,7 @@ package com.example.user.infyemart;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -38,6 +39,7 @@ public class ProfileActivity extends AppCompatActivity {
     String user_id;
     String action_reg2="register_second";
     SharedPreferences prefs;
+    TextInputLayout password;
 
 
     @Override
@@ -53,6 +55,7 @@ public class ProfileActivity extends AppCompatActivity {
         proPlace=findViewById(R.id.profile_place);
         proDistrict=findViewById(R.id.profile_district);
         proPassword=findViewById(R.id.profile_password);
+        password=findViewById(R.id.profile_passwordLay);
 
 
         Toolbar toolbar =findViewById(R.id.toolbarProfile);
@@ -74,6 +77,8 @@ public class ProfileActivity extends AppCompatActivity {
         String restoredText=prefs.getString("session_id",null);
         if (restoredText !=null){
             user_id=prefs.getString("session_id","0");
+            proPassword.setVisibility(View.GONE);
+            password.setVisibility(View.GONE);
            if (!user_id.equals("")) {
                submit.setOnClickListener(new View.OnClickListener() {
                    @Override
@@ -85,7 +90,6 @@ public class ProfileActivity extends AppCompatActivity {
                        sPincode=proPincode.getText().toString();
                        sPlace=proPlace.getText().toString();
                        sDistrict=proDistrict.getText().toString();
-                       sPassword=proPassword.getText().toString();
 
                        updateProfile();
                    }
@@ -119,7 +123,7 @@ public class ProfileActivity extends AppCompatActivity {
     private void updateProfile() {
 
         String actionUpdate="update_profile";
-        new RetrofitHelper(ProfileActivity.this).getApIs().updateProfile(actionUpdate,sNumber,sAddress,sDistrict,sPlace,sPincode,sPassword,sName,sEmail,user_id)
+        new RetrofitHelper(ProfileActivity.this).getApIs().updateProfile(actionUpdate,sNumber,sAddress,sDistrict,sPlace,sPincode,sName,sEmail,user_id)
                 .enqueue(new Callback<JsonElement>() {
                     @Override
                     public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
