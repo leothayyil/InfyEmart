@@ -25,6 +25,10 @@ import com.example.user.infyemart.Retrofit.RetrofitHelper;
 import com.example.user.infyemart.Utils.ClickListener;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -38,15 +42,19 @@ public class MainProductAdapter extends RecyclerView.Adapter<MainProductAdapter.
     private Context context;
     private ArrayList<Pojo_Products>arrayListProducts;
     private ArrayList<Pojo_Variant>arrayListVariant;
+    private ArrayList<Pojo_Variant>arrayListVariantSpin;
+
     String [] variantsDum={"500 gms","1 kg","2 kg", "5 kg"};
     ClickListener mClickListener;
+    JSONObject jsonObject;
 
 
     public MainProductAdapter(MainProductsActivity mainProductsActivity, ArrayList<Pojo_Products> productsArrayList,
-                              ArrayList<Pojo_Variant> variantArrayList,ClickListener listener) {
+                              ArrayList<Pojo_Variant> variantArrayList, ClickListener listener) {
         this.arrayListProducts=productsArrayList;
         this.context=mainProductsActivity;
         this.arrayListVariant=variantArrayList;
+
         this.mClickListener=listener;
 
     }
@@ -90,20 +98,16 @@ public class MainProductAdapter extends RecyclerView.Adapter<MainProductAdapter.
                 LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
             }
         });
+
         holder.addToCartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-//                Intent intent=new Intent("getItemId");
                 String itemId=pojoV.getItemId();
                 mClickListener.onClicked(itemId);
-//                intent.putExtra("itemId",itemId);
-//                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
             }
         });
     }
-
-
 
     @Override
     public int getItemCount() {

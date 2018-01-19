@@ -80,7 +80,7 @@ public class AddressEnterActivity extends AppCompatActivity {
         updateBtn=findViewById(R.id.addDelivery_button);
 
         arrayListDistrict.add("[ Select District ]");
-        arrayListPlace.add("[ Select Place ]");
+
         placeSpin.setSelection(0);
 
 
@@ -92,6 +92,7 @@ public class AddressEnterActivity extends AppCompatActivity {
            @Override
            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                arrayListPlace.clear();
+               arrayListPlace.add("[ Select Place ]");
                selectedDistrict=String.valueOf(position);
                sDistrict=districtSpin.getSelectedItem().toString();
                if (Integer.valueOf(selectedDistrict) >=1){
@@ -105,6 +106,7 @@ public class AddressEnterActivity extends AppCompatActivity {
 
            }
        });
+
        placeSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
            @Override
            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -165,7 +167,15 @@ public class AddressEnterActivity extends AppCompatActivity {
                                 stringPlace=Arrays.copyOf(objectList,objectList.length,String[].class);
 
                                 ArrayAdapter<String> adapter=new ArrayAdapter<String>(AddressEnterActivity.this,
-                                        android.R.layout.simple_spinner_dropdown_item,stringPlace);
+                                        android.R.layout.simple_spinner_dropdown_item,stringPlace){
+                                    @Override
+                                    public boolean isEnabled(int position) {
+                                        if (position==0){
+                                            return  false;
+                                        }
+                                        return  true;
+                                    }
+                                };
                                 placeSpin.setAdapter(adapter);
                             }
                         } catch (JSONException e) {
@@ -239,8 +249,6 @@ public class AddressEnterActivity extends AppCompatActivity {
                     String districtResp=jsonObject.getString("district");
                     String cityResp=jsonObject.getString("city");
                     String pincodeResp=jsonObject.getString("pincode");
-
-
 
                 } catch (JSONException e) {
                     e.printStackTrace();

@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -32,7 +33,7 @@ public class ProductViewActivity extends AppCompatActivity {
     ScrollView scrollView;
     TextView productName,brand,quantity,offer,originalPrice,marginPrice,cartCount,toolbarTit;
     ImageView imageView,mainCart;
-    Button addBtn;
+    ImageButton addBtn;
     String itemId,cartId;
     String actionToCart="add_to_cart";
 

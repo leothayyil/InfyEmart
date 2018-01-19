@@ -30,7 +30,8 @@ public interface API {
 
     @FormUrlEncoded
     @POST("api/android-api.php")
-    Call<JsonElement> product_listing(@Field("action") String action,@Field("category")String categoryId,@Field("sub_category")String sub_categoryId);
+    Call<JsonElement> product_listing(@Field("action") String action,@Field("category")String categoryId,
+                                      @Field("sub_category")String sub_categoryId,@Field("cart_id")String cart_id);
 
     @FormUrlEncoded
     @POST("api/android-api.php")

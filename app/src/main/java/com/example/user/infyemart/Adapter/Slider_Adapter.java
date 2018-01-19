@@ -1,6 +1,7 @@
 package com.example.user.infyemart.Adapter;
 
 import android.content.Context;
+import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,8 @@ import com.example.user.infyemart.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static android.content.ContentValues.TAG;
 
@@ -49,8 +52,11 @@ public class Slider_Adapter extends PagerAdapter{
         Pojo_Banner pojo=images.get(position);
 
         Log.e("loggg", "adapter "+imagesArray.length);
-        Picasso.with(context).load(imagesArray[position]).placeholder(R.drawable.loading)
-                .error(R.drawable.error_image).into(imageView);
+        for (int i=0;i<3;i++){
+            Picasso.with(context).load(imagesArray[i]).placeholder(R.drawable.loading)
+                    .error(R.drawable.error_image).into(imageView);
+        }
+
         container.addView(myImageLayout,0);
         return  myImageLayout;
     }

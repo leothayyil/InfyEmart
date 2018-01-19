@@ -13,13 +13,11 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:weightSum="5">
+            android:weightSum="6">
 
         <ImageView
             android:layout_width="170sp"
             android:layout_height="180sp"
-            android:padding="10sp"
-            android:layout_weight="2"
             android:layout_marginTop="10sp"
             android:id="@+id/productList_image"/>
 
@@ -27,15 +25,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingLeft="20sp"
-                android:layout_weight="3">
-                <TextView
-                    android:layout_width="wrap_content"
+
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Offer"
-                    android:textColor="@color/red"
-                    android:id="@+id/productList_offer"
-                    android:layout_gravity="center"/>
+                    android:gravity="center">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Offer"
+                        android:textColor="@color/red"
+                        android:id="@+id/productList_offer"
+                        android:layout_gravity="center"/>
+                    <TextView
+                        android:id="@+id/productList_optionName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5sp"
+                        android:text="Qty"
+                        android:textColor="@color/black"
+                        android:textSize="19sp" />
+                </LinearLayout>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -48,30 +61,25 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:weightSum="5"
                     android:gravity="center">
-                    <TextView
-                        android:id="@+id/productList_optionName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="2"
-                        android:text="RS 90"
-                        android:textColor="@color/red"
-                        android:textSize="15sp" />
                     <Spinner
-                        android:layout_width="wrap_content"
+                        android:layout_width="120sp"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:layout_weight="3"
                         android:layout_marginTop="5sp"
                         android:foregroundGravity="center"
                         android:layout_marginBottom="5sp"
                         android:id="@+id/variant_spinnerId"
                         android:layout_gravity="center">
                     </Spinner>
+                    <ImageButton
+                        android:layout_width="40sp"
+                        android:backgroundTint="@color/gr3"
+                        android:layout_height="45sp"
 
-
+                        android:id="@+id/addToCart_btn"
+                        android:layout_marginRight="5sp"
+                        android:src="@drawable/small_cart"/>
 
                 </LinearLayout>
 
@@ -79,13 +87,13 @@
                     android:layout_width="match_parent"
                     android:layout_gravity="center"
                     android:weightSum="5"
+                    android:gravity="center"
                     android:layout_height="wrap_content">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="50sp"
                         android:text="RS 90"
-                        android:layout_weight="2"
                         android:textColor="@color/black"
                         android:gravity="center"
                         android:id="@+id/productList_marginPrice"
@@ -102,13 +110,6 @@
                         android:id="@+id/productList_originalPrice"
                         android:textColor="@color/bl4"
                         />
-                    <ImageButton
-                        android:layout_width="wrap_content"
-                        android:backgroundTint="@color/gr3"
-                        android:layout_height="50sp"
-                        android:layout_weight="1"
-                        android:id="@+id/addToCart_btn"
-                        android:src="@drawable/small_cart"/>
 
                 </LinearLayout>
                 <RelativeLayout

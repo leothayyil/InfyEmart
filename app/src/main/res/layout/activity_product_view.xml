@@ -71,13 +71,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center">
 
-                <Button
-                    android:layout_width="60sp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/PV_add"
+                <ImageButton
+                    android:layout_width="50sp"
                     android:backgroundTint="@color/gr3"
-                    android:textColor="@color/white"
-                    android:text="add"/>
+                    android:layout_height="45sp"
+                    android:id="@+id/PV_add"
+                    android:layout_marginRight="5sp"
+                    android:src="@drawable/small_cart"/>
 
             </LinearLayout>
 
@@ -90,24 +90,6 @@
                 android:layout_marginTop="10sp"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center"
-
-                    android:layout_gravity="center"
-                    >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Rs 430"
-                        android:textColor="@color/red"
-                        android:textSize="15sp"
-                        android:id="@+id/PV_marginPrice"
-                        />
-                </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -118,9 +100,18 @@
                     android:id="@+id/PV_originalPrice"
                     android:textColor="@color/bl4"
                     />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rs 430"
+                        android:textColor="@color/red"
+                        android:textSize="15sp"
+                        android:id="@+id/PV_marginPrice"
+                        />
+
 
             </LinearLayout>
-        </LinearLayout>
+            </LinearLayout>
     </ScrollView>
 </android.support.v7.widget.CardView>
 

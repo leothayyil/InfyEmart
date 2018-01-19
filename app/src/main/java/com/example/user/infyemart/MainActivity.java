@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity
     String category;
     Object[] objectList;
     String[] stringImgs;
-    String cart_id;
+    String cart_id,user_id;
     TextView toolbarTit,toolbarCount;
     String userAddressNav,userNameNav;
     SharedPreferences prefs;
@@ -89,6 +89,8 @@ public class MainActivity extends AppCompatActivity
             cart_id=prefs.getString("session_id","0");
             userNameNav=prefs.getString("user_name","0");
             userAddressNav=prefs.getString("addressString","0");
+            user_id=prefs.getString("user_id","0");
+            Log.e(TAG, "onCreate:user id "+user_id );
         }
 
         MyASyncTask task=new MyASyncTask(MainActivity.this);
@@ -184,6 +186,7 @@ public class MainActivity extends AppCompatActivity
                                 String status=jsonObject.getString("status");
 
 
+
                                     Pojo_Banner pojo=new Pojo_Banner();
                                     String ban1,ban2,ban3;
                                     ban1=jsonObject.getString("banner1");
@@ -202,8 +205,11 @@ public class MainActivity extends AppCompatActivity
                                 objectList = banStrImgsArray.toArray();
                                      stringImgs=  Arrays.copyOf(objectList,objectList.length,String[].class);
 
-                                mPager=findViewById(R.id.pager);
-                                mPager.setAdapter(new Slider_Adapter(MainActivity.this,bannerImgsArray,stringImgs));
+//                                mPager=findViewById(R.id.pager);
+//                                mPager.setAdapter(new Slider_Adapter(MainActivity.this,bannerImgsArray,stringImgs));
+
+                                initSlide();
+
                             }
 
                         } catch (JSONException e) {
@@ -255,7 +261,6 @@ public class MainActivity extends AppCompatActivity
                         }else {
                             toolbarCount.setText(count);
                         }
-                        Log.e(TAG, "session Id: "+ count );
 
                     }
                     @Override
@@ -312,20 +317,18 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
     private void initSlide() {
-//        for (int i=0;i<imgs.length;i++)
-//            imgsArray.add(imgs[i]);
-        for (int i=0;i<banStrImgsArray.size();i++);
+        for (int i=0;i<stringImgs.length;i++);
 
-//        mPager=findViewById(R.id.pager);
-//        mPager.setAdapter(new Slider_Adapter(MainActivity.this,bannerImgsArray,stringImgs));
         CircleIndicator indicator=findViewById(R.id.indicator);
+        mPager=findViewById(R.id.pager);
+        mPager.setAdapter(new Slider_Adapter(MainActivity.this,bannerImgsArray,stringImgs));
         indicator.setViewPager(mPager);
 
         final Handler handler=new Handler();
         final Runnable update=new Runnable() {
             @Override
             public void run() {
-                if (currentPage==banStrImgsArray.size()){
+                if (currentPage==stringImgs.length){
                     currentPage=0;
                 }
                 mPager.setCurrentItem(currentPage++,true);
@@ -333,6 +336,7 @@ public class MainActivity extends AppCompatActivity
         };
         Timer swipeTimer=new Timer();
         swipeTimer.schedule(new TimerTask() {
+
             @Override
             public void run() {
                 handler.post(update);
@@ -347,12 +351,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
     }
-
     private class MyASyncTask extends AsyncTask<Void,Void,Void>{
 
-
         private ProgressDialog dialog;
-
         public MyASyncTask(MainActivity activity) {
             dialog = new ProgressDialog(activity);
         }

@@ -40,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         edtUserName=findViewById(R.id.input_email_login);
         edtPassWord=findViewById(R.id.input_password_login);
 
+
         editor = getSharedPreferences("SHARED_DATA", MODE_PRIVATE).edit();
         editor.clear();
         editor.commit();
@@ -98,6 +99,8 @@ public class LoginActivity extends AppCompatActivity {
                                 editor.apply();
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 startActivity(intent);
+
+                                Log.e("loggg", "onResponse: "+user_id );
                             }
 
 

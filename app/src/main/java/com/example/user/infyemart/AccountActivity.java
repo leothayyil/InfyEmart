@@ -40,6 +40,7 @@ public class AccountActivity extends AppCompatActivity {
     LinearLayout accountLinear;
     private ProgressDialog dialog;
     private LinearLayout logout,changePassword;
+    SharedPreferences prefs;
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -73,7 +74,7 @@ public class AccountActivity extends AppCompatActivity {
         dialog.setMessage("Getting data, please wait...");
         dialog.show();
 
-        SharedPreferences prefs = getSharedPreferences("SHARED_DATA", MODE_PRIVATE);
+         prefs = getSharedPreferences("SHARED_DATA", MODE_PRIVATE);
         String restoredText = prefs.getString("user_id", null);
 
         if (restoredText != null) {
@@ -137,16 +138,13 @@ public class AccountActivity extends AppCompatActivity {
                 new AlertDialog.Builder(AccountActivity.this)
                         .setTitle("Closing application")
                         .setMessage("Are you sure you want to terminate session? \n" +
-                                "It will clear your cart list.")
+                                "It will clear your cart.")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 String action_logout="logout";
 
                                 logout_session(action_logout,cart_id);
-
-//                                System.runFinalizersOnExit(true);
-
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                                     finishAffinity();
                                 }

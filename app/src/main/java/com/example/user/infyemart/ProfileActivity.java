@@ -9,17 +9,26 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.user.infyemart.Pojo.Pojo_district;
+import com.example.user.infyemart.Pojo.Pojo_place;
 import com.example.user.infyemart.Retrofit.RetrofitHelper;
 import com.google.gson.JsonElement;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,19 +36,27 @@ import retrofit2.Response;
 
 public class ProfileActivity extends AppCompatActivity {
 
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
     }
     SharedPreferences.Editor editor;
-    EditText proName,proEmail,proNumber,proAddress,proPlace,proDistrict,proPincode,proPassword;
+    EditText proName,proEmail,proNumber,proAddress,proPincode,proPassword;;
+    Spinner proPlace,proDistrict;
     String sName,sEmail,sNumber,sAddress,sPincode,sDistrict,sPlace,sPassword;
     Button submit;
     String user_id;
     String action_reg2="register_second";
     SharedPreferences prefs;
     TextInputLayout password;
+
+    ArrayList<String> arrayListDistrict=new ArrayList<>();
+    ArrayList <String> arrayListPlace=new ArrayList<>();
+    String[] stringDistrict;
+    String[] stringPlace;
+    String selectedDistrict;
 
 
     @Override
@@ -69,55 +86,168 @@ public class ProfileActivity extends AppCompatActivity {
         mainAccount.setVisibility(View.GONE);
         mainCart.setVisibility(View.GONE);
 
+        arrayListDistrict.add("[ Select District ]");
+        proPlace.setSelection(0);
+
+
+        getDistrict();
+        proDistrict.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                arrayListPlace.clear();;
+                arrayListPlace.add("[ Select Place ]");
+                selectedDistrict=String.valueOf(position);
+                sDistrict=proDistrict.getSelectedItem().toString();
+                if (Integer.valueOf(selectedDistrict)>1){
+                    String actionPlace="place";
+                    getPlace(actionPlace,selectedDistrict);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         editor = getSharedPreferences("SHARED_DATA", MODE_PRIVATE).edit();
-        editor.clear();
-        editor.commit();
 
         prefs=getSharedPreferences("SHARED_DATA",MODE_PRIVATE);
-        String restoredText=prefs.getString("session_id",null);
+        String restoredText=prefs.getString("user_id",null);
         if (restoredText !=null){
-            user_id=prefs.getString("session_id","0");
-            proPassword.setVisibility(View.GONE);
-            password.setVisibility(View.GONE);
-           if (!user_id.equals("")) {
+
+            user_id=prefs.getString("user_id","");
+
+
+           if (user_id!=("")) {
+
+
                submit.setOnClickListener(new View.OnClickListener() {
                    @Override
                    public void onClick(View v) {
-                       sName=proName.getText().toString();
+                       sName=proName.getText().toString().toUpperCase();
                        sEmail=proEmail.getText().toString();
                        sAddress=proAddress.getText().toString();
                        sNumber=proNumber.getText().toString();
                        sPincode=proPincode.getText().toString();
-                       sPlace=proPlace.getText().toString();
-                       sDistrict=proDistrict.getText().toString();
-
+//                       sPlace=proPlace.getText().toString();
+//                       sDistrict=proDistrict.getText().toString();
                        updateProfile();
                    }
                });
            }
-
         }
         else {
+            password.setVisibility(View.VISIBLE);
+
             submit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    sName=proName.getText().toString();
+                    sName=proName.getText().toString().toUpperCase();
                     sEmail=proEmail.getText().toString();
                     sAddress=proAddress.getText().toString();
                     sNumber=proNumber.getText().toString();
                     sPincode=proPincode.getText().toString();
-                    sPlace=proPlace.getText().toString();
-                    sDistrict=proDistrict.getText().toString();
+//                    sPlace=proPlace.getText().toString();
+//                    sDistrict=proDistrict.getText().toString();
                     sPassword=proPassword.getText().toString();
-
                     createProfile();
                 }
-
             });
         }
+    }
 
+    private void getPlace(String actionPlace, String selectedDistrict) {
+        new RetrofitHelper(ProfileActivity.this).getApIs().getPlace(actionPlace,selectedDistrict).enqueue(
+                new Callback<JsonElement>() {
+                    @Override
+                    public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
 
+                        try {
+                            JSONArray jsonArray=new JSONArray(response.body().toString());
+                            for (int i=0;i<jsonArray.length();i++){
+                                JSONObject jsonObject=jsonArray.getJSONObject(i);
+                                int id=jsonObject.getInt("id");
+                                int districtId=jsonObject.getInt("district");
+                                String place=jsonObject.getString("place");
+                                Pojo_place pojo=new Pojo_place();
+                                pojo.setId(id);
+                                pojo.setDistrict(districtId);
+                                pojo.setPlace(place);
+                                arrayListPlace.add(place);
+                                Object[] objectList=arrayListPlace.toArray();
+                                stringPlace=Arrays.copyOf(objectList,objectList.length,String[].class);
 
+                                ArrayAdapter<String> adapter=new ArrayAdapter<String>(ProfileActivity.this,
+                                        android.R.layout.simple_spinner_dropdown_item,stringPlace){
+                                    @Override
+                                    public boolean isEnabled(int position) {
+                                        if (position==0){
+                                            return  false;
+                                        }
+                                        return  true;
+                                    }
+                                };
+                                proPlace.setAdapter(adapter);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonElement> call, Throwable t) {
+
+                    }
+                }
+        );
+    }
+
+    private void getDistrict() {
+        String actionDist="district";
+        new RetrofitHelper(ProfileActivity.this).getApIs().district(actionDist).enqueue(new Callback<JsonElement>() {
+            @Override
+            public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
+                try {
+                    JSONArray jsonArray=new JSONArray(response.body().toString());
+                    for (int i=0;i<jsonArray.length();i++){
+                        JSONObject jsonObject=jsonArray.getJSONObject(i);
+                        int id=jsonObject.getInt("id");
+                        String district=jsonObject.getString("district");
+                        Pojo_district pojo=new Pojo_district();
+                        pojo.setId(id);
+                        pojo.setDistrict(district);
+                        arrayListDistrict.add(district);
+
+                        Object[] objectsList=arrayListDistrict.toArray();
+                        stringDistrict= Arrays.copyOf(objectsList,objectsList.length,String[].class);
+
+                        ArrayAdapter<String>adapter=new ArrayAdapter<String>(ProfileActivity.this,android.R.layout.simple_spinner_dropdown_item
+                        ,stringDistrict){
+
+                            @Override
+                            public boolean isEnabled(int position) {
+                                if (position==0){
+                                    return  false;
+                                }
+                                return true;
+                            }
+                        };
+
+                        proDistrict.setSelection(0);
+                        proDistrict.setAdapter(adapter);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonElement> call, Throwable t) {
+
+            }
+        });
     }
 
     private void updateProfile() {
@@ -188,9 +318,8 @@ public class ProfileActivity extends AppCompatActivity {
                                 editor.putString("addressString", addressString);
                                 editor.apply();
                                 Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
-                                startActivity(intent);
+                                    startActivity(intent);
                                 Toast.makeText(ProfileActivity.this,"Success ", Toast.LENGTH_SHORT).show();
-
                             }
 
                         } catch (JSONException e) {
