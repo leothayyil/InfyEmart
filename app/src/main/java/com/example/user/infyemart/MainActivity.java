@@ -52,7 +52,6 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,AbsListView.OnScrollListener {
-    private static final String TAG = "logg";
     RecyclerView recycler;
     RecyclerView.LayoutManager layoutManager;
     TextView mainPageName,mainPageAddress;
@@ -90,7 +89,7 @@ public class MainActivity extends AppCompatActivity
             userNameNav=prefs.getString("user_name","0");
             userAddressNav=prefs.getString("addressString","0");
             user_id=prefs.getString("user_id","0");
-            Log.e(TAG, "onCreate:user id "+user_id+"," +userNameNav+", "+userAddressNav );
+            Log.e("loggg", "onCreate: user id "+user_id+"," +userNameNav+", "+userAddressNav );
         }
 
         MyASyncTask task=new MyASyncTask(MainActivity.this);
@@ -113,7 +112,8 @@ public class MainActivity extends AppCompatActivity
         recycler.setFitsSystemWindows(true);
         recycler.addItemDecoration(new ItemOffsetDecoration(20));
 
-        recycler.addOnItemTouchListener(new RecyclerItemClickListener(MainActivity.this, recycler, new RecyclerItemClickListener.OnItemClickListener() {
+        recycler.addOnItemTouchListener(new RecyclerItemClickListener(MainActivity.this, recycler,
+                new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 int number= Integer.parseInt(categories_call.get(position).getId());

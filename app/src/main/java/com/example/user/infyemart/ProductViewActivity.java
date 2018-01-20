@@ -33,6 +33,7 @@ public class ProductViewActivity extends AppCompatActivity {
     ScrollView scrollView;
     TextView productName,brand,quantity,offer,originalPrice,marginPrice,cartCount,toolbarTit;
     ImageView imageView,mainCart;
+    String cartCountStr;
     ImageButton addBtn;
     String itemId,cartId;
     String actionToCart="add_to_cart";
@@ -133,7 +134,7 @@ public class ProductViewActivity extends AppCompatActivity {
     }
 
     private void productDetails() {
-        new RetrofitHelper(ProductViewActivity.this).getApIs().product_details(actionPV,productId)
+        new RetrofitHelper(ProductViewActivity.this).getApIs().product_details(actionPV,productId,cartId)
                 .enqueue(new Callback<JsonElement>() {
                     @Override
                     public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
@@ -147,6 +148,7 @@ public class ProductViewActivity extends AppCompatActivity {
                                 String product_nameS=jsonObject.getString("product_name");
                                 String brandS=jsonObject.getString("brand");
                                 String imageS=jsonObject.getString("image");
+                                cartCountStr=jsonObject.getString("cart_count");
 
                                 JSONArray jsonArray1=jsonObject.getJSONArray("variant");
                                 for (int ii=0;ii<jsonArray1.length();ii++){
@@ -165,6 +167,10 @@ public class ProductViewActivity extends AppCompatActivity {
                                             .into(imageView);
                                     toolbarTit.setVisibility(View.VISIBLE);
                                     toolbarTit.setText(product_nameS);
+                                    if (!cartCountStr.equals("")){
+                                        cartCount.setText(cartCountStr);
+                                        mainCart.setVisibility(View.VISIBLE);
+                                    }
                                 }
 
 

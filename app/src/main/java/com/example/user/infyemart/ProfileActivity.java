@@ -115,11 +115,11 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedPlace=String.valueOf(position);
-            }
+                sPlace=proPlace.getSelectedItem().toString();
 
+            }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
 
@@ -129,10 +129,10 @@ public class ProfileActivity extends AppCompatActivity {
         String restoredText=prefs.getString("user_id",null);
         if (restoredText !=null){
 
-            user_id=prefs.getString("user_id","");
+            user_id=prefs.getString("user_id","00");
 
 
-           if (user_id!=("")) {
+           if (user_id!=("00")) {
 
 
                submit.setOnClickListener(new View.OnClickListener() {
@@ -266,25 +266,36 @@ public class ProfileActivity extends AppCompatActivity {
     private void updateProfile() {
 
         String actionUpdate="update_profile";
-        new RetrofitHelper(ProfileActivity.this).getApIs().updateProfile(actionUpdate,sNumber,sAddress,selectedDistrict,selectedPlace,sPincode,sName,sEmail,user_id)
+        new RetrofitHelper(ProfileActivity.this).getApIs().updateProfile(actionUpdate,sNumber,sAddress,selectedDistrict,
+                selectedPlace,sPincode,sName,sEmail,user_id)
                 .enqueue(new Callback<JsonElement>() {
                     @Override
                     public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                         try {
                             JSONObject jsonObject=new JSONObject(response.body().toString());
-                            String status,user_id,name,email,phone,address,district,place,pincode;
+                            String status,user_id,name,email,phone ,address,district,place,pincode;
                             status=jsonObject.getString("status");
                             user_id=jsonObject.getString("user_id");
                             name=jsonObject.getString("name");
-                            email=jsonObject.getString("phone");
+                            phone=jsonObject.getString("phone");
+                            email=jsonObject.getString("email");
                             address=jsonObject.getString("address");
                             district=jsonObject.getString("district");
                             place=jsonObject.getString("place");
                             pincode=jsonObject.getString("pincode");
 
+                            String addressString = address + "\n" + district + "," + place + "\n" + phone;
 
-                            Log.e("loggg", "onResponse: "+district+place );
+
+                            Log.e("loggg", "onResponse of update: "+district+place );
                             if (status.equals("Success")){
+
+
+
+                                    editor.putString("user_name", name);
+                                    editor.putString("addressString", addressString);
+                                    editor.apply();
+                                    Log.e("loggg", "onResponse: "+user_id+"," +name +","+","+addressString );
 
                                 Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
                                 startActivity(intent);

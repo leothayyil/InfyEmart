@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardBackgroundColor="@color/gr2"
+    app:cardBackgroundColor="@color/white"
     app:cardElevation="2sp"
     android:layout_margin="2sp"
     android:orientation="vertical">
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:text="sample "
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:id="@+id/tv_subCat"
         android:layout_margin="7sp"
         android:layout_gravity="center"/>

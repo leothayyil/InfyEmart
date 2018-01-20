@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="190sp"
+    android:layout_height="210sp"
     android:gravity="bottom"
-    android:weightSum="5.2"
     android:orientation="vertical"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="0sp"
+        android:layout_height="70sp"
         android:layout_gravity="top"
         android:text="Saji jacob"
-        android:layout_weight="3"
-        android:gravity="center|left"
+        android:gravity="center|left|bottom"
+        android:paddingBottom="10sp"
         android:paddingLeft="15sp"
         android:paddingTop="5sp"
         android:id="@+id/mainPageName"
@@ -49,8 +48,8 @@
     </LinearLayout>
     <View
         android:layout_width="match_parent"
-        android:layout_height="1sp"
-        android:layout_weight=".02"
+        android:layout_height=".1sp"
+        android:layout_weight=".001"
         android:layout_marginTop="5sp"
         android:background="@color/black"/>
 
