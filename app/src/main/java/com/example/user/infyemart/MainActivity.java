@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity
             userNameNav=prefs.getString("user_name","0");
             userAddressNav=prefs.getString("addressString","0");
             user_id=prefs.getString("user_id","0");
-            Log.e(TAG, "onCreate:user id "+user_id );
+            Log.e(TAG, "onCreate:user id "+user_id+"," +userNameNav+", "+userAddressNav );
         }
 
         MyASyncTask task=new MyASyncTask(MainActivity.this);

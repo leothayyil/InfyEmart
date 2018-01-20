@@ -94,7 +94,7 @@ public class MainProductsActivity extends AppCompatActivity {
         String restoredText=prefs.getString("session_id",null);
         if (restoredText !=null){
             session_id=prefs.getString("session_id","0");
-            session_id=cart_id;
+            cart_id=session_id;
         }
 
 
@@ -191,9 +191,9 @@ public class MainProductsActivity extends AppCompatActivity {
 
                                         String itemId=value;
 
-                                        Log.e(TAG, "onClicked: "+itemId );
                                         String actionToCart="add_to_cart";
                                         final  String itemCount="1";
+
                                         addToCart(actionToCart,itemId,itemCount);
                                     }
                                 }
@@ -231,21 +231,25 @@ public class MainProductsActivity extends AppCompatActivity {
 
         }
     };
-    private void addToCart(String actionToCart, String itemId, final String itemCount) {
+    private void addToCart(final String actionToCart, final String itemId, final String itemCount) {
+
+
         new RetrofitHelper(MainProductsActivity.this).getApIs().addToCart(actionToCart,itemId,itemCount,session_id)
                 .enqueue(new Callback<JsonElement>() {
                     @Override
                     public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                         try {
                             JSONObject jsonObject=new JSONObject(response.body().toString());
-                             resp_count=jsonObject.getString("item_count");
+
+                            Log.e(TAG, "onClicked: "+itemId+actionToCart+itemCount+session_id );
+
+                            resp_count=jsonObject.getString("item_count");
                              total_count=jsonObject.getString("total_count");
                             String cartId=jsonObject.getString("cart_id");
 //                            productCount.setText(resp_count);
 //                            linearLayoutCount.setVisibility(View.VISIBLE);
                             cartCount.setText(total_count);
                             Log.e(TAG, "onResponse: "+total_count );
-
                         }
                         catch (JSONException e) {
                             e.printStackTrace();

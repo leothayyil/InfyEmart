@@ -56,7 +56,7 @@ public class ProfileActivity extends AppCompatActivity {
     ArrayList <String> arrayListPlace=new ArrayList<>();
     String[] stringDistrict;
     String[] stringPlace;
-    String selectedDistrict;
+    String selectedDistrict,selectedPlace;
 
 
     @Override
@@ -99,10 +99,22 @@ public class ProfileActivity extends AppCompatActivity {
                 arrayListPlace.add("[ Select Place ]");
                 selectedDistrict=String.valueOf(position);
                 sDistrict=proDistrict.getSelectedItem().toString();
+                sDistrict=arrayListDistrict.get(position);
                 if (Integer.valueOf(selectedDistrict)>1){
                     String actionPlace="place";
                     getPlace(actionPlace,selectedDistrict);
                 }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        proPlace.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedPlace=String.valueOf(position);
             }
 
             @Override
@@ -179,6 +191,7 @@ public class ProfileActivity extends AppCompatActivity {
                                 Object[] objectList=arrayListPlace.toArray();
                                 stringPlace=Arrays.copyOf(objectList,objectList.length,String[].class);
 
+
                                 ArrayAdapter<String> adapter=new ArrayAdapter<String>(ProfileActivity.this,
                                         android.R.layout.simple_spinner_dropdown_item,stringPlace){
                                     @Override
@@ -222,8 +235,8 @@ public class ProfileActivity extends AppCompatActivity {
 
                         Object[] objectsList=arrayListDistrict.toArray();
                         stringDistrict= Arrays.copyOf(objectsList,objectsList.length,String[].class);
-
-                        ArrayAdapter<String>adapter=new ArrayAdapter<String>(ProfileActivity.this,android.R.layout.simple_spinner_dropdown_item
+                        ArrayAdapter<String>adapter=new ArrayAdapter<String>(ProfileActivity.this,
+                                android.R.layout.simple_spinner_dropdown_item
                         ,stringDistrict){
 
                             @Override
@@ -253,7 +266,7 @@ public class ProfileActivity extends AppCompatActivity {
     private void updateProfile() {
 
         String actionUpdate="update_profile";
-        new RetrofitHelper(ProfileActivity.this).getApIs().updateProfile(actionUpdate,sNumber,sAddress,sDistrict,sPlace,sPincode,sName,sEmail,user_id)
+        new RetrofitHelper(ProfileActivity.this).getApIs().updateProfile(actionUpdate,sNumber,sAddress,selectedDistrict,selectedPlace,sPincode,sName,sEmail,user_id)
                 .enqueue(new Callback<JsonElement>() {
                     @Override
                     public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
@@ -270,6 +283,7 @@ public class ProfileActivity extends AppCompatActivity {
                             pincode=jsonObject.getString("pincode");
 
 
+                            Log.e("loggg", "onResponse: "+district+place );
                             if (status.equals("Success")){
 
                                 Intent intent = new Intent(ProfileActivity.this, MainActivity.class);

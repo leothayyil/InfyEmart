@@ -119,11 +119,6 @@ public class AddressEnterActivity extends AppCompatActivity {
 
            }
        });
-
-
-
-
-
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,16 +128,12 @@ public class AddressEnterActivity extends AppCompatActivity {
                 sLandmark=landmark.getText().toString();
                 sPincode=pincode.getText().toString();
 
-                Log.e(TAG, "onClick: "+ sName+" "+sAddress+" "+sEmail+" " +
-                        ""+sLandmark+" "+sPincode+" "+sDistrict+" "+sCity );
                 updateData();
 
                 Intent purchaseIntent=new Intent(AddressEnterActivity.this, AccountActivity.class);
                 startActivity(purchaseIntent);
             }
         });
-
-
     }
 
     private void getPlace(String action,String districtId) {
@@ -236,7 +227,7 @@ public class AddressEnterActivity extends AppCompatActivity {
 
     private void updateData() {
         new RetrofitHelper(AddressEnterActivity.this).getApIs().addDelivery_details
-                (action,userId,sName,sEmail,sAddress,sDistrict,sCity,sLandmark,sPincode).enqueue(new Callback<JsonElement>() {
+                (action,userId,sName,sEmail,sAddress,selectedDistrict,selectedDistrict,sLandmark,sPincode).enqueue(new Callback<JsonElement>() {
             @Override
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                 try {
@@ -249,6 +240,8 @@ public class AddressEnterActivity extends AppCompatActivity {
                     String districtResp=jsonObject.getString("district");
                     String cityResp=jsonObject.getString("city");
                     String pincodeResp=jsonObject.getString("pincode");
+
+                    Log.e(TAG, "onResponse: "+districtResp +cityResp );
 
                 } catch (JSONException e) {
                     e.printStackTrace();

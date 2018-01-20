@@ -100,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 startActivity(intent);
 
-                                Log.e("loggg", "onResponse: "+user_id );
+                                Log.e("loggg", "onResponse: "+user_id+"," +user_name +","+session_id+","+addressString );
                             }
 
 
