@@ -1,5 +1,6 @@
 package com.example.user.infyemart;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -37,12 +38,13 @@ public class ProductViewActivity extends AppCompatActivity {
     ImageButton addBtn;
     String itemId,cartId;
     String actionToCart="add_to_cart";
+    ProgressDialog dialog;
 
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
-//        Intent intent=new Intent(ProductViewActivity.this,MainProductsActivity.class);
-//        startActivity(intent);
+        Intent intent=new Intent(ProductViewActivity.this,MainProductsActivity.class);
+        startActivity(intent);
         finish();
         return true;
     }
@@ -69,28 +71,39 @@ public class ProductViewActivity extends AppCompatActivity {
          cartCount=findViewById(R.id.cartCountId);
         mainAccount.setVisibility(View.GONE);
         toolbarTit.setVisibility(View.GONE);
-        mainCart.setVisibility(View.GONE);
-
+        dialog=new ProgressDialog(this);
 
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 String itemCount="1";
+
                 addToCart(actionToCart,cartId,itemCount,itemId);
 
             }
         });
+
         scrollView.setVisibility(View.GONE);
         Bundle extras=getIntent().getExtras();
         if (extras !=null){
             productId=extras.getString("product_id");
             cartId=extras.getString("cart_id");
             itemId=extras.getString("item_id");
-
+            dialog.setTitle("Getting product details..");
+            dialog.show();
             AsyncProductView async=new AsyncProductView();
             async.execute();
         }
+        mainCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent=new Intent(ProductViewActivity.this,CartActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
 
 
@@ -104,11 +117,12 @@ public class ProductViewActivity extends AppCompatActivity {
                     public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
 
                         try {
+
                             JSONObject jsonObject=new JSONObject(response.body().toString());
                             String item_count=jsonObject.getString("item_count");
                             String total_count=jsonObject.getString("total_count");
                             cartCount.setText(total_count);
-                            mainCart.setVisibility(View.VISIBLE);
+                            cartCount.setVisibility(View.VISIBLE);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -165,11 +179,16 @@ public class ProductViewActivity extends AppCompatActivity {
                                     marginPrice.setText("Original price ₹ "+margin_priceS+" ");
                                     Picasso.with(ProductViewActivity.this).load(imageS).placeholder(R.drawable.loading).error(R.drawable.error_image)
                                             .into(imageView);
+
                                     toolbarTit.setVisibility(View.VISIBLE);
                                     toolbarTit.setText(product_nameS);
                                     if (!cartCountStr.equals("")){
                                         cartCount.setText(cartCountStr);
+                                        cartCount.setVisibility(View.VISIBLE);
                                         mainCart.setVisibility(View.VISIBLE);
+                                    }
+                                    if (dialog.isShowing()){
+                                        dialog.dismiss();
                                     }
                                 }
 

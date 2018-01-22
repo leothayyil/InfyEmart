@@ -115,13 +115,28 @@
         android:textColor="#fff" />
     </LinearLayout>
     </ScrollView>
-    <ImageView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         android:id="@+id/no_items"
-        android:layout_marginTop="150sp"
-        android:src="@drawable/search_no_items"/>
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/search_no_items"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cart empty"
+            android:textSize="17sp"
+            android:textColor="@color/black"
+            android:gravity="center"/>
+    </LinearLayout>
+
 
 
 </LinearLayout>

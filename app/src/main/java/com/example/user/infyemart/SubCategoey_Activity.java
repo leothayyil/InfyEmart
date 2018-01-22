@@ -1,6 +1,7 @@
 package com.example.user.infyemart;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,7 +37,7 @@ public class SubCategoey_Activity extends AppCompatActivity {
     String action="sub_category";
     int categoryId;
     String subCategory,sub_category,sub_cat_id,category_Id;
-
+    SharedPreferences.Editor tempEditor;
     ArrayList<Pojo_SubCat>subArraylist=new ArrayList<>();
 
     @Override
@@ -63,6 +64,9 @@ public class SubCategoey_Activity extends AppCompatActivity {
         mainAccount.setVisibility(View.GONE);
         mainCart.setVisibility(View.GONE);
 
+         tempEditor=getSharedPreferences("TEMP_SHARED",MODE_PRIVATE).edit();
+         tempEditor.clear();
+         tempEditor.commit();
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         subRecyclerView.setLayoutManager(layoutManager);
@@ -77,12 +81,12 @@ public class SubCategoey_Activity extends AppCompatActivity {
                     @Override
                     public void onItemClick(View view, int position) {
                         Intent intent1=new Intent(SubCategoey_Activity.this,MainProductsActivity.class);
-                        intent1.putExtra("sub_categoryId",subArraylist.get(position).getSub_cat_id());
-                        intent1.putExtra("category_id",subArraylist.get(position).getCategoryId());
-                        intent1.putExtra("sub_category",subArraylist.get(position).getSubCategoryName());
+                        tempEditor.putString("sub_categoryId",subArraylist.get(position).getSub_cat_id());
+                        tempEditor.putString("category_id",subArraylist.get(position).getCategoryId());
+                        tempEditor.putString("sub_category",subArraylist.get(position).getSubCategoryName());
+                        tempEditor.apply();
                         startActivity(intent1);
                     }
-
                     @Override
                     public void onLongItemClick(View view, int position) {
 

@@ -52,10 +52,10 @@ public class MainProductsActivity extends AppCompatActivity {
     private String TAG="logg";
     TextView cartCount;
     String cartCountStr;
-    SharedPreferences prefs;
+    SharedPreferences prefs,tempPrefs;
     ImageButton addBtn;
     Button productCount,productAdd;
-    ImageView noItems;
+    LinearLayout noItems;
     LinearLayout linearLayoutCount;
     ProgressDialog dialog;
     JSONObject jsonObject;
@@ -91,13 +91,19 @@ public class MainProductsActivity extends AppCompatActivity {
         dialog.show();
 
         prefs=getSharedPreferences("SHARED_DATA",MODE_PRIVATE);
+        tempPrefs=getSharedPreferences("TEMP_SHARED",MODE_PRIVATE);
+
         String restoredText=prefs.getString("session_id",null);
         if (restoredText !=null){
             session_id=prefs.getString("session_id","0");
             cart_id=session_id;
         }
-
-
+        String tempRestored=tempPrefs.getString("sub_categoryId",null);
+        if (tempRestored !=null){
+            sub_catId=tempPrefs.getString("sub_categoryId",null);
+            subCategoryName=tempPrefs.getString("sub_category",null);
+            categoryId=tempPrefs.getString("category_id",null);
+        }
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver1,new IntentFilter("getPosition"));
         recyclerView=findViewById(R.id.recycler_products_Main);
@@ -105,10 +111,6 @@ public class MainProductsActivity extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
-        Intent intent=getIntent();
-        categoryId=intent.getExtras().getString("category_id");
-        sub_catId=intent.getExtras().getString("sub_categoryId");
-        subCategoryName=intent.getExtras().getString("sub_category");
         toolbarTit.setText(subCategoryName);
         recyclerView.setVisibility(View.GONE);
 
@@ -126,7 +128,6 @@ public class MainProductsActivity extends AppCompatActivity {
     private class AsycProductsList extends AsyncTask {
         @Override
         protected Object doInBackground(Object[] objects) {
-
 
             new RetrofitHelper(MainProductsActivity.this).getApIs().product_listing(action,
                     categoryId, sub_catId,cart_id)
@@ -170,13 +171,16 @@ public class MainProductsActivity extends AppCompatActivity {
                                             pojoV.setMargin_price("Price \n" + margin_price);
                                             pojoV.setOriginal_price("Offer price \n" + original_price);
                                             variantArrayList.add(pojoV);
+                                            recyclerView.setVisibility(View.VISIBLE);
                                         }
-
+                                }
                                     if (dialog.isShowing()) {
                                         dialog.dismiss();
-                                        recyclerView.setVisibility(View.VISIBLE);
                                     }
-                                }
+                                    if (productsArrayList.isEmpty()){
+                                        noItems.setVisibility(View.VISIBLE);
+                                    }
+
                                     cartCountStr=jsonObject.getString("cart_count");
                                     if (cartCountStr!="null"){
                                         cartCount.setText(cartCountStr);

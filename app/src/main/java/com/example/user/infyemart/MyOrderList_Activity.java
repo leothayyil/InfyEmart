@@ -1,5 +1,6 @@
 package com.example.user.infyemart;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -37,6 +38,7 @@ public class MyOrderList_Activity extends AppCompatActivity {
     ArrayList<Pojo_OrderedList> orderedLists=new ArrayList<>();
     TextView toolbarTit,cartCount;
     ImageView mainCart;
+    ProgressDialog dialog;
     String order_id;
     @Override
     public boolean onSupportNavigateUp() {
@@ -54,6 +56,7 @@ public class MyOrderList_Activity extends AppCompatActivity {
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
+        dialog=new ProgressDialog(this);
 
         Toolbar toolbar =findViewById(R.id.toolbar_orderedList);
         setSupportActionBar(toolbar);
@@ -66,6 +69,8 @@ public class MyOrderList_Activity extends AppCompatActivity {
         mainAccount.setVisibility(View.GONE);
         mainCart.setVisibility(View.GONE);
         toolbarTit.setText("My Orders");
+        dialog.setTitle("Loading..");
+        dialog.show();
 
         AsyncList list=new AsyncList();
         list.execute();
@@ -118,6 +123,10 @@ public class MyOrderList_Activity extends AppCompatActivity {
 
                                     adapter=new OrderedListAdapter(MyOrderList_Activity.this,orderedLists);
                                     recyclerView.setAdapter(adapter);
+                                    if (dialog.isShowing()){
+                                        dialog.dismiss();
+
+                                    }
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

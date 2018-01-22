@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
-    android:background="@color/bl1">
+    android:background="@color/red">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

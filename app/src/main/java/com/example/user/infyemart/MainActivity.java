@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity
          contentMain=findViewById(R.id.contentMain);
         recycler=findViewById(R.id.categoryMainList);
         recycler.setHasFixedSize(true);
-         layoutManager=new LinearLayoutManager(MainActivity.this);
+         layoutManager=new GridLayoutManager(MainActivity.this,2);
         recycler.setLayoutManager(layoutManager);
         final Main_RecyclerAdapter adapter=new Main_RecyclerAdapter(MainActivity.this,categories_call);
         recycler.setAdapter(adapter);
@@ -128,6 +128,8 @@ public class MainActivity extends AppCompatActivity
 
             }
         }));
+
+
 
         mainCart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -242,7 +244,7 @@ public class MainActivity extends AppCompatActivity
                                 String id=jsonObject.getString("id");
                                  category=jsonObject.getString("category");
                                 String department=jsonObject.getString("department");
-                                String icons=jsonObject.getString("icons");
+                                String icons=jsonObject.getString("image");
                                 Pojo_categories pojo=new Pojo_categories();
                                 pojo.setId(id);
                                 pojo.setDepartment(department);
@@ -277,23 +279,22 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.main, menu);
+//        return super.onCreateOptionsMenu(menu);
+//    }
 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
         return super.onOptionsItemSelected(item);
     }
-
 
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -309,7 +310,9 @@ public class MainActivity extends AppCompatActivity
              Intent intent=new Intent(MainActivity.this,NotificationActivity.class);
              startActivity(intent);
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.locate_draw) {
+             Intent intent=new Intent(MainActivity.this,AddressFieldsActivity.class);
+             startActivity(intent);
 
         }
         DrawerLayout drawer =findViewById(R.id.drawer_layout);

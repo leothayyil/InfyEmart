@@ -5,7 +5,7 @@
     tools:showIn="navigation_view">
 
     <item
-        android:id="@+id/locate"
+        android:id="@+id/locate_draw"
         android:icon="@drawable/location_small"
         android:title="location" />
     <item

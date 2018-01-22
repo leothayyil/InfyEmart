@@ -3,13 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="10"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_signout"
-        android:orderInCategory="10"
-        android:title="Sign Out"
-        app:showAsAction="never" />
+        android:id="@+id/action_cart"
+        android:icon="@drawable/cart_main"
+        android:title="action_cart"
+        app:showAsAction="always" />
 </menu>

@@ -16,6 +16,7 @@ import android.webkit.CookieSyncManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -55,7 +56,7 @@ public class CartActivity extends AppCompatActivity  {
     private ArrayList<String>deliveryCharge=new ArrayList<>();
     String[] deliverySlotStr;
     CardView cardPriceDetails;
-    ImageView noItems;
+    LinearLayout noItems;
     ScrollView cartScrollView;
 
     @Override
