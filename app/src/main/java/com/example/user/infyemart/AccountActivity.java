@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -41,10 +42,14 @@ public class AccountActivity extends AppCompatActivity {
     private ProgressDialog dialog;
     private LinearLayout logout,changePassword;
     SharedPreferences prefs;
+    SharedPreferences.Editor editor;
 
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
+        Intent intent=new Intent(AccountActivity.this,MainActivity.class);
+        startActivity(intent);
+        finish();
         return true;
     }
 
@@ -75,6 +80,7 @@ public class AccountActivity extends AppCompatActivity {
         dialog.show();
 
          prefs = getSharedPreferences("SHARED_DATA", MODE_PRIVATE);
+         editor=getSharedPreferences("SHARED_DATA",MODE_PRIVATE).edit();
         String restoredText = prefs.getString("user_id", null);
 
         if (restoredText != null) {
@@ -145,10 +151,7 @@ public class AccountActivity extends AppCompatActivity {
                                 String action_logout="logout";
 
                                 logout_session(action_logout,cart_id);
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                                    finishAffinity();
-                                }
-                                System.exit(0);
+
                             }
                         }).setNegativeButton("No", null).show();
             }
@@ -164,7 +167,18 @@ public class AccountActivity extends AppCompatActivity {
                         try {
                             JSONObject jsonObject=new JSONObject(response.body().toString());
                             String status=jsonObject.getString("status");
-                            Toast.makeText(AccountActivity.this, status, Toast.LENGTH_SHORT).show();
+                            if (status.equals("Success")){
+                                editor.clear();
+                                editor.commit();
+
+                                Toast.makeText(AccountActivity.this, status, Toast.LENGTH_SHORT).show();
+
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                                    finishAffinity();
+
+                                }
+                                System.exit(0);
+                            }
 
                         } catch (JSONException e) {
 

@@ -72,14 +72,14 @@
                         android:id="@+id/variant_spinnerId"
                         android:layout_gravity="center">
                     </Spinner>
-                    <ImageButton
-                        android:layout_width="40sp"
-                        android:backgroundTint="@color/gr3"
-                        android:layout_height="45sp"
 
-                        android:id="@+id/addToCart_btn"
-                        android:layout_marginRight="5sp"
-                        android:src="@drawable/small_cart"/>
+                        <ImageView
+                            android:layout_width="40sp"
+                            android:backgroundTint="@color/gr3"
+                            android:layout_height="45sp"
+                            android:id="@+id/addToCart_btn"
+                            android:layout_marginRight="5sp"
+                            android:src="@drawable/cart_edt"/>
 
                 </LinearLayout>
 

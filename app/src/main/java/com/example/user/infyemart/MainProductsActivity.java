@@ -53,7 +53,7 @@ public class MainProductsActivity extends AppCompatActivity {
     TextView cartCount;
     String cartCountStr;
     SharedPreferences prefs,tempPrefs;
-    ImageButton addBtn;
+    ImageView addBtn;
     Button productCount,productAdd;
     LinearLayout noItems;
     LinearLayout linearLayoutCount;
@@ -105,7 +105,6 @@ public class MainProductsActivity extends AppCompatActivity {
             categoryId=tempPrefs.getString("category_id",null);
         }
 
-        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver1,new IntentFilter("getPosition"));
         recyclerView=findViewById(R.id.recycler_products_Main);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(this);
@@ -200,6 +199,20 @@ public class MainProductsActivity extends AppCompatActivity {
 
                                         addToCart(actionToCart,itemId,itemCount);
                                     }
+
+                                    @Override
+                                    public void onClickedImage(String position) {
+
+                                        Intent intent1=new Intent(MainProductsActivity.this,ProductViewActivity.class);
+
+                                        String productId=productsArrayList.get(Integer.parseInt(position)).getProduct_id();
+                                        String itemId=variantArrayList.get(Integer.parseInt(position)).getItemId();
+
+                                        intent1.putExtra("product_id",productId);
+                                        intent1.putExtra("cart_id",session_id);
+                                        intent1.putExtra("item_id",itemId);
+                                        startActivity(intent1);
+                                    }
                                 }
                                 );
                                 recyclerView.setAdapter(adapter);
@@ -215,26 +228,6 @@ public class MainProductsActivity extends AppCompatActivity {
             return null;
         }
     }
-
-    final BroadcastReceiver mMessageReceiver1=new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            position=intent.getStringExtra("position");
-
-
-            Intent intent1=new Intent(MainProductsActivity.this,ProductViewActivity.class);
-                         String productId=productsArrayList.get(Integer.parseInt(position)).getProduct_id();
-                        String itemId=variantArrayList.get(Integer.parseInt(position)).getItemId();
-
-            intent1.putExtra("product_id",productId);
-            intent1.putExtra("cart_id",session_id);
-            intent1.putExtra("item_id",itemId);
-            startActivity(intent1);
-
-        }
-    };
     private void addToCart(final String actionToCart, final String itemId, final String itemCount) {
 
 
@@ -250,8 +243,6 @@ public class MainProductsActivity extends AppCompatActivity {
                             resp_count=jsonObject.getString("item_count");
                              total_count=jsonObject.getString("total_count");
                             String cartId=jsonObject.getString("cart_id");
-//                            productCount.setText(resp_count);
-//                            linearLayoutCount.setVisibility(View.VISIBLE);
                             cartCount.setText(total_count);
                             Log.e(TAG, "onResponse: "+total_count );
                         }

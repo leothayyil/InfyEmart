@@ -1,6 +1,7 @@
 package com.example.user.infyemart;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -35,7 +37,7 @@ public class ProductViewActivity extends AppCompatActivity {
     TextView productName,brand,quantity,offer,originalPrice,marginPrice,cartCount,toolbarTit;
     ImageView imageView,mainCart;
     String cartCountStr;
-    ImageButton addBtn;
+    ImageView addBtn;
     String itemId,cartId;
     String actionToCart="add_to_cart";
     ProgressDialog dialog;
@@ -99,6 +101,7 @@ public class ProductViewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                v.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.image_click));
                 Intent intent=new Intent(ProductViewActivity.this,CartActivity.class);
                 startActivity(intent);
             }

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -96,13 +97,15 @@ public class MainProductAdapter extends RecyclerView.Adapter<MainProductAdapter.
                 String productId=pojo.getProduct_id();
                 intent.putExtra("position",String.valueOf(position));
                 LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+                mClickListener.onClickedImage(String.valueOf(position));
+
             }
         });
 
         holder.addToCartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                v.startAnimation(AnimationUtils.loadAnimation(context,R.anim.image_click));
                 String itemId=pojoV.getItemId();
                 mClickListener.onClicked(itemId);
             }
@@ -116,7 +119,7 @@ public class MainProductAdapter extends RecyclerView.Adapter<MainProductAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView productName,offer,optionName,originalPrice,marginPrice;
-        ImageButton addToCartBtn;
+        ImageView addToCartBtn;
         ImageView  productImage;
         Spinner variantSpin;
         LinearLayout linearLayout;

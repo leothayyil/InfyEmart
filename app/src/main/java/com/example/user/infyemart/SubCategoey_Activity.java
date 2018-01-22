@@ -1,5 +1,6 @@
 package com.example.user.infyemart;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -39,6 +40,7 @@ public class SubCategoey_Activity extends AppCompatActivity {
     String subCategory,sub_category,sub_cat_id,category_Id;
     SharedPreferences.Editor tempEditor;
     ArrayList<Pojo_SubCat>subArraylist=new ArrayList<>();
+    ProgressDialog dialog;
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -62,6 +64,8 @@ public class SubCategoey_Activity extends AppCompatActivity {
         ImageView mainAccount=findViewById(R.id.mainToolbarAccount);
         ImageView mainCart=findViewById(R.id.mainToolbarCart);
         mainAccount.setVisibility(View.GONE);
+        dialog=new ProgressDialog(this);
+        dialog.setTitle("Getting data..");
         mainCart.setVisibility(View.GONE);
 
          tempEditor=getSharedPreferences("TEMP_SHARED",MODE_PRIVATE).edit();
@@ -121,7 +125,10 @@ public class SubCategoey_Activity extends AppCompatActivity {
 
                                     SubCat_Adapter adapter=new SubCat_Adapter(SubCategoey_Activity.this,subArraylist);
                                     subRecyclerView.setAdapter(adapter);
+                                }
 
+                                if (dialog.isShowing()){
+                                    dialog.dismiss();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

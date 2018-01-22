@@ -7,127 +7,156 @@
     android:layout_height="match_parent"
     tools:context="com.example.user.infyemart.AddressEnterActivity">
 
-    <include layout="@layout/toolbar_main"
-        android:id="@+id/toolbar_addNewaddressid"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bl2"
+        android:orientation="vertical"
+        android:scrollbarAlwaysDrawVerticalTrack="true">
+        <include layout="@layout/toolbar_main"
+            android:id="@+id/toolbar_addNewaddressid"/>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="70dp"
+            android:background="#fff"
+            android:elevation="4dp"
+            android:orientation="vertical"
+            android:padding="20dp">
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Name "
+                            android:id="@+id/addDelivery_name"
+                            android:padding="15sp"
+                            android:textColor="#000000" />
+                    </android.support.design.widget.TextInputLayout>
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="email"
+                            android:inputType="textPostalAddress"
+                            android:padding="15sp"
+                            android:id="@+id/addDelivery_email"
+                            android:textColor="#000000" />
+                    </android.support.design.widget.TextInputLayout>
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Address"
+                            android:inputType="textMultiLine"
+                            android:padding="15sp"
+                            android:id="@+id/addDelivery_address"
+                            android:textColor="#000000" />
+                    </android.support.design.widget.TextInputLayout>
+
+
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="40sp"
+                        style="?android:attr/spinnerItemStyle"
+                        android:background="@drawable/rectangle"
+                        android:inputType="textPostalAddress"
+                        android:layout_gravity="center_horizontal"
+                        android:foregroundGravity="center_horizontal"
+                        android:gravity="center_horizontal"
+                        android:layout_marginLeft="10sp"
+                        android:layout_marginRight="10sp"
+                        android:id="@+id/addDelivery_district"
+                        android:textColor="#000000" />
+
+
+
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="40sp"
+                        android:layout_marginLeft="10sp"
+                        android:layout_marginRight="10sp"
+                        android:layout_marginTop="5sp"
+                        android:background="@drawable/rectangle"
+                        android:hint="Select a place"
+                        android:id="@+id/addDelivery_place"
+                        android:textColor="#000000" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        >
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Pin code"
+                            android:inputType="number"
+                            android:padding="15sp"
+                            android:id="@+id/addDelivery_pincode"
+                            android:textColor="#000000" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        >
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Landmark"
+                            android:inputType="textMultiLine"
+                            android:padding="15sp"
+                            android:id="@+id/addDelivery_landmark"
+                            android:textColor="#000000" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="25sp"
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/addDelivery_button"
+                        android:backgroundTint="@color/red"
+                        android:text="Update Address"
+                        android:textColor="#fff" />
+                </LinearLayout>
+            </ScrollView>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_marginTop="55sp"
+        android:visibility="gone"
         android:layout_height="match_parent">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Name "
-                android:id="@+id/addDelivery_name"
-                android:padding="15sp"
-                android:textColor="#000000" />
-        </android.support.design.widget.TextInputLayout>
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="email"
-                android:inputType="textPostalAddress"
-                android:padding="15sp"
-                android:id="@+id/addDelivery_email"
-                android:textColor="#000000" />
-        </android.support.design.widget.TextInputLayout>
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Address"
-                android:inputType="textMultiLine"
-                android:padding="15sp"
-                android:id="@+id/addDelivery_address"
-                android:textColor="#000000" />
-        </android.support.design.widget.TextInputLayout>
-
-
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="40sp"
-                style="?android:attr/spinnerItemStyle"
-                android:background="@drawable/rectangle"
-                android:inputType="textPostalAddress"
-                android:layout_gravity="center_horizontal"
-                android:foregroundGravity="center_horizontal"
-                android:gravity="center_horizontal"
-                android:layout_marginLeft="10sp"
-                android:layout_marginRight="10sp"
-                android:id="@+id/addDelivery_district"
-                android:textColor="#000000" />
-
-
-
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="40sp"
-                android:layout_marginLeft="10sp"
-                android:layout_marginRight="10sp"
-                android:layout_marginTop="5sp"
-                android:background="@drawable/rectangle"
-                android:hint="Select a place"
-                android:id="@+id/addDelivery_place"
-                android:textColor="#000000" />
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            >
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Pin code"
-                android:inputType="number"
-                android:padding="15sp"
-                android:id="@+id/addDelivery_pincode"
-                android:textColor="#000000" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            >
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Landmark"
-                android:inputType="textMultiLine"
-                android:padding="15sp"
-                android:id="@+id/addDelivery_landmark"
-                android:textColor="#000000" />
-        </android.support.design.widget.TextInputLayout>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="25sp"
-            android:layout_marginTop="10dp"
-            android:id="@+id/addDelivery_button"
-            android:backgroundTint="@color/bl3"
-            android:text="Update Address"
-            android:textColor="#fff" />
-    </LinearLayout>
     </ScrollView>
 </android.support.v7.widget.CardView>

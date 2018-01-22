@@ -134,7 +134,7 @@ public class ProfileActivity extends AppCompatActivity {
 
            if (user_id!=("00")) {
 
-
+               submit.setText("Update Profile");
                submit.setOnClickListener(new View.OnClickListener() {
                    @Override
                    public void onClick(View v) {

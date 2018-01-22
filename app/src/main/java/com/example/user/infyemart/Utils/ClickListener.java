@@ -7,5 +7,6 @@ package com.example.user.infyemart.Utils;
 public interface ClickListener {
 
     void onClicked(String value);
+    void onClickedImage(String position);
 
 }

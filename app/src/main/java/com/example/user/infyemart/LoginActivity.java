@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     String action;
     String addressString, user_name;
     SharedPreferences.Editor editor;
+    SharedPreferences prefs;
     EditText edtUserName,edtPassWord;
 
     @Override
@@ -39,11 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         signup = findViewById(R.id.link_signup);
         edtUserName=findViewById(R.id.input_email_login);
         edtPassWord=findViewById(R.id.input_password_login);
-
-
         editor = getSharedPreferences("SHARED_DATA", MODE_PRIVATE).edit();
-        editor.clear();
-        editor.commit();
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,15 +50,13 @@ public class LoginActivity extends AppCompatActivity {
                 userName=edtUserName.getText().toString();
                 passWord=edtPassWord.getText().toString();
                 if (userName.equals("")){
-                    Toast.makeText(LoginActivity.this, "login id field is blank!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Enter login details!", Toast.LENGTH_SHORT).show();
                 } else if (passWord.equals("")) {
                     Toast.makeText(LoginActivity.this, "Password field is blank!", Toast.LENGTH_SHORT).show();
                 }else {
                     action = "login";
                     loginCall();
                 }
-               
-
             }
         });
         signup.setOnClickListener(new View.OnClickListener() {

@@ -62,6 +62,8 @@ public class CartActivity extends AppCompatActivity  {
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
+        Intent intent=new Intent(CartActivity.this,MainActivity.class);
+        startActivity(intent);
         finish();
         return true;
     }
@@ -202,6 +204,11 @@ public class CartActivity extends AppCompatActivity  {
                                             String actionDlte="cart_delete";
                                             deleteCart(actionDlte, Integer.parseInt(value),cartId);
                                             Toast.makeText(CartActivity.this, value+"  got ", Toast.LENGTH_SHORT).show();
+                                        }
+
+                                        @Override
+                                        public void onClickedImage(String position) {
+
                                         }
                                     });
                                     recyclerView.setAdapter(cartAdapter);
