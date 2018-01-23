@@ -122,8 +122,8 @@ public class AddressEnterActivity extends AppCompatActivity {
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sName=name.getText().toString();
-                sAddress=address.getText().toString();
+                sName=name.getText().toString().toUpperCase();
+                sAddress=address.getText().toString().toUpperCase();
                 sEmail=email.getText().toString();
                 sLandmark=landmark.getText().toString();
                 sPincode=pincode.getText().toString();
@@ -156,7 +156,6 @@ public class AddressEnterActivity extends AppCompatActivity {
                                 arrayListPlace.add(place);
                                 Object[] objectList=arrayListPlace.toArray();
                                 stringPlace=Arrays.copyOf(objectList,objectList.length,String[].class);
-
                                 ArrayAdapter<String> adapter=new ArrayAdapter<String>(AddressEnterActivity.this,
                                         android.R.layout.simple_spinner_dropdown_item,stringPlace){
                                     @Override
@@ -227,7 +226,7 @@ public class AddressEnterActivity extends AppCompatActivity {
 
     private void updateData() {
         new RetrofitHelper(AddressEnterActivity.this).getApIs().addDelivery_details
-                (action,userId,sName,sEmail,sAddress,selectedDistrict,selectedDistrict,sLandmark,sPincode).enqueue(new Callback<JsonElement>() {
+                (action,userId,sName,sEmail,sAddress,sDistrict,sCity,sLandmark,sPincode).enqueue(new Callback<JsonElement>() {
             @Override
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                 try {

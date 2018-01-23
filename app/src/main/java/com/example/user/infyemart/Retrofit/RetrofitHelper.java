@@ -1,5 +1,7 @@
 package com.example.user.infyemart.Retrofit;
 
+import android.content.Context;
+
 import com.example.user.infyemart.AccountActivity;
 import com.example.user.infyemart.AddressEnterActivity;
 import com.example.user.infyemart.AddressFieldsActivity;
@@ -88,6 +90,10 @@ public class RetrofitHelper {
     }
 
     public RetrofitHelper(ProfileActivity profileActivity) {
+        initResstAdapter();
+    }
+
+    public RetrofitHelper(Context context) {
         initResstAdapter();
     }
 

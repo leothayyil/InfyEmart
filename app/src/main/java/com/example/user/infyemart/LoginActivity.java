@@ -33,6 +33,8 @@ public class LoginActivity extends AppCompatActivity {
     SharedPreferences prefs;
     EditText edtUserName,edtPassWord;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +44,13 @@ public class LoginActivity extends AppCompatActivity {
         edtUserName=findViewById(R.id.input_email_login);
         edtPassWord=findViewById(R.id.input_password_login);
         editor = getSharedPreferences("SHARED_DATA", MODE_PRIVATE).edit();
+        prefs=getSharedPreferences("SHARED_DATA",MODE_PRIVATE);
 
+        String stored=prefs.getString("user_id",null);
+        if (stored!=null){
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

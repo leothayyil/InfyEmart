@@ -14,10 +14,19 @@ import com.example.user.infyemart.CartActivity;
 import com.example.user.infyemart.Pojo.Pojo_Cart;
 import com.example.user.infyemart.PurchaseActivity;
 import com.example.user.infyemart.R;
+import com.example.user.infyemart.Retrofit.RetrofitHelper;
 import com.example.user.infyemart.Utils.ClickListener;
+import com.google.gson.JsonElement;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> {
@@ -26,6 +35,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     Context context;
     ArrayList<Pojo_Cart>arrayListCart;
     ClickListener mClickListener;
+    String updatedCount;
 
     public CartAdapter(CartActivity cartActivity, ArrayList<Pojo_Cart> cart_arraylist,ClickListener listener) {
         this.arrayListCart=cart_arraylist;
@@ -37,6 +47,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         context=purchaseActivity;
     }
 
+    public CartAdapter(String updated_count) {
+        this.updatedCount=updated_count;
+    }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -61,6 +74,20 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                 mClickListener.onClicked(pojo.getId());
             }
         });
+
+        holder.cartPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mClickListener.cart_plus(pojo.getId());
+            }
+        });
+        holder.cartMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mClickListener.cart_minus(pojo.getId());
+
+            }
+        });
     }
 
 
@@ -71,8 +98,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
     public static class MyViewHolder extends RecyclerView.ViewHolder  {
         TextView productName, mPrice, oPrice, total;
-        ImageView imageproduct;
-        ImageButton cartDelete;
+        ImageView imageproduct,cartPlus;
+        ImageButton cartDelete,cartMinus;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -82,6 +109,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             total = itemView.findViewById(R.id.cart_total);
             imageproduct = itemView.findViewById(R.id.cart_image);
             cartDelete = itemView.findViewById(R.id.deleteItemCart);
+            cartMinus=itemView.findViewById(R.id.minusItemCart);
+            cartPlus=itemView.findViewById(R.id.plusItemCart);
         }
 
     }

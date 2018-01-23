@@ -1,5 +1,6 @@
 package com.example.user.infyemart;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.user.infyemart.Adapter.CartAdapter;
@@ -36,11 +38,13 @@ public class PurchaseActivity extends AppCompatActivity {
     ArrayList<Pojo_Cart>cartProducts=new ArrayList<>();
     TextView purcahserName,purchaserAddress;
     TextView purchaseAmount,purchaseCount;
+    ScrollView scrollView;
 
     String action ="cart";
     String action_account="my_account";
     String cartId;
     String user_id;
+    ProgressDialog dialog;
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -72,6 +76,11 @@ public class PurchaseActivity extends AppCompatActivity {
         changeAddress=findViewById(R.id.btn_changeAddress);
         purchaseAmount=findViewById(R.id.purchase_amount);
         purchaseCount=findViewById(R.id.purchase_count);
+        scrollView=findViewById(R.id.scrollPurchase);
+        dialog=new ProgressDialog(this);
+        dialog.setTitle("Getting data..");
+        scrollView.setVisibility(View.INVISIBLE);
+        dialog.show();
 
         SharedPreferences prefs = getSharedPreferences("SHARED_DATA", MODE_PRIVATE);
         String restoredText = prefs.getString("user_id", null);
@@ -168,6 +177,10 @@ public class PurchaseActivity extends AppCompatActivity {
 
                                     CartAdapter cartAdapter = new CartAdapter(PurchaseActivity.this, cartProducts);
                                     recyclerView.setAdapter(cartAdapter);
+                                    if (dialog.isShowing()){
+                                        dialog.dismiss();
+                                        scrollView.setVisibility(View.VISIBLE);
+                                    }
                                 }
                                 }
 

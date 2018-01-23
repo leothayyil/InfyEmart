@@ -71,11 +71,12 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center">
 
-                <ImageView
+                <ImageButton
                     android:layout_width="50sp"
-                    android:backgroundTint="@color/gr3"
                     android:layout_height="45sp"
                     android:id="@+id/PV_add"
+                    android:padding="2sp"
+                    android:backgroundTint="@color/white"
                     android:layout_marginRight="5sp"
                     android:src="@drawable/cart_edt"/>
 

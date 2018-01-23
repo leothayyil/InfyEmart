@@ -30,14 +30,14 @@ import retrofit2.Response;
 
 public class ProductViewActivity extends AppCompatActivity {
 
-    String TAG="logg";
+    String TAG="loggg";
     String productId;
     String actionPV="product_details";
     ScrollView scrollView;
     TextView productName,brand,quantity,offer,originalPrice,marginPrice,cartCount,toolbarTit;
     ImageView imageView,mainCart;
     String cartCountStr;
-    ImageView addBtn;
+    ImageButton addBtn;
     String itemId,cartId;
     String actionToCart="add_to_cart";
     ProgressDialog dialog;
@@ -75,12 +75,14 @@ public class ProductViewActivity extends AppCompatActivity {
         toolbarTit.setVisibility(View.GONE);
         dialog=new ProgressDialog(this);
 
+        cartCount.setVisibility(View.INVISIBLE);
+
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                v.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(),R.anim.image_click));
                 String itemCount="1";
-
                 addToCart(actionToCart,cartId,itemCount,itemId);
 
             }
@@ -107,9 +109,6 @@ public class ProductViewActivity extends AppCompatActivity {
             }
         });
 
-
-
-
     }
 
     private void addToCart(String actionToCart, String cartId, String itemCount, String itemId) {
@@ -123,9 +122,13 @@ public class ProductViewActivity extends AppCompatActivity {
 
                             JSONObject jsonObject=new JSONObject(response.body().toString());
                             String item_count=jsonObject.getString("item_count");
-                            String total_count=jsonObject.getString("total_count");
-                            cartCount.setText(total_count);
-                            cartCount.setVisibility(View.VISIBLE);
+                            cartCountStr=jsonObject.getString("total_count");
+                            cartCount.setText(cartCountStr);
+                            if (cartCountStr!=null&&cartCountStr!="0"){
+                                cartCount.setVisibility(View.VISIBLE);
+                                Log.e(TAG, cartCountStr+" count "+cartCountStr);
+                            }
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -180,13 +183,17 @@ public class ProductViewActivity extends AppCompatActivity {
                                     offer.setText(offerS+" Off" );
                                     originalPrice.setText("Offer price ₹ "+original_priceS+"");
                                     marginPrice.setText("Original price ₹ "+margin_priceS+" ");
-                                    Picasso.with(ProductViewActivity.this).load(imageS).placeholder(R.drawable.loading).error(R.drawable.error_image)
+                                    Picasso.with(ProductViewActivity.this).load(imageS).placeholder(R.drawable.loading).
+                                            error(R.drawable.error_image)
                                             .into(imageView);
 
                                     toolbarTit.setVisibility(View.VISIBLE);
                                     toolbarTit.setText(product_nameS);
-                                    if (!cartCountStr.equals("")){
+                                    if (!cartCountStr.equals(null)&&cartCountStr!="0"){
+
+                                    }else {
                                         cartCount.setText(cartCountStr);
+                                        Log.e(TAG, " count: "+cartCountStr );
                                         cartCount.setVisibility(View.VISIBLE);
                                         mainCart.setVisibility(View.VISIBLE);
                                     }

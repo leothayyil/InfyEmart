@@ -87,6 +87,14 @@ public interface API {
 
     @FormUrlEncoded
     @POST("api/android-api.php")
+    Call<JsonElement> cart_plus(@Field("action") String action,@Field("id")int item_id,@Field("cart_id")String cart_id,@Field("quantity")int qty);
+
+    @FormUrlEncoded
+    @POST("api/android-api.php")
+    Call<JsonElement> cart_minus(@Field("action") String action,@Field("id")int item_id,@Field("cart_id")String cart_id,@Field("quantity")int qty);
+
+    @FormUrlEncoded
+    @POST("api/android-api.php")
     Call<JsonElement> checkPassword(@Field("action") String action,@Field("user_id")String user_id,@Field
             ("current_password")String current_password);
 

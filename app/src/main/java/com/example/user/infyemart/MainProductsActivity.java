@@ -213,6 +213,16 @@ public class MainProductsActivity extends AppCompatActivity {
                                         intent1.putExtra("item_id",itemId);
                                         startActivity(intent1);
                                     }
+
+                                    @Override
+                                    public void cart_plus(String value) {
+
+                                    }
+
+                                    @Override
+                                    public void cart_minus(String value) {
+
+                                    }
                                 }
                                 );
                                 recyclerView.setAdapter(adapter);

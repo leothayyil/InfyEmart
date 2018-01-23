@@ -1,5 +1,6 @@
 package com.example.user.infyemart;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -57,7 +58,10 @@ public class CartActivity extends AppCompatActivity  {
     String[] deliverySlotStr;
     CardView cardPriceDetails;
     LinearLayout noItems;
+    ProgressDialog dialog;
     ScrollView cartScrollView;
+    String actionDlte;
+    int dltPos;
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -91,6 +95,9 @@ public class CartActivity extends AppCompatActivity  {
         cartScrollView=findViewById(R.id.scrollView_cart);
         noItems=findViewById(R.id.no_items);
         cartScrollView.setVisibility(View.GONE);
+        dialog=new ProgressDialog(this);
+        dialog.setTitle("Loading cart..");
+        dialog.show();
 
         prefs=getSharedPreferences("SHARED_DATA",MODE_PRIVATE);
         String restoredText=prefs.getString("session_id",null);
@@ -162,12 +169,12 @@ public class CartActivity extends AppCompatActivity  {
                             JSONArray jsonArray=new JSONArray(response.body().toString());
                             if (jsonArray.isNull(0)){
                                 noItems.setVisibility(View.VISIBLE);
+                                dialog.dismiss();
                             }
 
                             for (int i=0;i<jsonArray.length();i++){
                                 JSONObject jsonObject=jsonArray.getJSONObject(i);
                                 String status=jsonObject.getString("status");
-                                cartScrollView.setVisibility(View.VISIBLE);
                                 noItems.setVisibility(View.GONE);
                                 String totalAmountS=jsonObject.getString("total_price");
                                 String totalCountS=jsonObject.getString("total_count");
@@ -191,32 +198,51 @@ public class CartActivity extends AppCompatActivity  {
                                     pojo.setImage(image);
                                     pojo.setmPrice("Rs "+m_price);
                                     pojo.setoPrice("Rs "+o_price);
-                                    pojo.setQuantity("Qty "+quantity);
+                                    pojo.setQuantity(quantity);
                                     pojo.setProduct(product);
                                     cart_arraylist.add(pojo);
 
-                                    Log.e("loggg", "inter2: "+pojo.getId() );
+                                    if (dialog.isShowing()){
+                                        dialog.dismiss();
+                                        cartScrollView.setVisibility(View.VISIBLE);
+                                    }
 
-
-                                    CartAdapter cartAdapter=new CartAdapter(CartActivity.this, cart_arraylist, new ClickListener() {
+                                    CartAdapter cartAdapter=new CartAdapter(CartActivity.this,
+                                            cart_arraylist, new ClickListener() {
                                         @Override
                                         public void onClicked(String value) {
-                                            String actionDlte="cart_delete";
+                                             actionDlte="cart_delete";
+                                             dltPos= Integer.parseInt(value);
                                             deleteCart(actionDlte, Integer.parseInt(value),cartId);
-                                            Toast.makeText(CartActivity.this, value+"  got ", Toast.LENGTH_SHORT).show();
                                         }
 
                                         @Override
                                         public void onClickedImage(String position) {
-
+                                        }
+                                        @Override
+                                        public void cart_plus(String value) {
+                                            String actionP="cart_update";
+                                            int qty=1;
+                                            plusCart(actionP, Integer.parseInt(value),cartId,qty);
+                                        }
+                                        @Override
+                                        public void cart_minus(String value) {
+                                            String actionD="cart_decrement";
+                                            int qty=1;
+                                            minusCart(actionD, Integer.parseInt(value),cartId,qty);
                                         }
                                     });
                                     recyclerView.setAdapter(cartAdapter);
+
                                 }
                             }
                         } catch (JSONException e) {
+                            if (dialog.isShowing()){
+                                dialog.dismiss();
+                            }
                             e.printStackTrace();
                         }
+
                     }
 
                     @Override
@@ -226,6 +252,76 @@ public class CartActivity extends AppCompatActivity  {
                 });
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent=new Intent(CartActivity.this,MainActivity.class);
+        startActivity(intent);
+    }
+
+    private void minusCart(final String actionD, final int i, final String cartId, int qty) {
+        new RetrofitHelper( CartActivity.this).getApIs().cart_minus(actionD,i,cartId,qty).enqueue(
+                new Callback<JsonElement>() {
+                    @Override
+                    public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
+                        try {
+                            JSONObject jsonObject=new JSONObject(response.body().toString());
+                            String updated_count=jsonObject.getString("updated_count");
+                            String cart_countS=jsonObject.getString("cart_count");
+                            Log.e(TAG, "onResponse:1 "+cart_countS );
+
+
+
+                            if (!cart_countS.equals(0)){
+                                Log.e(TAG, "onResponse:2 "+cart_countS );
+
+                                deleteCart(actionDlte,dltPos,cartId);
+                            }else {
+                                CookieSyncManager.createInstance(CartActivity.this);
+                                CookieManager cookieManager=CookieManager.getInstance();
+                                cookieManager.removeAllCookie();
+                                Intent intent=new Intent(CartActivity.this,CartActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            }
+
+
+                        } catch (JSONException e) {}
+                    }
+                    @Override
+                    public void onFailure(Call<JsonElement> call, Throwable t) {
+                    }}
+        );
+    }
+    private void plusCart(String actionP, int i, String cartId, int qty) {
+
+        new RetrofitHelper(CartActivity.this).getApIs().cart_plus(actionP,i,cartId,qty).enqueue(
+                new Callback<JsonElement>() {
+                    @Override
+                    public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
+                        try {
+                            JSONObject jsonObject=new JSONObject(response.body().toString());
+                            String updated_count=jsonObject.getString("updated_count");
+                            String cart_countS=jsonObject.getString("cart_count");
+
+                            CookieSyncManager.createInstance(CartActivity.this);
+                            CookieManager cookieManager=CookieManager.getInstance();
+                            cookieManager.removeAllCookie();
+
+                            Intent intent=new Intent(CartActivity.this,CartActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonElement> call, Throwable t) {
+
+                    }
+                }
+        );
+    }
     private void deleteCart(String actionDlte, int value, String cartId) {
 
         new RetrofitHelper(CartActivity.this).getApIs().cart_delete(actionDlte,value,cartId)
@@ -236,8 +332,6 @@ public class CartActivity extends AppCompatActivity  {
                         try {
                             JSONObject  jsonObject=new JSONObject(response.body().toString());
                             String status=jsonObject.getString("status");
-                            Log.e(TAG, "onResponse: "+status );
-
                             CookieSyncManager.createInstance(CartActivity.this);
                             CookieManager cookieManager = CookieManager.getInstance();
                             cookieManager.removeAllCookie();
