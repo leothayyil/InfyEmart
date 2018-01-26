@@ -25,7 +25,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="14sp"
                 android:layout_marginTop="5sp"
-                android:text="RS 3895556"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
 
@@ -35,7 +34,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="14sp"
                 android:layout_marginTop="5sp"
-                android:text="RS 3895556"
                 android:textColor="@color/white"
                 android:textSize="17sp" />
         </LinearLayout>
@@ -63,7 +61,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10sp"
                 android:layout_marginTop="5sp"
-                android:text="RS 3895556"
                 android:id="@+id/bottomDetails2"
                 android:textColor="@color/white"
                 />
@@ -73,7 +70,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="14sp"
                 android:layout_marginTop="5sp"
-                android:text="RS 3895556"
                 android:id="@+id/bottomDetails3"
                 android:textColor="@color/white"
                 android:textSize="14sp" />

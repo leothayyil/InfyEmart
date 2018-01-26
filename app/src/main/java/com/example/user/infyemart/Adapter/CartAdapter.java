@@ -99,7 +99,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     public static class MyViewHolder extends RecyclerView.ViewHolder  {
         TextView productName, mPrice, oPrice, total;
         ImageView imageproduct,cartPlus;
-        ImageButton cartDelete,cartMinus;
+        ImageButton cartMinus;
+        ImageButton cartDelete;
 
         public MyViewHolder(View itemView) {
             super(itemView);

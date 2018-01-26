@@ -155,33 +155,37 @@ public class PurchaseActivity extends AppCompatActivity {
                                 purchaseAmount.setText("Rs - "+totalAmountS);
                                 purchaseCount.setText("Price of ("+totalCountS+" items)");
 
-                                JSONArray jsonArray1=jsonObject.getJSONArray("cart");
-                                for (int i1=0;i<jsonArray1.length();i1++) {
-
-                                    JSONObject jsonObject1 = jsonArray1.getJSONObject(i1);
-                                    String product = jsonObject1.getString("product");
-                                    String m_price = jsonObject1.getString("m_price");
-                                    String quantity = jsonObject1.getString("quantity");
-                                    String o_price = jsonObject1.getString("o_price");
-                                    String image = jsonObject1.getString("image");
-                                    String id = jsonObject1.getString("id");
-
-                                    Pojo_Cart pojo = new Pojo_Cart();
-                                    pojo.setId(id);
-                                    pojo.setImage(image);
-                                    pojo.setmPrice("Rs " + m_price);
-                                    pojo.setoPrice("Rs " + o_price);
-                                    pojo.setQuantity("Qty " + quantity);
-                                    pojo.setProduct(product);
-                                    cartProducts.add(pojo);
-
-                                    CartAdapter cartAdapter = new CartAdapter(PurchaseActivity.this, cartProducts);
-                                    recyclerView.setAdapter(cartAdapter);
+//                                JSONArray jsonArray1=jsonObject.getJSONArray("cart");
+//                                for (int i1=0;i<jsonArray1.length();i1++) {
+//
+//                                    JSONObject jsonObject1 = jsonArray1.getJSONObject(i1);
+//                                    String product = jsonObject1.getString("product");
+//                                    String m_price = jsonObject1.getString("m_price");
+//                                    String quantity = jsonObject1.getString("quantity");
+//                                    String o_price = jsonObject1.getString("o_price");
+//                                    String image = jsonObject1.getString("image");
+//                                    String id = jsonObject1.getString("id");
+//
+//                                    Pojo_Cart pojo = new Pojo_Cart();
+//                                    pojo.setId(id);
+//                                    pojo.setImage(image);
+//                                    pojo.setmPrice("Rs " + m_price);
+//                                    pojo.setoPrice("Rs " + o_price);
+//                                    pojo.setQuantity("Qty " + quantity);
+//                                    pojo.setProduct(product);
+//                                    cartProducts.add(pojo);
+//
+//                                    CartAdapter cartAdapter = new CartAdapter(PurchaseActivity.this, cartProducts);
+//                                    recyclerView.setAdapter(cartAdapter);
+//                                    if (dialog.isShowing()){
+//                                        dialog.dismiss();
+//                                        scrollView.setVisibility(View.VISIBLE);
+//                                    }
+//                                }
                                     if (dialog.isShowing()){
                                         dialog.dismiss();
                                         scrollView.setVisibility(View.VISIBLE);
                                     }
-                                }
                                 }
 
                             } catch (JSONException e) {

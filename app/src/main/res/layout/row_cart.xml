@@ -13,7 +13,7 @@
         android:backgroundTint="#fff"
         app:cardCornerRadius="10sp"
         >
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -25,7 +25,20 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_toEndOf="@+id/cart_image"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@+id/cart_image">
+
+                <ImageButton
+                    android:id="@+id/deleteItemCart"
+                    android:layout_width="45sp"
+                    android:layout_height="40sp"
+                    android:layout_gravity="right|top"
+                    android:layout_marginLeft="5sp"
+                    android:backgroundTint="@color/white"
+                    android:paddingBottom="5sp"
+                    android:src="@drawable/delete_cartt" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -137,16 +150,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <ImageButton
-                android:id="@+id/deleteItemCart"
-                android:layout_width="25sp"
-                android:layout_height="35sp"
-                android:layout_gravity="right|top"
-                android:layout_marginLeft="5sp"
-                android:backgroundTint="@color/white"
-                android:paddingBottom="5sp"
-                android:src="@drawable/delete_cart" />
-        </LinearLayout>
+        </RelativeLayout>
     </android.support.v7.widget.CardView>
 
 </RelativeLayout>

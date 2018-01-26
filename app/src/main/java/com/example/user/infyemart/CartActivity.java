@@ -90,8 +90,8 @@ public class CartActivity extends AppCompatActivity  {
         ImageView mainAccount=findViewById(R.id.mainToolbarAccount);
         ImageView mainCart=findViewById(R.id.mainToolbarCart);
         mainAccount.setVisibility(View.GONE);
-        totalAmount=findViewById(R.id.cart_totalAmount);
-        totalCount=findViewById(R.id.cart_totalCount);
+//        totalAmount=findViewById(R.id.cart_totalAmount);
+//        totalCount=findViewById(R.id.cart_totalCount);
         mainCart.setVisibility(View.GONE);
         deliverySpin=findViewById(R.id.deliverySpin);
         cartScrollView=findViewById(R.id.scrollView_cart);
@@ -105,6 +105,7 @@ public class CartActivity extends AppCompatActivity  {
         bottomBtn.setVisibility(View.VISIBLE);
         bottom2.setVisibility(View.GONE);
         bottom3.setVisibility(View.GONE);
+        bottom.setVisibility(View.GONE);
         cartScrollView.setVisibility(View.GONE);
         dialog=new ProgressDialog(this);
         dialog.setTitle("Loading cart..");
@@ -185,10 +186,8 @@ public class CartActivity extends AppCompatActivity  {
                                 noItems.setVisibility(View.GONE);
                                 String totalAmountS=jsonObject.getString("total_price");
                                 String totalCountS=jsonObject.getString("total_count");
-                                bottomAmount.setText(totalAmountS);
-
-                                totalAmount.setText("Rs - "+totalAmountS);
-                                totalCount.setText("Price of ("+totalCountS+" items)");
+                                bottomAmount.setText("Grand Total ₹ "+totalAmountS);
+                                bottom1.setText("("+totalCountS+") item");
 
                                 JSONArray jsonArray1=jsonObject.getJSONArray("cart");
                                 for (int i1=0;i<jsonArray1.length();i1++){
@@ -213,6 +212,7 @@ public class CartActivity extends AppCompatActivity  {
                                     if (dialog.isShowing()){
                                         dialog.dismiss();
                                         cartScrollView.setVisibility(View.VISIBLE);
+                                        bottom.setVisibility(View.VISIBLE);
                                     }
                                     CartAdapter cartAdapter=new CartAdapter(CartActivity.this,
                                             cart_arraylist, new ClickListener() {
