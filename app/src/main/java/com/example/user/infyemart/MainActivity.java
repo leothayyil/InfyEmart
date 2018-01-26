@@ -255,6 +255,7 @@ public class MainActivity extends AppCompatActivity
                                 categories_call.add(pojo);
                             }
                              count=object.getString("count");
+                            Log.e("loggg", "onResponse: "+count );
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -262,8 +263,12 @@ public class MainActivity extends AppCompatActivity
                         cardrecentHead.setVisibility(View.VISIBLE);
                         if (count.equals("null")){
                             count="0";
+                            toolbarCount.setVisibility(View.GONE);
+                        }else if (count.equals("0")){
+                            toolbarCount.setVisibility(View.GONE);
                         }else {
                             toolbarCount.setText(count);
+                            toolbarCount.setVisibility(View.VISIBLE);
                         }
 
                     }

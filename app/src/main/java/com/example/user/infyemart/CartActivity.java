@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -42,10 +43,9 @@ import retrofit2.Response;
 
 public class CartActivity extends AppCompatActivity  {
 
-    private static final String TAG = "logg";
+    private static final String TAG = "loggg";
     private RecyclerView  recyclerView;
     CartAdapter mAdapter;
-    Button checkout;
     String action ="cart";
     String cartId,idGot;
     TextView totalAmount,totalCount,deliveryChargeTv;
@@ -60,8 +60,11 @@ public class CartActivity extends AppCompatActivity  {
     LinearLayout noItems;
     ProgressDialog dialog;
     ScrollView cartScrollView;
-    String actionDlte;
+    String actionDlte="cart_delete";;
     int dltPos;
+    BottomNavigationView bottom;
+    TextView bottomAmount,bottom1,bottom2,bottom3;
+    Button bottomBtn;
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -84,7 +87,6 @@ public class CartActivity extends AppCompatActivity  {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        checkout=findViewById(R.id.cart_checkoutId);
         ImageView mainAccount=findViewById(R.id.mainToolbarAccount);
         ImageView mainCart=findViewById(R.id.mainToolbarCart);
         mainAccount.setVisibility(View.GONE);
@@ -94,6 +96,15 @@ public class CartActivity extends AppCompatActivity  {
         deliverySpin=findViewById(R.id.deliverySpin);
         cartScrollView=findViewById(R.id.scrollView_cart);
         noItems=findViewById(R.id.no_items);
+        bottom=findViewById(R.id.cartBottombar);
+        bottomAmount=findViewById(R.id.bottomAmount);
+        bottom1=findViewById(R.id.bottomDetails1);
+        bottom2=findViewById(R.id.bottomDetails2);
+        bottom3=findViewById(R.id.bottomDetails3);
+        bottomBtn=findViewById(R.id.bottomContinue);
+        bottomBtn.setVisibility(View.VISIBLE);
+        bottom2.setVisibility(View.GONE);
+        bottom3.setVisibility(View.GONE);
         cartScrollView.setVisibility(View.GONE);
         dialog=new ProgressDialog(this);
         dialog.setTitle("Loading cart..");
@@ -107,11 +118,10 @@ public class CartActivity extends AppCompatActivity  {
         recyclerView=findViewById(R.id.recyclerCart);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(mAdapter);
-
         AsyncCart asyncCart=new AsyncCart();
         asyncCart.execute();
 
-        checkout.setOnClickListener(new View.OnClickListener() {
+        bottomBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent purchaseIntent=new Intent(CartActivity.this, PurchaseActivity.class);
@@ -119,7 +129,6 @@ public class CartActivity extends AppCompatActivity  {
             }
         });
     }
-
     private class AsyncCart extends AsyncTask{
 
         @Override
@@ -156,7 +165,6 @@ public class CartActivity extends AppCompatActivity  {
                     }
                     @Override
                     public void onFailure(Call<JsonElement> call, Throwable t) {
-
                     }
                 });
     }
@@ -171,13 +179,13 @@ public class CartActivity extends AppCompatActivity  {
                                 noItems.setVisibility(View.VISIBLE);
                                 dialog.dismiss();
                             }
-
                             for (int i=0;i<jsonArray.length();i++){
                                 JSONObject jsonObject=jsonArray.getJSONObject(i);
                                 String status=jsonObject.getString("status");
                                 noItems.setVisibility(View.GONE);
                                 String totalAmountS=jsonObject.getString("total_price");
                                 String totalCountS=jsonObject.getString("total_count");
+                                bottomAmount.setText(totalAmountS);
 
                                 totalAmount.setText("Rs - "+totalAmountS);
                                 totalCount.setText("Price of ("+totalCountS+" items)");
@@ -206,16 +214,13 @@ public class CartActivity extends AppCompatActivity  {
                                         dialog.dismiss();
                                         cartScrollView.setVisibility(View.VISIBLE);
                                     }
-
                                     CartAdapter cartAdapter=new CartAdapter(CartActivity.this,
                                             cart_arraylist, new ClickListener() {
                                         @Override
                                         public void onClicked(String value) {
-                                             actionDlte="cart_delete";
                                              dltPos= Integer.parseInt(value);
                                             deleteCart(actionDlte, Integer.parseInt(value),cartId);
                                         }
-
                                         @Override
                                         public void onClickedImage(String position) {
                                         }
@@ -233,7 +238,6 @@ public class CartActivity extends AppCompatActivity  {
                                         }
                                     });
                                     recyclerView.setAdapter(cartAdapter);
-
                                 }
                             }
                         } catch (JSONException e) {
@@ -242,16 +246,12 @@ public class CartActivity extends AppCompatActivity  {
                             }
                             e.printStackTrace();
                         }
-
                     }
-
                     @Override
                     public void onFailure(Call<JsonElement> call, Throwable t) {
-
                     }
                 });
     }
-
     @Override
     public void onBackPressed() {
         Intent intent=new Intent(CartActivity.this,MainActivity.class);
@@ -265,16 +265,11 @@ public class CartActivity extends AppCompatActivity  {
                     public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                         try {
                             JSONObject jsonObject=new JSONObject(response.body().toString());
-                            String updated_count=jsonObject.getString("updated_count");
+                            int updated_count= Integer.parseInt(jsonObject.getString("updated_count"));
                             String cart_countS=jsonObject.getString("cart_count");
-                            Log.e(TAG, "onResponse:1 "+cart_countS );
-
-
-
-                            if (!cart_countS.equals(0)){
-                                Log.e(TAG, "onResponse:2 "+cart_countS );
-
-                                deleteCart(actionDlte,dltPos,cartId);
+                            Log.e(TAG, "onResponse: count "+updated_count );
+                            if (updated_count<=0){
+                                deleteCart(actionDlte,i,cartId);
                             }else {
                                 CookieSyncManager.createInstance(CartActivity.this);
                                 CookieManager cookieManager=CookieManager.getInstance();
@@ -283,8 +278,6 @@ public class CartActivity extends AppCompatActivity  {
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
                             }
-
-
                         } catch (JSONException e) {}
                     }
                     @Override

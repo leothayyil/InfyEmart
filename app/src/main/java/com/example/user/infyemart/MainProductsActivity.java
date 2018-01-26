@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -60,6 +61,7 @@ public class MainProductsActivity extends AppCompatActivity {
     ProgressDialog dialog;
     JSONObject jsonObject;
 
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
@@ -83,6 +85,7 @@ public class MainProductsActivity extends AppCompatActivity {
         mainAccount.setVisibility(View.GONE);
         noItems=findViewById(R.id.no_items);
         addBtn=findViewById(R.id.addToCart_btn);
+
 //        productAdd=findViewById(R.id.productAddBtn);
         productCount=findViewById(R.id.productCountBtn);
         linearLayoutCount=findViewById(R.id.linearCount);
@@ -181,9 +184,13 @@ public class MainProductsActivity extends AppCompatActivity {
                                     }
 
                                     cartCountStr=jsonObject.getString("cart_count");
-                                    if (cartCountStr!="null"){
+                                    if (cartCountStr.equals("null")){
+                                        cartCount.setVisibility(View.GONE);
+                                    }else if (cartCountStr.equals("0")){
+                                        cartCount.setVisibility(View.GONE);
+                                    }else {
                                         cartCount.setText(cartCountStr);
-                                        Log.e(TAG, "onResponse: "+cartCountStr );
+                                        cartCount.setVisibility(View.VISIBLE);
                                     }
                                 }
                                 MainProductAdapter adapter = new MainProductAdapter(
@@ -248,13 +255,11 @@ public class MainProductsActivity extends AppCompatActivity {
                         try {
                             JSONObject jsonObject=new JSONObject(response.body().toString());
 
-                            Log.e(TAG, "onClicked: "+itemId+actionToCart+itemCount+session_id );
-
                             resp_count=jsonObject.getString("item_count");
                              total_count=jsonObject.getString("total_count");
                             String cartId=jsonObject.getString("cart_id");
                             cartCount.setText(total_count);
-                            Log.e(TAG, "onResponse: "+total_count );
+                            cartCount.setVisibility(View.VISIBLE);
                         }
                         catch (JSONException e) {
                             e.printStackTrace();

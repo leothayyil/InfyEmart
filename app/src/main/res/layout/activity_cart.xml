@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,10 +10,12 @@
     android:orientation="vertical"
     tools:context="com.example.user.infyemart.CartActivity">
     <include layout="@layout/toolbar_main"
-        android:id="@+id/toolbar_Cart"/>
+        android:id="@+id/toolbar_Cart"
+        />
     <ScrollView
         android:layout_width="match_parent"
         android:id="@+id/scrollView_cart"
+        android:layout_marginTop="55sp"
         android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
@@ -105,15 +107,6 @@
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="50sp"
-        android:id="@+id/cart_checkoutId"
-        android:layout_alignParentBottom="true"
-        android:backgroundTint="@color/red"
-        android:layout_marginBottom="10sp"
-        android:text="Checkout"
-        android:textColor="#fff" />
     </LinearLayout>
     </ScrollView>
     <LinearLayout
@@ -138,6 +131,9 @@
             android:gravity="center"/>
     </LinearLayout>
 
+    <include layout="@layout/bottombar"
+        android:id="@+id/cartBottombar">
+    </include>
 
 
-</LinearLayout>
+</RelativeLayout>

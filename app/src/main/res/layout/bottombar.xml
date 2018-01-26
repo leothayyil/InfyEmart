@@ -46,15 +46,16 @@
             android:layout_marginTop="5sp"
             android:layout_weight="2"
             android:text="continue"
+            android:visibility="gone"
             android:id="@+id/bottomContinue"
             android:textColor="@color/white"
-            android:backgroundTint="@color/red"
-            android:visibility="gone"
+            android:backgroundTint="@color/bl2"
             android:foregroundGravity="right" />
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:id="@+id/bottomLinear2"
             android:layout_marginTop="5sp"
             >
             <TextView
