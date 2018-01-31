@@ -31,6 +31,7 @@ import com.example.user.infyemart.Pojo.Pojo_Variant;
 import com.example.user.infyemart.Retrofit.RetrofitHelper;
 import com.example.user.infyemart.Utils.ClickListener;
 import com.example.user.infyemart.Utils.RecyclerItemClickListener;
+import com.example.user.infyemart.Utils.Utils_status;
 import com.google.gson.JsonElement;
 
 import org.json.JSONArray;
@@ -85,6 +86,7 @@ public class MainProductsActivity extends AppCompatActivity {
         mainAccount.setVisibility(View.GONE);
         noItems=findViewById(R.id.no_items);
         addBtn=findViewById(R.id.addToCart_btn);
+        Utils_status.darkenStatusBar(this,R.color.red);
 
         dialog=new ProgressDialog(this);
         dialog.setMessage("Loading..");

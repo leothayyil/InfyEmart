@@ -17,6 +17,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.user.infyemart.Retrofit.RetrofitHelper;
+import com.example.user.infyemart.Utils.Utils_status;
 import com.google.gson.JsonElement;
 import com.squareup.picasso.Picasso;
 
@@ -65,6 +66,7 @@ public class ProductViewActivity extends AppCompatActivity {
         Toolbar toolbar =findViewById(R.id.toolbarProductView);
         setSupportActionBar(toolbar);
          toolbarTit = findViewById(R.id.toolbar_title);
+        Utils_status.darkenStatusBar(this,R.color.red);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         ImageView mainAccount=findViewById(R.id.mainToolbarAccount);

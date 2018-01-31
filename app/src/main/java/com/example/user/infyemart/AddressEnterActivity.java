@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.example.user.infyemart.Pojo.Pojo_district;
 import com.example.user.infyemart.Pojo.Pojo_place;
 import com.example.user.infyemart.Retrofit.RetrofitHelper;
+import com.example.user.infyemart.Utils.Utils_status;
 import com.google.gson.JsonElement;
 
 import org.json.JSONArray;
@@ -68,6 +69,7 @@ public class AddressEnterActivity extends AppCompatActivity {
         ImageView mainAccount=findViewById(R.id.mainToolbarAccount);
         ImageView mainCart=findViewById(R.id.mainToolbarCart);
         mainAccount.setVisibility(View.GONE);
+        Utils_status.darkenStatusBar(this,R.color.red);
         mainCart.setVisibility(View.GONE);
 
         name=findViewById(R.id.addDelivery_name);

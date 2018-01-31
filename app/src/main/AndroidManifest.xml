@@ -23,7 +23,6 @@
         </activity>
         <activity android:name=".CartActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".SignUpActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".MainProductsActivity" />
         <activity android:name=".AccountActivity" />

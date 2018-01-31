@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.user.infyemart.Retrofit.RetrofitHelper;
+import com.example.user.infyemart.Utils.Utils_status;
 import com.google.gson.JsonElement;
 
 import org.json.JSONException;
@@ -33,8 +34,6 @@ public class LoginActivity extends AppCompatActivity {
     SharedPreferences prefs;
     EditText edtUserName,edtPassWord;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         edtPassWord=findViewById(R.id.input_password_login);
         editor = getSharedPreferences("SHARED_DATA", MODE_PRIVATE).edit();
         prefs=getSharedPreferences("SHARED_DATA",MODE_PRIVATE);
+        Utils_status.darkenStatusBar(this,R.color.red);
 
         String stored=prefs.getString("user_id",null);
         if (stored!=null){
@@ -104,7 +104,6 @@ public class LoginActivity extends AppCompatActivity {
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 startActivity(intent);
 
-                                Log.e("loggg", "onResponse: "+user_id+"," +user_name +","+session_id+","+addressString );
                             }
 
 

@@ -36,7 +36,7 @@
                 android:layout_height="60sp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:textColor="@color/bl2"
+                android:textColor="@color/blue_infy"
                 android:textStyle="bold"
                 />
 

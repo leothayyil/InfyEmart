@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.user.infyemart.Pojo.Pojo_district;
 import com.example.user.infyemart.Pojo.Pojo_place;
 import com.example.user.infyemart.Retrofit.RetrofitHelper;
+import com.example.user.infyemart.Utils.Utils_status;
 import com.google.gson.JsonElement;
 
 import org.json.JSONArray;
@@ -48,7 +49,7 @@ public class ProfileActivity extends AppCompatActivity {
     String sName,sEmail,sNumber,sAddress,sPincode,sDistrict,sPlace,sPassword;
     Button submit;
     String user_id;
-    String action_reg2="register_second";
+    String action_reg2="register";
     SharedPreferences prefs;
     TextInputLayout password;
 
@@ -71,6 +72,7 @@ public class ProfileActivity extends AppCompatActivity {
         submit=findViewById(R.id.profile_btn);
         proPlace=findViewById(R.id.profile_place);
         proDistrict=findViewById(R.id.profile_district);
+        Utils_status.darkenStatusBar(this,R.color.red);
         proPassword=findViewById(R.id.profile_password);
         password=findViewById(R.id.profile_passwordLay);
 
@@ -191,7 +193,6 @@ public class ProfileActivity extends AppCompatActivity {
                                 Object[] objectList=arrayListPlace.toArray();
                                 stringPlace=Arrays.copyOf(objectList,objectList.length,String[].class);
 
-
                                 ArrayAdapter<String> adapter=new ArrayAdapter<String>(ProfileActivity.this,
                                         android.R.layout.simple_spinner_dropdown_item,stringPlace){
                                     @Override
@@ -286,8 +287,6 @@ public class ProfileActivity extends AppCompatActivity {
 
                             String addressString = address + "\n" + district + "," + place + "\n" + phone;
 
-
-                            Log.e("loggg", "onResponse of update: "+district+place );
                             if (status.equals("Success")){
 
 
@@ -295,7 +294,6 @@ public class ProfileActivity extends AppCompatActivity {
                                     editor.putString("user_name", name);
                                     editor.putString("addressString", addressString);
                                     editor.apply();
-                                    Log.e("loggg", "onResponse: "+user_id+"," +name +","+","+addressString );
 
                                 Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
                                 startActivity(intent);

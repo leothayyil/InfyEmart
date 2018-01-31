@@ -28,6 +28,7 @@ import com.example.user.infyemart.Adapter.CartAdapter;
 import com.example.user.infyemart.Pojo.Pojo_Cart;
 import com.example.user.infyemart.Retrofit.RetrofitHelper;
 import com.example.user.infyemart.Utils.ClickListener;
+import com.example.user.infyemart.Utils.Utils_status;
 import com.google.gson.JsonElement;
 
 import org.json.JSONArray;
@@ -50,6 +51,7 @@ public class CartActivity extends AppCompatActivity  {
     String cartId,idGot;
     TextView totalAmount,totalCount,deliveryChargeTv;
     Spinner deliverySpin;
+    LinearLayout deliveryLinear;
 
     SharedPreferences prefs;
     private ArrayList<Pojo_Cart>cart_arraylist=new ArrayList<>();
@@ -88,6 +90,8 @@ public class CartActivity extends AppCompatActivity  {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         ImageView mainAccount=findViewById(R.id.mainToolbarAccount);
         ImageView mainCart=findViewById(R.id.mainToolbarCart);
+        deliveryLinear=findViewById(R.id.linearDelivery);
+        deliveryLinear.setVisibility(View.GONE);
         mainAccount.setVisibility(View.GONE);
 //        totalAmount=findViewById(R.id.cart_totalAmount);
 //        totalCount=findViewById(R.id.cart_totalCount);
@@ -105,6 +109,7 @@ public class CartActivity extends AppCompatActivity  {
         bottom2.setVisibility(View.GONE);
         bottom3.setVisibility(View.GONE);
         bottom.setVisibility(View.GONE);
+        Utils_status.darkenStatusBar(this,R.color.red);
         cartScrollView.setVisibility(View.GONE);
         dialog=new ProgressDialog(this);
         dialog.setTitle("Loading cart..");
@@ -211,6 +216,7 @@ public class CartActivity extends AppCompatActivity  {
                                     if (dialog.isShowing()){
                                         dialog.dismiss();
                                         cartScrollView.setVisibility(View.VISIBLE);
+                                        deliveryLinear.setVisibility(View.VISIBLE);
                                         bottom.setVisibility(View.VISIBLE);
                                     }
                                     CartAdapter cartAdapter=new CartAdapter(CartActivity.this,
@@ -225,12 +231,19 @@ public class CartActivity extends AppCompatActivity  {
                                         }
                                         @Override
                                         public void cart_plus(String value) {
+                                            dialog.setCancelable(false);
+                                            dialog.setTitle("Updating cart...");
+                                            dialog.show();
                                             String actionP="cart_update";
                                             int qty=1;
                                             plusCart(actionP, Integer.parseInt(value),cartId,qty);
                                         }
                                         @Override
                                         public void cart_minus(String value) {
+
+                                            dialog.setCancelable(false);
+                                            dialog.setTitle("Updating cart...");
+                                            dialog.show();
                                             String actionD="cart_decrement";
                                             int qty=1;
                                             minusCart(actionD, Integer.parseInt(value),cartId,qty);
@@ -302,6 +315,9 @@ public class CartActivity extends AppCompatActivity  {
                             Intent intent=new Intent(CartActivity.this,CartActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
+                            if (dialog.isShowing()){
+                                dialog.dismiss();
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -330,6 +346,9 @@ public class CartActivity extends AppCompatActivity  {
                             Intent intent= new Intent(CartActivity.this, CartActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
+                            if (dialog.isShowing()){
+                                dialog.dismiss();
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

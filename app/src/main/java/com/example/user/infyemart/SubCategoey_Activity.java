@@ -19,6 +19,7 @@ import com.example.user.infyemart.Adapter.SubCat_Adapter;
 import com.example.user.infyemart.Pojo.Pojo_SubCat;
 import com.example.user.infyemart.Retrofit.RetrofitHelper;
 import com.example.user.infyemart.Utils.RecyclerItemClickListener;
+import com.example.user.infyemart.Utils.Utils_status;
 import com.google.gson.JsonElement;
 
 import org.json.JSONArray;
@@ -61,6 +62,7 @@ public class SubCategoey_Activity extends AppCompatActivity {
         TextView toolbarTit = findViewById(R.id.toolbar_title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Utils_status.darkenStatusBar(this,R.color.red);
         ImageView mainAccount=findViewById(R.id.mainToolbarAccount);
         ImageView mainCart=findViewById(R.id.mainToolbarCart);
         mainAccount.setVisibility(View.GONE);

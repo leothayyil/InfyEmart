@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.user.infyemart.Retrofit.RetrofitHelper;
+import com.example.user.infyemart.Utils.Utils_status;
 import com.google.gson.JsonElement;
 
 import org.json.JSONException;
@@ -45,6 +46,8 @@ public class PasswordChangeActivity extends AppCompatActivity {
         new1.setVisibility(View.GONE);
         new2=findViewById(R.id.password_new2);
         linearLayout2.setVisibility(View.GONE);
+        Utils_status.darkenStatusBar(this,R.color.red);
+
 
         dialog=new ProgressDialog(this);
 

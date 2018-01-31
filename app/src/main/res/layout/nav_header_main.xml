@@ -17,7 +17,7 @@
         android:paddingTop="5sp"
         android:id="@+id/mainPageName"
         android:foregroundGravity="top"
-        android:background="@color/bl3"
+        android:background="@drawable/background_gradient_inv"
         android:textSize="20sp"
         android:textColor="#fff"
         />

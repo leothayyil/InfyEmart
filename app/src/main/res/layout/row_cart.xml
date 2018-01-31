@@ -92,8 +92,8 @@
                             android:layout_marginLeft="5sp"
                             android:id="@+id/cart_total"
 
-                            android:textColor="@color/white"
-                            android:background="@color/bl2"
+                            android:textColor="@color/black"
+                            android:background="@color/white"
                             android:layout_gravity="center"/>
                         <ImageView
                             android:layout_width="19sp"

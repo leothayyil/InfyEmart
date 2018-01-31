@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.user.infyemart.Adapter.SectionsPagerAdapter;
+import com.example.user.infyemart.Utils.Utils_status;
 
 public class NotificationActivity extends AppCompatActivity {
 
@@ -32,6 +33,8 @@ public class NotificationActivity extends AppCompatActivity {
         TextView textView=findViewById(R.id.toolbar_title);
         textView.setText("Notifications");
         setSupportActionBar(toolbar);
+        Utils_status.darkenStatusBar(this,R.color.red);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ImageView mainAccount=findViewById(R.id.mainToolbarAccount);

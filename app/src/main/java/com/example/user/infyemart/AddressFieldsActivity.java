@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.user.infyemart.Pojo.Pojo_Delivery_Address;
 import com.example.user.infyemart.Retrofit.RetrofitHelper;
+import com.example.user.infyemart.Utils.Utils_status;
 import com.google.gson.JsonElement;
 
 import org.json.JSONException;
@@ -61,6 +62,7 @@ public class AddressFieldsActivity extends AppCompatActivity {
         pincodee=findViewById(R.id.delvery_pincode);
         linearAddress=findViewById(R.id.linearAddressFields);
         linearAddress.setVisibility(View.GONE);
+        Utils_status.darkenStatusBar(this,R.color.red);
         dialog=new ProgressDialog(this);
         dialog.setMessage("Fetching data, please wait..");
         dialog.show();

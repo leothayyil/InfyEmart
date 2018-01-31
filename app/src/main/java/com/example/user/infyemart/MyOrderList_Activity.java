@@ -17,6 +17,7 @@ import com.example.user.infyemart.Adapter.OrderedListAdapter;
 import com.example.user.infyemart.Pojo.Pojo_OrderedList;
 import com.example.user.infyemart.Retrofit.RetrofitHelper;
 import com.example.user.infyemart.Utils.RecyclerItemClickListener;
+import com.example.user.infyemart.Utils.Utils_status;
 import com.google.gson.JsonElement;
 
 import org.json.JSONArray;
@@ -70,6 +71,8 @@ public class MyOrderList_Activity extends AppCompatActivity {
         mainCart.setVisibility(View.GONE);
         toolbarTit.setText("My Orders");
         dialog.setTitle("Loading..");
+        Utils_status.darkenStatusBar(this,R.color.red);
+
         dialog.show();
 
         AsyncList list=new AsyncList();

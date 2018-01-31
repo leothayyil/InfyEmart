@@ -21,6 +21,7 @@ import com.example.user.infyemart.Adapter.CartAdapter;
 import com.example.user.infyemart.Pojo.Pojo_Cart;
 import com.example.user.infyemart.R;
 import com.example.user.infyemart.Retrofit.RetrofitHelper;
+import com.example.user.infyemart.Utils.Utils_status;
 import com.google.gson.JsonElement;
 
 import org.json.JSONArray;
@@ -70,6 +71,7 @@ public class PurchaseActivity extends AppCompatActivity {
         mainAccount.setVisibility(View.GONE);
         mainCart.setVisibility(View.GONE);
         context=PurchaseActivity.this;
+        Utils_status.darkenStatusBar(this,R.color.red);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         purcahserName=findViewById(R.id.purchaser_name);
         purchaserAddress=findViewById(R.id.purchaser_address);

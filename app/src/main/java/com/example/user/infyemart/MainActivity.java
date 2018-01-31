@@ -32,6 +32,7 @@ import com.example.user.infyemart.Pojo.Pojo_categories;
 import com.example.user.infyemart.Retrofit.RetrofitHelper;
 import com.example.user.infyemart.Utils.ItemOffsetDecoration;
 import com.example.user.infyemart.Utils.RecyclerItemClickListener;
+import com.example.user.infyemart.Utils.Utils_status;
 import com.google.gson.JsonElement;
 
 import org.json.JSONArray;
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity
     TextView toolbarTit,toolbarCount;
     String userAddressNav,userNameNav;
     SharedPreferences prefs;
+    LinearLayout linearLayout;
 
 
     @Override
@@ -80,6 +82,9 @@ public class MainActivity extends AppCompatActivity
          toolbarTit = findViewById(R.id.toolbar_title);
          toolbarTit.setVisibility(View.INVISIBLE);
          toolbarCount=findViewById(R.id.cartCountId);
+         linearLayout=findViewById(R.id.mainLinearMain);
+        Utils_status.darkenStatusBar(this,R.color.red);
+
 
         prefs=getSharedPreferences("SHARED_DATA",MODE_PRIVATE);
         String restoredText=prefs.getString("session_id",null);
@@ -260,6 +265,8 @@ public class MainActivity extends AppCompatActivity
                         }
                         cardMainHead.setVisibility(View.VISIBLE);
                         cardrecentHead.setVisibility(View.VISIBLE);
+                        linearLayout.setVisibility(View.VISIBLE);
+
                         if (count.equals("null")){
                             count="0";
                             toolbarCount.setVisibility(View.GONE);

@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.user.infyemart.Utils.Utils_status;
+
 public class PaymentsActivity extends AppCompatActivity {
 
     @Override
@@ -29,5 +31,7 @@ public class PaymentsActivity extends AppCompatActivity {
         ImageView mainCart=findViewById(R.id.mainToolbarCart);
         mainAccount.setVisibility(View.GONE);
         mainCart.setVisibility(View.GONE);
+        Utils_status.darkenStatusBar(this,R.color.red);
+
     }
 }

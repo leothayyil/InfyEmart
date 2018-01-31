@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.user.infyemart.Retrofit.RetrofitHelper;
+import com.example.user.infyemart.Utils.Utils_status;
 import com.google.gson.JsonElement;
 
 import org.json.JSONException;
@@ -76,6 +77,8 @@ public class AccountActivity extends AppCompatActivity {
         changePassword=findViewById(R.id.account_passwordChange);
         accountLinear.setVisibility(View.INVISIBLE);
         logout=findViewById(R.id.account_logout);
+        Utils_status.darkenStatusBar(this,R.color.red);
+
         dialog.setMessage("Getting data, please wait...");
         dialog.show();
 
@@ -167,17 +170,13 @@ public class AccountActivity extends AppCompatActivity {
                         try {
                             JSONObject jsonObject=new JSONObject(response.body().toString());
                             String status=jsonObject.getString("status");
-                            if (status.equals("Success")){
+                            if (status.equals("Success")) {
                                 editor.clear();
                                 editor.commit();
 
-                                Toast.makeText(AccountActivity.this, status, Toast.LENGTH_SHORT).show();
-
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                                    finishAffinity();
-
-                                }
-                                System.exit(0);
+                                Intent intent=new Intent(AccountActivity.this,LoginActivity.class);
+                                startActivity(intent);
+                                finish();
                             }
 
                         } catch (JSONException e) {

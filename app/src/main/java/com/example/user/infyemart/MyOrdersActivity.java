@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.example.user.infyemart.Adapter.MyOrderAdapter;
 import com.example.user.infyemart.Pojo.Pojo_orderedListDetails;
 import com.example.user.infyemart.Retrofit.RetrofitHelper;
+import com.example.user.infyemart.Utils.Utils_status;
 import com.google.gson.JsonElement;
 import com.roughike.bottombar.BottomBar;
 
@@ -77,6 +78,7 @@ onBackPressed();
         dialog=new ProgressDialog(this);
         dialog.setMessage("Getting data,Please wait..");
         dialog.show();
+        Utils_status.darkenStatusBar(this,R.color.red);
         AsyncOrders asyncOrders=new AsyncOrders();
         asyncOrders.execute();
         Bundle extras=getIntent().getExtras();

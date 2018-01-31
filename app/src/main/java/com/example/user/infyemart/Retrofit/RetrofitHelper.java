@@ -15,7 +15,6 @@ import com.example.user.infyemart.PasswordChangeActivity;
 import com.example.user.infyemart.ProductViewActivity;
 import com.example.user.infyemart.ProfileActivity;
 import com.example.user.infyemart.PurchaseActivity;
-import com.example.user.infyemart.SignUpActivity;
 import com.example.user.infyemart.SubCategoey_Activity;
 
 import retrofit2.Retrofit;
@@ -85,9 +84,7 @@ public class RetrofitHelper {
         initResstAdapter();
     }
 
-    public RetrofitHelper(SignUpActivity signUpActivity) {
-        initResstAdapter();
-    }
+
 
     public RetrofitHelper(ProfileActivity profileActivity) {
         initResstAdapter();
