@@ -87,7 +87,7 @@ public class MainProductAdapter extends RecyclerView.Adapter<MainProductAdapter.
         ArrayAdapter aa=new ArrayAdapter(context,android.R.layout.simple_spinner_dropdown_item,variantsDum);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         holder.variantSpin.setAdapter(aa);
-        holder.linearLayout.setVisibility(View.GONE);
+//        holder.linearLayout.setVisibility(View.GONE);
 
         holder.productImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,7 +133,7 @@ public class MainProductAdapter extends RecyclerView.Adapter<MainProductAdapter.
             productImage=itemView.findViewById(R.id.productList_image);
             addToCartBtn=itemView.findViewById(R.id.addToCart_btn);
             variantSpin=itemView.findViewById(R.id.variant_spinnerId);
-            linearLayout=itemView.findViewById(R.id.linearCount);
+//            linearLayout=itemView.findViewById(R.id.linearCount);
         }
     }
 }

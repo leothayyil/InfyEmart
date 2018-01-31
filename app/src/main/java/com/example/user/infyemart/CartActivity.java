@@ -75,7 +75,6 @@ public class CartActivity extends AppCompatActivity  {
         return true;
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,6 +109,7 @@ public class CartActivity extends AppCompatActivity  {
         dialog=new ProgressDialog(this);
         dialog.setTitle("Loading cart..");
         dialog.show();
+        deliverySlot.add("[ Select Delivery Type ]");
 
         prefs=getSharedPreferences("SHARED_DATA",MODE_PRIVATE);
         String restoredText=prefs.getString("session_id",null);
@@ -152,7 +152,6 @@ public class CartActivity extends AppCompatActivity  {
                                 String delivery_charge=jsonObject.getString("delivery_charge");
 
                                 deliverySlot.add(slot_name);
-
                                 Object[] objects=deliverySlot.toArray();
                                 deliverySlotStr= Arrays.copyOf(objects,objects.length,String[].class);
 

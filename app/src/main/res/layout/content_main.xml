@@ -66,6 +66,7 @@
            android:layout_height="match_parent"
            android:fitsSystemWindows="true"
            android:layout_marginTop="2sp"
+           android:padding="@dimen/item_offset"
            android:id="@+id/categoryMainList">
 
        </android.support.v7.widget.RecyclerView>

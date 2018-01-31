@@ -6,50 +6,56 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/bl3"
     app:layout_scrollFlags="scroll|enterAlways">
-<LinearLayout
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="5"
     >
     <TextView
         android:id="@+id/toolbar_title"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center|left"
         android:singleLine="true"
         android:foregroundGravity="bottom"
+        android:layout_alignParentLeft="true"
         android:text="Toolbar Title"
         android:layout_marginTop="8sp"
+        android:layout_toLeftOf="@+id/linear_items"
         android:textColor="@android:color/white"
-        android:textSize="18sp"
-        android:layout_weight="3"
-        android:textStyle="bold" />
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_width="wrap_content" />
 
-<RelativeLayout
-    android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="bottom"
-    android:layout_marginRight="40sp"
-    android:layout_toRightOf="@+id/toolbar_title"
-    >
 
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="28dp"
-        android:layout_marginStart="28dp"
-        android:layout_toEndOf="@+id/mainToolbarAccount"
-        android:layout_toRightOf="@+id/mainToolbarAccount"
-        android:textStyle="bold"
-        android:foregroundGravity="right"
-        android:gravity="right"
-        android:paddingRight="4sp"
-        android:paddingLeft="2sp"
+        android:layout_alignParentRight="true"
+        android:id="@+id/linear_items">
 
-        android:id="@+id/cartCountId"
-        android:textColor="#fff"
-        android:textSize="15sp" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="40sp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="28dp"
+                android:layout_marginStart="28dp"
+                android:layout_toEndOf="@+id/mainToolbarAccount"
+                android:layout_toRightOf="@+id/mainToolbarAccount"
+                android:textStyle="bold"
+                android:foregroundGravity="right"
+                android:gravity="right"
+                android:paddingRight="4sp"
+                android:paddingLeft="2sp"
+
+                android:id="@+id/cartCountId"
+                android:textColor="#fff"
+                android:textSize="15sp" />
 
             <ImageView
                 android:id="@+id/mainToolbarCart"
@@ -70,5 +76,6 @@
 
 
         </RelativeLayout>
-</LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
 </android.support.v7.widget.Toolbar>

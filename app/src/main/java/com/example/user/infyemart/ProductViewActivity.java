@@ -30,7 +30,6 @@ import retrofit2.Response;
 
 public class ProductViewActivity extends AppCompatActivity {
 
-    String TAG="loggg";
     String productId;
     String actionPV="product_details";
     ScrollView scrollView;
@@ -126,9 +125,7 @@ public class ProductViewActivity extends AppCompatActivity {
                             cartCount.setText(cartCountStr);
                             if (cartCountStr!=null&&cartCountStr!="0"){
                                 cartCount.setVisibility(View.VISIBLE);
-                                Log.e(TAG, cartCountStr+" count "+cartCountStr);
                             }
-
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -169,6 +166,18 @@ public class ProductViewActivity extends AppCompatActivity {
                                 String brandS=jsonObject.getString("brand");
                                 String imageS=jsonObject.getString("image");
                                 cartCountStr=jsonObject.getString("cart_count");
+                                cartCount.setText(cartCountStr);
+
+                                if (cartCountStr.equals("null")){
+
+                                    cartCount.setVisibility(View.GONE);
+                                }else if (cartCountStr=="0"){
+
+                                    cartCount.setVisibility(View.GONE);
+                                }else {
+                                    cartCount.setVisibility(View.VISIBLE);
+                                    mainCart.setVisibility(View.VISIBLE);
+                                }
 
                                 JSONArray jsonArray1=jsonObject.getJSONArray("variant");
                                 for (int ii=0;ii<jsonArray1.length();ii++){
@@ -189,14 +198,8 @@ public class ProductViewActivity extends AppCompatActivity {
 
                                     toolbarTit.setVisibility(View.VISIBLE);
                                     toolbarTit.setText(product_nameS);
-                                    if (!cartCountStr.equals(null)&&cartCountStr!="0"){
 
-                                    }else {
-                                        cartCount.setText(cartCountStr);
-                                        Log.e(TAG, " count: "+cartCountStr );
-                                        cartCount.setVisibility(View.VISIBLE);
-                                        mainCart.setVisibility(View.VISIBLE);
-                                    }
+
                                     if (dialog.isShowing()){
                                         dialog.dismiss();
                                     }

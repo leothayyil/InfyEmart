@@ -86,9 +86,6 @@ public class MainProductsActivity extends AppCompatActivity {
         noItems=findViewById(R.id.no_items);
         addBtn=findViewById(R.id.addToCart_btn);
 
-//        productAdd=findViewById(R.id.productAddBtn);
-        productCount=findViewById(R.id.productCountBtn);
-        linearLayoutCount=findViewById(R.id.linearCount);
         dialog=new ProgressDialog(this);
         dialog.setMessage("Loading..");
         dialog.show();
@@ -170,8 +167,8 @@ public class MainProductsActivity extends AppCompatActivity {
                                             pojoV.setOffer(offer);
                                             pojoV.setOptionName(option_name);
                                             pojoV.setItemId(item_id);
-                                            pojoV.setMargin_price("Price \n" + margin_price);
-                                            pojoV.setOriginal_price("Offer price \n" + original_price);
+                                            pojoV.setMargin_price("Price " + margin_price);
+                                            pojoV.setOriginal_price("Offer price " + original_price);
                                             variantArrayList.add(pojoV);
                                             recyclerView.setVisibility(View.VISIBLE);
                                         }

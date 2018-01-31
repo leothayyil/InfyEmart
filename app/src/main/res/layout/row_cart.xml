@@ -30,15 +30,15 @@
                 android:layout_alignParentRight="true"
                 android:layout_toRightOf="@+id/cart_image">
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/deleteItemCart"
-                    android:layout_width="45sp"
-                    android:layout_height="40sp"
+                    android:layout_width="25sp"
+                    android:layout_height="30sp"
                     android:layout_gravity="right|top"
                     android:layout_marginLeft="5sp"
                     android:backgroundTint="@color/white"
                     android:paddingBottom="5sp"
-                    android:src="@drawable/delete_cartt" />
+                    android:src="@drawable/delete_cart" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
                     android:layout_width="140sp"
                     android:layout_height="wrap_content"
                     android:textSize="13sp"
-                    android:gravity="center"
+                    android:layout_gravity="center"
                     android:layout_margin="5sp"
                     android:textColor="@color/black"
                     android:id="@+id/cart_productName"
@@ -56,7 +56,8 @@
                     />
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
 
                 <android.support.v7.widget.CardView
                     android:layout_width="wrap_content"
@@ -123,23 +124,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="RS 90"
+                        android:background="@drawable/cross_line"
                         android:id="@+id/cart_mPrice"
                         android:textSize="15sp"
                         android:layout_marginLeft="10sp"/>
-                    <View
-                        android:layout_width="42sp"
-                        android:layout_marginLeft="10sp"
-                        android:layout_marginTop="11sp"
-                        android:background="@color/red"
-                        android:layout_height="1sp"/>
+
                     <TextView
+                        android:id="@+id/cart_oPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="15sp"
+                        android:layout_marginLeft="70sp"
                         android:text="RS 77.55"
-                        android:id="@+id/cart_oPrice"
                         android:textColor="@color/black"
-                        android:layout_marginLeft="70sp"/>
+                        android:textSize="15sp" />
                 </RelativeLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"

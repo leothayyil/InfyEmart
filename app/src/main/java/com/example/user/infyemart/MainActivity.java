@@ -15,18 +15,15 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.user.infyemart.Adapter.Main_RecyclerAdapter;
 import com.example.user.infyemart.Adapter.Slider_Adapter;
@@ -108,11 +105,13 @@ public class MainActivity extends AppCompatActivity
         recycler=findViewById(R.id.categoryMainList);
         recycler.setHasFixedSize(true);
          layoutManager=new GridLayoutManager(MainActivity.this,2);
+         ItemOffsetDecoration itemDecoration =new ItemOffsetDecoration(MainActivity.this,R.dimen.item_offset);
+         recycler.addItemDecoration(itemDecoration);
         recycler.setLayoutManager(layoutManager);
         final Main_RecyclerAdapter adapter=new Main_RecyclerAdapter(MainActivity.this,categories_call);
         recycler.setAdapter(adapter);
         recycler.setFitsSystemWindows(true);
-        recycler.addItemDecoration(new ItemOffsetDecoration(20));
+        recycler.addItemDecoration(new ItemOffsetDecoration(MainActivity.this, 20));
 
         recycler.addOnItemTouchListener(new RecyclerItemClickListener(MainActivity.this, recycler,
                 new RecyclerItemClickListener.OnItemClickListener() {

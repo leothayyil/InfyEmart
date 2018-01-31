@@ -32,16 +32,13 @@
 
             <TextView
                 android:id="@+id/c_nameTv_grid"
-                android:layout_width="wrap_content"
+                android:layout_width="100sp"
                 android:layout_height="60sp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:layout_marginStart="15sp"
-                android:textColor="@color/black"
+                android:textColor="@color/bl2"
                 android:textStyle="bold"
-                tools:ignore="RtlCompat" />
+                />
 
         </LinearLayout>
 
