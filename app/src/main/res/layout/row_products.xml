@@ -22,6 +22,21 @@
             android:layout_marginBottom="5sp"
             android:layout_marginLeft="10sp"
             android:id="@+id/productList_image"/>
+            <ImageButton
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:id="@+id/addToCart_btn"
+                android:text="ADD"
+                android:layout_marginLeft="8sp"
+                android:elevation="12sp"
+                android:padding="5sp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/ic_plus_red"
+                android:src="@drawable/ic_plus"
+                android:layout_marginRight="5sp"
+                android:layout_marginTop="5sp"
+                android:textColor="@color/white"
+                />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -36,7 +51,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center">
+                    android:gravity="center"
+                    >
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -61,6 +77,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:layout_marginTop="3sp"
                     android:textColor="@color/black"
                     android:id="@+id/productList_name"
                     android:text="Paneer-Premium Fresh"
@@ -75,6 +92,7 @@
                         android:layout_height="30sp"
                         android:gravity="center"
                         android:padding="3sp"
+                        android:spinnerMode="dropdown"
                         android:id="@+id/variant_spinnerId"
                         android:layout_gravity="center">
                     </Spinner>
@@ -103,6 +121,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="RS 90"
+                                android:textStyle="bold"
                                 android:background="@drawable/cross_line"
                                 android:textColor="@color/black"
                                 android:gravity="center"
@@ -115,6 +134,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
+                            android:textStyle="bold"
                             android:text="RS 77.55"
                             android:gravity="center"
                             android:id="@+id/productList_originalPrice"
@@ -122,14 +142,9 @@
                             />
 
                     </LinearLayout>
-                    <ImageView
-                        android:layout_width="40sp"
-                        android:backgroundTint="@color/bl2"
-                        android:layout_height="45sp"
-                        android:id="@+id/addToCart_btn"
-                        android:layout_marginLeft="5sp"
-                        android:layout_marginRight="5sp"
-                        android:src="@drawable/add_cart"/>
+
+
+
                 </LinearLayout>
 
 

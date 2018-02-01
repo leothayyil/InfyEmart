@@ -119,7 +119,7 @@ public class MainProductAdapter extends RecyclerView.Adapter<MainProductAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView productName,offer,optionName,originalPrice,marginPrice;
-        ImageView addToCartBtn;
+        ImageButton addToCartBtn;
         ImageView  productImage;
         Spinner variantSpin;
         LinearLayout linearLayout;

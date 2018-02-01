@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/bl_lit"
     tools:context="com.example.user.infyemart.MainProductsActivity">
     <include layout="@layout/toolbar_main"
         android:id="@+id/toolbarMainProducts"/>
